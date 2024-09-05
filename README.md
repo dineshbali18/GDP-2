@@ -26,4 +26,14 @@ Tracking of Budget Spending in Following Ways:\
 **Input Transaction** Regularly enter your transactions manually or sync your bank accounts if the app supports it.\
 **Monitor Categories** Keep an eye on how much you're spending in each category compared to your set limits.\
 **Adjust as Needed** If you exceed your budget in one category, consider adjusting your spending in others to compensate.\
+\
+\
+For the Savings Goals with Progress Tracking feature in the Bearcat Finance App, we consider these points:\
+**Set Savings Targets** Users can create and define specific savings goals, such as for vacations or emergency funds.\
+**Visual Progress** A visual tracker (e.g., progress bar or chart) shows how close they are to reaching their savings goal.\
+**Milestone Alerts** Notifications when milestones are achieved (e.g., 50% of the goal reached).\
+**Regular Updates** Automatic updates based on user transactions or manual input of savings contributions.\
+**Goal Adjustments** Flexibility to modify savings goals based on changes in financial priorities.
+
+
 
