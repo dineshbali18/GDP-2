@@ -6,6 +6,8 @@ we can track Expenses in the following ways:\
 **Receipts Capture** allows users to take pictures of receipts to quickly log them. \
 **Recurring Expenses** lets users automatically track regular payments, like rent or subscriptions.\
 and we can collect the data and save it in the database. \
+\
+\
 Expense categorization can be done in a few simple ways:  \
 **Automatic Categorization** sorts expenses into categories like groceries or dining based on bank or merchant.  \
 **Custom Categories** let users create their own categories to organize spending.  \
