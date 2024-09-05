@@ -19,4 +19,11 @@ Expense categorization can be done in a few simple ways:  \
 Setting up the Budget Creation:\
 **Identify Income Sources** Start by listing all your sources of income, such as salary, freelance work, investments.\
 **Categorize Expenses** Group your expenses into categories like housing, utilities, groceries, transportation, entertainment, savings.\
-**Set Spending Limits** Assign a spending limit for each category based on your financial goals and past spending patterns.
+**Set Spending Limits** Assign a spending limit for each category based on your financial goals and past spending patterns.\
+\
+\
+Tracking of Budget Spending in Following Ways:\
+**Input Transaction** Regularly enter your transactions manually or sync your bank accounts if the app supports it.\
+**Monitor Categories** Keep an eye on how much you're spending in each category compared to your set limits.\
+**Adjust as Needed** If you exceed your budget in one category, consider adjusting your spending in others to compensate.\
+
