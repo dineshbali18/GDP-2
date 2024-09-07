@@ -49,3 +49,9 @@ In a finance app like yours, it helps users by showing easy-to-understand charts
 This helps them see their spending habits, set savings goals, and manage budgets more effectively. \
 By analyzing trends, predicting future spending, and comparing results, the app can give users helpful insights to improve their financial health.
 
+\
+**Securely Connecting with bank API**\
+when developing a finance app, securely connecting with bank apis to import transactions is important to protect user data and meet regulations. \
+this means using standard security methods like oauth 2.0 for safe access and tls (transport layer security) to encrypt data while it's being sent. \
+also, using tokenization to replace sensitive data with unique tokens and data masking to hide personal information can make the app more secure.
+
