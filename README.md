@@ -37,5 +37,9 @@ For the Savings Goals with Progress Tracking feature in the Bearcat Finance App,
 
 **Data Encryption**\
 Encrypt sensitive data such as transaction details both in transit (using HTTPS) and at rest (using robust encryption algorithms like AES-256).\
-Store encryption keys securely, ideally in a hardware security module (HSM) or a cloud-based key management service.
+Store encryption keys securely, ideally in a hardware security module (HSM) or a cloud-based key management service. \
+\
+**Use OAuth 2.0 for Authentication** \
+Most bank APIs use OAuth 2.0, which provides a secure way to grant third-party apps access without sharing credentials. \
+Implement a secure flow (like Authorization Code Flow) to handle access tokens, ensuring they are refreshed and stored securely. \
 
