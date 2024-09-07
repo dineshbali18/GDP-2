@@ -54,9 +54,10 @@ By analyzing trends, predicting future spending, and comparing results, the app 
 when developing a finance app, securely connecting with bank apis to import transactions is important to protect user data and meet regulations. \
 this means using standard security methods like oauth 2.0 for safe access and tls (transport layer security) to encrypt data while it's being sent. \
 also, using tokenization to replace sensitive data with unique tokens and data masking to hide personal information can make the app more secure.
+
 \
 **Data Minimization**\
 Request only the minimal necessary permissions (scopes) and data required for the transactions.\
-Avoid storing unnecessary information that can increase the app’s risk profile.\
+Avoid storing unnecessary information that can increase the app’s risk profile.
 
 
