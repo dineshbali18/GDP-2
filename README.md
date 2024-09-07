@@ -35,7 +35,7 @@ For the Savings Goals with Progress Tracking feature in the Bearcat Finance App,
 **Regular Updates** Automatic updates based on user transactions or manual input of savings contributions.\
 **Goal Adjustments** Flexibility to modify savings goals based on changes in financial priorities.
 
-**Data Encryption**
+**Data Encryption**\
 Encrypt sensitive data such as transaction details both in transit (using HTTPS) and at rest (using robust encryption algorithms like AES-256).\
 Store encryption keys securely, ideally in a hardware security module (HSM) or a cloud-based key management service.
 
