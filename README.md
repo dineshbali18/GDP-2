@@ -43,3 +43,9 @@ Store encryption keys securely, ideally in a hardware security module (HSM) or a
 Most bank APIs use OAuth 2.0, which provides a secure way to grant third-party apps access without sharing credentials. \
 Implement a secure flow (like Authorization Code Flow) to handle access tokens, ensuring they are refreshed and stored securely. \
 
+**Financial analytics**\
+Financial analytics is the process of looking at financial data to make better decisions and track progress. \
+In a finance app like yours, it helps users by showing easy-to-understand charts and reports. \
+This helps them see their spending habits, set savings goals, and manage budgets more effectively. \
+By analyzing trends, predicting future spending, and comparing results, the app can give users helpful insights to improve their financial health.
+
