@@ -78,3 +78,8 @@ The dashboard presents a summary of total expenses, income, and savings progress
 It includes interactive charts that visually represent spending habits across different categories.\
 Real-time updates ensure the financial summary reflects the most current data for informed decision-making.
 
+**Interactive charts for expense categories**\
+The Bearcat Finance App includes interactive charts that visually break down expenses by category,allowing users to easily track spending habits.\
+These charts offer dynamic filtering and real-time updates, providing a clear overview of where money is being spent. \
+This feature helps users make informed financial decisions based on their spending patterns.
+
