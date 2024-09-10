@@ -72,3 +72,9 @@ The budget management interface in the Bearcat Finance app allows users to set, 
 It provides a clear overview of spending categories, real-time expense tracking, and visual insights to help users stay within their financial goals.\
 The interface is intuitive, with customizable alerts and suggestions for optimizing savings.
 
+\
+**Dashboard with Financial Summary**\
+The dashboard presents a summary of total expenses, income, and savings progress for an at-a-glance view of financial health.\
+It includes interactive charts that visually represent spending habits across different categories.\
+Real-time updates ensure the financial summary reflects the most current data for informed decision-making.
+
