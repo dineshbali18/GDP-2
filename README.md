@@ -60,4 +60,10 @@ also, using tokenization to replace sensitive data with unique tokens and data m
 Request only the minimal necessary permissions (scopes) and data required for the transactions.\
 Avoid storing unnecessary information that can increase the app’s risk profile.
 
+\
+**Relational Database**\
+A relational database for BearCat Finance would store user data, transactions, and account information in structured tables with relationships, ensuring data consistency and integrity. \
+It can support features like querying, updating, and joining data across tables for reporting and analytics.\
+Security measures like encryption and access control are vital to protect sensitive financial data.
+
 
