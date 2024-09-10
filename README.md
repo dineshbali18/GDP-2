@@ -66,4 +66,9 @@ A relational database for BearCat Finance would store user data, transactions, a
 It can support features like querying, updating, and joining data across tables for reporting and analytics.\
 Security measures like encryption and access control are vital to protect sensitive financial data.
 
+\
+**Budget management interface**\
+The budget management interface in the Bearcat Finance app allows users to set, track, and adjust their personal budgets easily. \
+It provides a clear overview of spending categories, real-time expense tracking, and visual insights to help users stay within their financial goals.\
+The interface is intuitive, with customizable alerts and suggestions for optimizing savings.
 
