@@ -83,3 +83,8 @@ The Bearcat Finance App includes interactive charts that visually break down exp
 These charts offer dynamic filtering and real-time updates, providing a clear overview of where money is being spent. \
 This feature helps users make informed financial decisions based on their spending patterns.
 
+**Real-time synchronization across devices** \
+Real-time synchronization across devices ensures that data is instantly updated and consistent across all user platforms providing a seamless and cohesive experience. \
+It leverages cloud-based technologies to sync changes made on one device to all others in real-time reducing latency and preventing conflicts.\
+This feature is essential for collaboration enhancing usability by allowing users to access the latest information anytime anywhere.
+
