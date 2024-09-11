@@ -103,4 +103,8 @@ This dual-layer encryption strategy will safeguard sensitive information through
 **Transaction Categorization**: Imported transactions are categorized based on predefined categories (e.g., groceries, utilities) to streamline financial tracking.\
 **Real-Time Updates**: Transaction data is synchronized across devices in real time, ensuring up-to-date financial information.
 
-
+\
+**Multi-factor authentication for bearcat finance app**\
+To secure BearCat Finance, implement multi-factor authentication (MFA) using methods like SMS codes, authenticator apps (TOTP), or push notifications.\
+Use third-party services like Twilio, Firebase, or Auth0 for easy integration.\
+Ensure smooth user experience with optional MFA, backup options, and secure recovery methods.
