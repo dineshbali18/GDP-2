@@ -90,10 +90,17 @@ This feature is essential for collaboration enhancing usability by allowing user
 \
 **High availability for real-time financial data updates** \
 For Any Financial Application data is crucial and high availability of the data to perform updates with high availability for real-time financial data updates ensures that users have constant access to the latest market information with minimal downtime. This can be achieved through robust infrastructure,redundancy,andload balancing,which can speed up server and handle high traffic. It enhances user experience by providing reliable and fast updates, crucial for making timely financial decisions.
-\
 
+\
 **Encryption of financial data at rest and in transit.**\
 The app will implement AES-256 encryption to securely store financial data at rest,ensuring robust protection against unauthorized access. \
 For data in transit,TLS (Transport Layer Security) protocols will be used to encrypt communications between the app and the server. \
 This dual-layer encryption strategy will safeguard sensitive information throughout the entire data lifecycle.
+
+\
+**Transaction fetching for the Bearcat Finance App.**\
+**Automated Bank API Integration**: The app securely integrates with bank APIs to automatically fetch transaction data from linked accounts.\
+**Transaction Categorization**: Imported transactions are categorized based on predefined categories (e.g., groceries, utilities) to streamline financial tracking.\
+**Real-Time Updates**: Transaction data is synchronized across devices in real time, ensuring up-to-date financial information.
+
 
