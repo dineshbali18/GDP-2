@@ -108,3 +108,9 @@ This dual-layer encryption strategy will safeguard sensitive information through
 To secure BearCat Finance, implement multi-factor authentication (MFA) using methods like SMS codes, authenticator apps (TOTP), or push notifications.\
 Use third-party services like Twilio, Firebase, or Auth0 for easy integration.\
 Ensure smooth user experience with optional MFA, backup options, and secure recovery methods.
+
+\
+**Expense tracking and categorization**\
+Track your expenses by recording each transaction with the date, amount, and description.\
+Regularly review and analyze your categorized data to manage your budget and identify spending patterns.\
+Log expenses, categorize them, and review to manage your budget.
