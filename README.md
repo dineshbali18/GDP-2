@@ -132,3 +132,8 @@ Financial reports implementation in the Bearcat Finance App in following Ways:\
 **Data Visualization**: Interactive charts and graphs display spending trends, budget adherence, and savings progress, making it easier for users to analyze their financial habits.\
 **Export and Sharing Options**: Users can export financial reports in formats such as PDF or Excel and share them for personal review or professional financial consultations.
 
+\
+**Implementation of Real-time synchronization**\
+To implement real-time synchronization across devices, set up a cloud-based backend using a service like Firebase or AWS Amplify to handle data storage and updates.\
+Employ WebSockets or real-time database listeners to push changes instantly to all connected devices. \
+Ensure data consistency and conflict resolution mechanisms are in place to handle simultaneous updates from multiple devices.
