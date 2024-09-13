@@ -137,3 +137,11 @@ Financial reports implementation in the Bearcat Finance App in following Ways:\
 To implement real-time synchronization across devices, set up a cloud-based backend using a service like Firebase or AWS Amplify to handle data storage and updates.\
 Employ WebSockets or real-time database listeners to push changes instantly to all connected devices. \
 Ensure data consistency and conflict resolution mechanisms are in place to handle simultaneous updates from multiple devices.
+
+\
+**Data Encryption for Bearcat Finance App**
+**Encrypt Data**: Use AES-256 encryption for sensitive data before storing it, ensuring confidentiality.\
+**Secure Keys**: Store encryption keys securely using environment variables or a hardware security module (HSM).\
+**Use SSL/TLS**: Ensure all data transmitted between the app and external APIs is encrypted using SSL/TLS for secure communication
+
+
