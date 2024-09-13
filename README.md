@@ -110,17 +110,17 @@ Use third-party services like Twilio, Firebase, or Auth0 for easy integration.\
 Ensure smooth user experience with optional MFA, backup options, and secure recovery methods.
 
 \
-**Expense tracking and categorization**\
+**Expense tracking and categorization**
 Track your expenses by recording each transaction with the date, amount, and description.\
 Regularly review and analyze your categorized data to manage your budget and identify spending patterns.\
 Log expenses, categorize them, and review to manage your budget. \
-\
-**Budget Creation idea of Implementation**
+
+
+**Budget Creation idea of Implementation** \
 For budget creation in the Bearcat Finance App:
-1. **User-Friendly Interface**: Design an intuitive UI for creating, editing, and tracking budgets, allowing users to set categories, amounts, and timeframes easily. \
-2. **Data Validation and Security**: Ensure robust data validation to prevent errors and implement strong security measures to protect financial data. \
-3. **Dynamic Reports and Notifications**: Provide real-time reports and alerts on budget status, helping users stay within their financial limits and adjust as needed. \
-\
+1. **User-Friendly Interface**: Design an intuitive UI for creating, editing, and tracking budgets, allowing users to set categories, amounts, and timeframes easily.
+2. **Data Validation and Security**: Ensure robust data validation to prevent errors and implement strong security measures to protect financial data.
+3. **Dynamic Reports and Notifications**: Provide real-time reports and alerts on budget status, helping users stay within their financial limits and adjust as needed. 
 
 **Budget tracking Implementation**\
 **Real-Time Updates:** Implement real-time tracking of expenses and income against budget limits with visual indicators to help users understand their financial standing. \
