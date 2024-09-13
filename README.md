@@ -127,3 +127,8 @@ For budget creation in the Bearcat Finance App:
 **Data Analytics and Insights:** Offer detailed analytics and insights on spending patterns, trends, and potential savings to help users make informed financial decisions. \
 **Alerts and Recommendations:** Set up notifications for overspending and provide actionable recommendations to adjust the budget and optimize spending habits.
 
+Financial reports implementation in the Bearcat Finance App in following Ways:\
+**Customizable Reports**: The app generates detailed financial reports based on user-selected timeframes, categories, and account types, providing insights into income, expenses, and savings.\
+**Data Visualization**: Interactive charts and graphs display spending trends, budget adherence, and savings progress, making it easier for users to analyze their financial habits.\
+**Export and Sharing Options**: Users can export financial reports in formats such as PDF or Excel and share them for personal review or professional financial consultations.
+
