@@ -155,4 +155,10 @@ Continuous system monitoring and redundancy to ensure uninterrupted access to fi
 Automatic failover mechanisms to maintain data synchronization even during service disruptions.\
 Scalable cloud infrastructure to handle high traffic and ensure real-time data updates across devices.
 
+\
+**Dashboard for Bearcat Finance App**\
+**Update Data:** Make sure the dashboard automatically refreshes to reflect the most recent financial data by connecting it to real-time data sources.\
+**Visualize Trends:** Accurately depict expenditure categories, income, and savings progress with interactive charts.\
+**Insights in Real Time:** Provide tools that allow for frequent changes to deliver accurate and timely financial summary.
+
 
