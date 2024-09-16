@@ -161,4 +161,8 @@ Scalable cloud infrastructure to handle high traffic and ensure real-time data u
 **Visualize Trends:** Accurately depict expenditure categories, income, and savings progress with interactive charts.\
 **Insights in Real Time:** Provide tools that allow for frequent changes to deliver accurate and timely financial summary.
 
-
+\
+**Savings goals with progress tracking for Bearcat Finance App**\
+For BearCat Finance, users can set personalized savings goals with target amounts, deadlines, and automatic contributions via linked bank accounts.\ 
+Progress is tracked through a visual progress bar, percentage completed, and projected completion dates. \
+Features like milestone celebrations, reminders, and detailed contribution history keep users motivated and on track.
