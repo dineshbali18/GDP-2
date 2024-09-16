@@ -144,4 +144,9 @@ Ensure data consistency and conflict resolution mechanisms are in place to handl
 **Secure Keys**: Store encryption keys securely using environment variables or a hardware security module (HSM).\
 **Use SSL/TLS**: Ensure all data transmitted between the app and external APIs is encrypted using SSL/TLS for secure communication
 
+**Budget management interface**\
+The budget management interface in the Bearcat Finance app designs an intuitive layout for users to easily view, add, and modify budgets for different categories. \
+It ensures real-time updates on budget adjustments and remaining funds, with clear visual indicators.\
+It includes interactive tools for setting goals, tracking progress, and generating reports on budget performance.
+
 
