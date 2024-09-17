@@ -165,4 +165,6 @@ Scalable cloud infrastructure to handle high traffic and ensure real-time data u
 **Savings goals with progress tracking for Bearcat Finance App**\
 For BearCat Finance, users can set personalized savings goals with target amounts, deadlines, and automatic contributions via linked bank accounts.\ 
 Progress is tracked through a visual progress bar, percentage completed, and projected completion dates. \
-Features like milestone celebrations, reminders, and detailed contribution history keep users motivated and on track.
+Features like milestone celebrations, reminders, and detailed contribution history keep users motivated and on track. \
+\
+To implement **interactive charts for expense categories**, use a charting library like Chart.js or D3.js. Dynamically populate charts (e.g., pie, bar) with user data, allowing filtering by date, category, or expense type. For the **budget management interface**, provide input fields for budget limits, expense tracking, and remaining budget. Display real-time feedback and alerts when expenses exceed budget limits, with the option to adjust categories or view trends over time.
