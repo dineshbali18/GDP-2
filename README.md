@@ -175,3 +175,16 @@ To implement **interactive charts for expense categories**, use a charting libra
 2. PostgreSQL can handle complex transactions and grows with your user base.
 3. It has strong security features to protect sensitive financial data.
 4. It also supports advanced queries for detailed financial reporting.
+
+ \
+**Multi-factor authentication for account security**\
+**Enhanced Security**: MFA adds an extra layer of security by requiring users to provide two or more verification factors, reducing the risk of unauthorized access.\
+**Variety of Authentication Methods**: Supports multiple authentication methods like passwords, SMS verification, email codes, or biometric data (fingerprints or face recognition).\
+**Protection Against Credential Theft**: Even if one factor (like a password) is compromised, attackers cannot gain access without the additional verification factor.
+
+
+
+
+
+
+   
