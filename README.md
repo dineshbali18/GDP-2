@@ -188,6 +188,11 @@ To implement **interactive charts for expense categories**, use a charting libra
 With **smooth animations and drill-down options**, users can quickly **filter by timeframes or categories**, personalize their view, and gain deeper insights.\
 Everything has been made with accessibility in mind, making it simple to **share and export insights** with a single swipe!
 
+\
+**API for bank account integration**\
+To integrate bank accounts with the BearCat Finance app, use APIs like Plaid, Yodlee, or TrueLayer for secure access to account data, transactions, and balances.\
+These APIs ensure compliance with regulations (PCI-DSS, PSD2) and offer SDKs for easy integration. \
+Focus on user consent, data encryption, and security compliance during integration.
 
 
 
