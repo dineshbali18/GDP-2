@@ -182,6 +182,11 @@ To implement **interactive charts for expense categories**, use a charting libra
 **Variety of Authentication Methods**: Supports multiple authentication methods like passwords, SMS verification, email codes, or biometric data (fingerprints or face recognition).\
 **Protection Against Credential Theft**: Even if one factor (like a password) is compromised, attackers cannot gain access without the additional verification factor.
 
+\
+**Interactive charts for expense categories.**\
+**Live-updating, fully responsive charts** that adjust to new spending instantaneously would improve Bearcat Finance's experience.\
+With **smooth animations and drill-down options**, users can quickly **filter by timeframes or categories**, personalize their view, and gain deeper insights.\
+Everything has been made with accessibility in mind, making it simple to **share and export insights** with a single swipe!
 
 
 
