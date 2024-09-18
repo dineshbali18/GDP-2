@@ -168,3 +168,10 @@ Progress is tracked through a visual progress bar, percentage completed, and pro
 Features like milestone celebrations, reminders, and detailed contribution history keep users motivated and on track. \
 \
 To implement **interactive charts for expense categories**, use a charting library like Chart.js or D3.js. Dynamically populate charts (e.g., pie, bar) with user data, allowing filtering by date, category, or expense type. For the **budget management interface**, provide input fields for budget limits, expense tracking, and remaining budget. Display real-time feedback and alerts when expenses exceed budget limits, with the option to adjust categories or view trends over time.
+
+
+**PostgreSQL relational database**
+1. It ensures data accuracy and reliability, which is essential for financial apps.
+2. PostgreSQL can handle complex transactions and grows with your user base.
+3. It has strong security features to protect sensitive financial data.
+4. It also supports advanced queries for detailed financial reporting.
