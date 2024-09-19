@@ -192,7 +192,13 @@ Everything has been made with accessibility in mind, making it simple to **share
 **API for bank account integration**\
 To integrate bank accounts with the BearCat Finance app, use APIs like Plaid, Yodlee, or TrueLayer for secure access to account data, transactions, and balances.\
 These APIs ensure compliance with regulations (PCI-DSS, PSD2) and offer SDKs for easy integration. \
-Focus on user consent, data encryption, and security compliance during integration.
+Focus on user consent, data encryption, and security compliance during integration. \
+\
+**Savings goals with progress tracking**
+1. **Define Goal Structure:** Create a `Goal` class with properties like target amount, current balance, and time frame.
+2. **Add Progress Calculation:** Implement a method to calculate progress percentage.
+3. **Track Deposits/Updates:** Provide functions to add deposits, updating the current balance and progress accordingly.
+4. **Display Progress:** Create a method to display progress or notify when the goal is achieved.
 
 
 
