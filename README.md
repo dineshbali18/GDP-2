@@ -206,6 +206,8 @@ Focus on user consent, data encryption, and security compliance during integrati
 2. **Implement TLS 1.3** to secure data transmission between the app, server, and networks during communication. 
 3. **Utilize End-to-End Encryption** for sensitive transactions like payments and user authentication, ensuring only intended recipients can access the data.
 
-
-
-   
+\
+**Expense tracking and categorization.**\
+**Expense Categorization :** Transactions are automatically categorized based on predefined rules (e.g., groceries, dining, rent).\
+**Manual Expense Entry:** Users can manually add transactions, including cash purchases or expenses not linked to a bank account.\
+**Real-Time Expense Overview :** A real-time dashboard shows users a summary of their spending across all categories.
