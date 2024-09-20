@@ -200,6 +200,11 @@ Focus on user consent, data encryption, and security compliance during integrati
 3. **Track Deposits/Updates:** Provide functions to add deposits, updating the current balance and progress accordingly.
 4. **Display Progress:** Create a method to display progress or notify when the goal is achieved.
 
+\
+**Encryption of financial data at rest and in transit.**\
+1. **Adopt AES-256 Encryption** to protect financial data at rest on servers, databases, and devices from unauthorized access. \
+2. **Implement TLS 1.3** to secure data transmission between the app, server, and networks during communication. \
+3. **Utilize End-to-End Encryption** for sensitive transactions like payments and user authentication, ensuring only intended recipients can access the data.
 
 
 
