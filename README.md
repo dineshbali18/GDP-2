@@ -238,6 +238,6 @@ Incorporate message queues (e.g., Apache Kafka) to manage real-time data streams
 
 \
 **Financial reports and analytics.** \
-1. **Customizable Reports**: Allow users to generate personalized financial reports based on time frames and categories for better insights. \
-2. **Real-Time Data Analytics**: Integrate live tracking and visualizations to simplify financial data for instant decision-making. \
-3. **Predictive Insights**: Use machine learning for forecasting and send alerts to help users manage spending and achieve financial goals.
+**Customizable Reports**: Allow users to generate personalized financial reports based on time frames and categories for better insights. \
+**Real-Time Data Analytics**: Integrate live tracking and visualizations to simplify financial data for instant decision-making. \
+**Predictive Insights**: Use machine learning for forecasting and send alerts to help users manage spending and achieve financial goals.
