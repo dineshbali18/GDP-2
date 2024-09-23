@@ -235,3 +235,9 @@ Incorporate message queues (e.g., Apache Kafka) to manage real-time data streams
 **Data at Rest Encryption:** This ensures that all financial data stored in the database or devices (such as expenses, budgets, and transaction histories) is securely encrypted, preventing unauthorized access even if the data is compromised.\
 **Data in Transit Encryption:** Financial data transmitted between the app, bank APIs, and users' devices is encrypted during communication to protect against interception or tampering during real-time synchronization or API calls.\
 **Secure Encryption Protocols:** The app uses industry-standard encryption algorithms like AES (Advanced Encryption Standard) and secure protocols such as TLS (Transport Layer Security) to ensure data is protected both during storage and communication.
+
+\
+**Financial reports and analytics.**\
+1. **Customizable Reports**: Allow users to generate personalized financial reports based on time frames and categories for better insights.\
+2. **Real-Time Data Analytics**: Integrate live tracking and visualizations to simplify financial data for instant decision-making.\
+3. **Predictive Insights**: Use machine learning for forecasting and send alerts to help users manage spending and achieve financial goals.
