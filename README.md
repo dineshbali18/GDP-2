@@ -229,3 +229,9 @@ Incorporate message queues (e.g., Apache Kafka) to manage real-time data streams
 3.Set up notifications to alert users when they approach or exceed their budget limits, using email or in-app alerts.
 4.Ensure the interface supports real-time syncing across devices, updating the budget view with each transaction.
 5.Store budget data securely in a relational database, encrypting user-specific budgets and spending for privacy.
+
+\
+**Encryption of financial data at rest and in transit**\
+**Data at Rest Encryption:** This ensures that all financial data stored in the database or devices (such as expenses, budgets, and transaction histories) is securely encrypted, preventing unauthorized access even if the data is compromised.\
+**Data in Transit Encryption:** Financial data transmitted between the app, bank APIs, and users' devices is encrypted during communication to protect against interception or tampering during real-time synchronization or API calls.\
+**Secure Encryption Protocols:** The app uses industry-standard encryption algorithms like AES (Advanced Encryption Standard) and secure protocols such as TLS (Transport Layer Security) to ensure data is protected both during storage and communication.
