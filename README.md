@@ -247,5 +247,9 @@ Incorporate message queues (e.g., Apache Kafka) to manage real-time data streams
  Easily create personalized savings goals, set target amounts, and choose your desired timeline.\
  Visual charts and percentage trackers help you see how close you are to reaching each goal in real-time.\
 Receive milestone alerts, automated savings updates, and helpful insights to keep you motivated along the way.
-
+\
+**Real time Synchronization**
+For real-time synchronization in a finance app, you can use Firebase Realtime Database or Firestore for live data syncing across devices. \
+Alternatively, Socket.IO provides event-based real-time communication.\
+you can use Spring WebSockets with a backend service in Java for live updates.
 
