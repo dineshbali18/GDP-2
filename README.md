@@ -241,3 +241,11 @@ Incorporate message queues (e.g., Apache Kafka) to manage real-time data streams
 **Customizable Reports**: Allow users to generate personalized financial reports based on time frames and categories for better insights. \
 **Real-Time Data Analytics**: Integrate live tracking and visualizations to simplify financial data for instant decision-making. \
 **Predictive Insights**: Use machine learning for forecasting and send alerts to help users manage spending and achieve financial goals.
+
+\
+**Saving goals with progress tracking**\
+ Easily create personalized savings goals, set target amounts, and choose your desired timeline.\
+ Visual charts and percentage trackers help you see how close you are to reaching each goal in real-time.\
+Receive milestone alerts, automated savings updates, and helpful insights to keep you motivated along the way.
+
+
