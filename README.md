@@ -264,3 +264,9 @@ you can use Spring WebSockets with a backend service in Java for live updates.
 To implement interactive charts for expense categories in your Bearcat Finance app using React, some popular packages are:\
 Chart.js is a flexible and easy-to-use library for creating various types of charts. \
 The react-chartjs-2 wrapper makes it easy to integrate into React apps.
+
+\
+**Integration of bank APIs and enhanced security**\
+**Transaction Import:** Users can now import their bank transactions directly into the app using secure bank APIs, with OAuth2 managing authentication and access control. \
+**Encrypted Storage:** All imported transaction data is now securely stored using AES encryption, ensuring that sensitive financial information is protected. \
+**Data Categorization:** The app includes an updated feature that automatically categorizes imported transactions based on predefined categories, improving financial analysis and budget tracking.
