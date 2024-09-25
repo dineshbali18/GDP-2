@@ -258,3 +258,9 @@ you can use Spring WebSockets with a backend service in Java for live updates.
 **Data Organization:** The relational database organizes financial data (expenses, budgets, savings goals) into structured tables with rows and columns for easy management and querying.\
 **Data Integrity:** It ensures data consistency and integrity by maintaining relationships between different data tables (e.g., linking transactions with users or categories).\
 **Secure and Scalable:** Supports encryption for secure data storage and can handle high volumes of transactions with real-time synchronization across devices.
+
+
+**Interactive charts for expense categories** \
+To implement interactive charts for expense categories in your Bearcat Finance app using React, some popular packages are:\
+Chart.js is a flexible and easy-to-use library for creating various types of charts. \
+The react-chartjs-2 wrapper makes it easy to integrate into React apps.
