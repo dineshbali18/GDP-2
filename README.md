@@ -270,3 +270,8 @@ The react-chartjs-2 wrapper makes it easy to integrate into React apps.
 **Transaction Import:** Users can now import their bank transactions directly into the app using secure bank APIs, with OAuth2 managing authentication and access control. \
 **Encrypted Storage:** All imported transaction data is now securely stored using AES encryption, ensuring that sensitive financial information is protected. \
 **Data Categorization:** The app includes an updated feature that automatically categorizes imported transactions based on predefined categories, improving financial analysis and budget tracking.
+
+\
+**Expense tracking**\
+For expense tracking in BearCat Finance, integrate secure bank APIs (e.g., Plaid) for importing transactions, categorize expenses with automation and custom rules, and provide budgeting, reports, and visualization features like charts.\
+Include manual expense entry, notifications for spending alerts, and data export options. Ensure robust security with encryption and compliance with regulations.
