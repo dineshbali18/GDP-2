@@ -253,3 +253,8 @@ For real-time synchronization in a finance app, you can use Firebase Realtime Da
 Alternatively, Socket.IO provides event-based real-time communication.\
 you can use Spring WebSockets with a backend service in Java for live updates.
 
+\
+**Relational Database for Bearcat Finance App**\
+**Data Organization:** The relational database organizes financial data (expenses, budgets, savings goals) into structured tables with rows and columns for easy management and querying.\
+**Data Integrity:** It ensures data consistency and integrity by maintaining relationships between different data tables (e.g., linking transactions with users or categories).\
+**Secure and Scalable:** Supports encryption for secure data storage and can handle high volumes of transactions with real-time synchronization across devices.
