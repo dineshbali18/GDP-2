@@ -291,3 +291,7 @@ Provide suggestions for lowering budgets in categories where the user overspends
 Implement automated budget suggestions based on users transaction history and spending patterns. \
 Enable real-time expense tracking with notifications for budget threshold alerts. \
 Provide visualizations like charts to help users monitor spending trends and adjust their budgets.
+
+**Expense Recap and Monthly Report Generation**\
+We can Provide users with a detailed monthly expense recap report that they can download or view directly from the app.\
+It automatically generate a summary at the end of each month, breaking down their spending by categories, savings achieved, and progress on financial goals.
