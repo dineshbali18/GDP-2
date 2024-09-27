@@ -287,3 +287,7 @@ we can also add a feature where the app automatically adjusts budgets for catego
 we can create an algorithm that tracks and analyzes users' previous monthly expenses and dynamically adjusts future budgets to reflect spending trends.\
 Provide suggestions for lowering budgets in categories where the user overspends, or increasing savings goals if underspending is detected.\
 \
+**Budget creation and tracking.** \
+Implement automated budget suggestions based on users transaction history and spending patterns. \
+Enable real-time expense tracking with notifications for budget threshold alerts. \
+Provide visualizations like charts to help users monitor spending trends and adjust their budgets.
