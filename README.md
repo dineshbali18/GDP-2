@@ -280,4 +280,10 @@ Include manual expense entry, notifications for spending alerts, and data export
 **Comprehensive Budget Management Interface**\
 **User-Friendly Interface:** Allows users to easily create, modify, and track budgets by categorizing expenses and setting limits for each category.\
 **Real-Time Updates:** Provides instant feedback on budget status with visual indicators and progress tracking through interactive charts.\
-**Seamless Data Integration:** Supports automatic syncing of financial data, ensuring budget information is always up-to-date across devices.
+**Seamless Data Integration:** Supports automatic syncing of financial data, ensuring budget information is always up-to-date across devices.\
+\
+**Automatic Budget Adjustments Based on Spending Patterns**
+we can also add a feature where the app automatically adjusts budgets for categories based on the user's historical spending data.\
+we can create an algorithm that tracks and analyzes users' previous monthly expenses and dynamically adjusts future budgets to reflect spending trends.\
+Provide suggestions for lowering budgets in categories where the user overspends, or increasing savings goals if underspending is detected.\
+\
