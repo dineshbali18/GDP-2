@@ -295,3 +295,9 @@ Provide visualizations like charts to help users monitor spending trends and adj
 **Expense Recap and Monthly Report Generation**\
 We can Provide users with a detailed monthly expense recap report that they can download or view directly from the app.\
 It automatically generate a summary at the end of each month, breaking down their spending by categories, savings achieved, and progress on financial goals.
+
+\
+**Interactive charts for expense categories**\
+For BearCat Finance, use pie/donut charts to show expense proportions, bar/line charts for category trends over time, and heatmaps/treemaps for detailed patterns and hierarchies.\
+Interactive features like tooltips, drill-downs, and filters enhance user engagement.\
+Libraries like Chart.js, D3.js, and ApexCharts offer flexibility and customization for smooth performance.
