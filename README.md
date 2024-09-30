@@ -314,3 +314,9 @@ Users can now filter their savings data by date range or specific goal to get a 
 **Bank API Integration:** Securely imports transactions from linked bank accounts into the app.\
 **Real-time Synchronization:** Provides real-time updates on financial data across devices.\
 **Data Security:** Ensures encryption of financial data during transmission and storage, with multi-factor authentication for added security.
+
+\
+**Relational database**\
+**Normalization and Database Design**:Normalize the database up to 3NF/BCNF, add indexes to improve query performance, and ensure referential integrity with foreign keys.\
+**Encryption and Data Security**:Encrypt sensitive data both at rest and in transit using AES/RSA and consider tokenization for storing sensitive information securely.\
+**Audit and Transaction Logging**:Implement audit logs to track critical actions like updates and transactions for accountability and security.
