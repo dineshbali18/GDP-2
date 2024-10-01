@@ -320,3 +320,9 @@ Users can now filter their savings data by date range or specific goal to get a 
 **Normalization and Database Design**:Normalize the database up to 3NF/BCNF, add indexes to improve query performance, and ensure referential integrity with foreign keys.\
 **Encryption and Data Security**:Encrypt sensitive data both at rest and in transit using AES/RSA and consider tokenization for storing sensitive information securely.\
 **Audit and Transaction Logging**:Implement audit logs to track critical actions like updates and transactions for accountability and security.
+
+\
+**Budget creation and tracking**\
+BearCat Finance will feature category-based budget creation with automated tracking, allowing users to set spending limits and monitor expenses in real-time.\
+It integrates with bank APIs to pull transactions, providing insights and alerts for budget adherence. \
+Visual reports, spending trends, and notifications ensure users stay on top of their finances efficiently.
