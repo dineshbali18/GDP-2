@@ -325,4 +325,8 @@ Users can now filter their savings data by date range or specific goal to get a 
 **Budget creation and tracking**\
 BearCat Finance will feature category-based budget creation with automated tracking, allowing users to set spending limits and monitor expenses in real-time.\
 It integrates with bank APIs to pull transactions, providing insights and alerts for budget adherence. \
-Visual reports, spending trends, and notifications ensure users stay on top of their finances efficiently.
+Visual reports, spending trends, and notifications ensure users stay on top of their finances efficiently.\
+**Relational Database** \
+Set up relational database schema for users, transactions, categories, and budgets.
+- Designed relational schema in PostgreSQL with `User`, `Transaction`, `Category`, and `Budget` tables and established relationships.
+- Optimized queries for retrieving user transactions and calculating category-wise spending efficiently.
