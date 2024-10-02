@@ -330,3 +330,9 @@ Visual reports, spending trends, and notifications ensure users stay on top of t
 Set up relational database schema for users, transactions, categories, and budgets.
 - Designed relational schema in PostgreSQL with `User`, `Transaction`, `Category`, and `Budget` tables and established relationships.
 - Optimized queries for retrieving user transactions and calculating category-wise spending efficiently.
+
+\
+**Real-time synchronization across devices.**\
+ Use cloud-based real-time databases like Firebase or AWS AppSync for seamless synchronization. \
+ Implement WebSockets or Realm Sync for real-time, bidirectional communication across devices. \
+ Apply optimistic locking or automatic conflict resolution to manage concurrent data updates.
