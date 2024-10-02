@@ -336,3 +336,9 @@ Set up relational database schema for users, transactions, categories, and budge
  Use cloud-based real-time databases like Firebase or AWS AppSync for seamless synchronization. \
  Implement WebSockets or Realm Sync for real-time, bidirectional communication across devices. \
  Apply optimistic locking or automatic conflict resolution to manage concurrent data updates.
+
+ \
+**Interactive charts for expense categories**\
+**Visual Representation:** Interactive charts provide a clear and dynamic visual representation of spending across different categories.\
+**User Engagement:** Users can interact with the charts to view detailed insights, such as specific category breakdowns and monthly spending trends.\
+**Data-Driven Decisions:** The charts help users make informed financial decisions by highlighting patterns in their spending behavior.
