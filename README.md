@@ -341,4 +341,10 @@ Set up relational database schema for users, transactions, categories, and budge
 **Interactive charts for expense categories**\
 **Visual Representation:** Interactive charts provide a clear and dynamic visual representation of spending across different categories.\
 **User Engagement:** Users can interact with the charts to view detailed insights, such as specific category breakdowns and monthly spending trends.\
-**Data-Driven Decisions:** The charts help users make informed financial decisions by highlighting patterns in their spending behavior.
+**Data-Driven Decisions:** The charts help users make informed financial decisions by highlighting patterns in their spending behavior.\
+\
+**Automated Tax Categorization and Reporting** 
+in Bearcat Finance can streamline tax season by automatically categorizing user transactions based on tax-deductibility (e.g., business expenses, charitable donations).\
+The app could generate tax reports summarizing deductible expenses, saving users time and ensuring accuracy.\
+It can also provide insights on potential tax-saving opportunities, such as expense tracking for freelancers or small businesses.\
+\
