@@ -376,6 +376,7 @@ This means users can see their financial information reflected in real time, kee
 **Data Encryption & Privacy:** Financial data is encrypted both at rest and in transit to ensure user privacy and data protection.\
 **Multi-Factor Authentication (MFA):** MFA is implemented for secure user authentication, adding an extra layer of security.\
 **Bank API Integration & Synchronization:** Secure integration with bank APIs allows transaction import, while real-time synchronization across devices ensures data consistency.
+
 \
 **Updating the idea of Savings goals with progress tracking.**\
 Add customizable goals with visual progress indicators, and automated savings suggestions. \
