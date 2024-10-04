@@ -361,3 +361,12 @@ This feature can enhance financial transparency and teamwork,helping groups or h
 \
 **real-time synchronization implementation**
 we can use Kafka in our app for real-time synchronization across devices by streaming events like transaction updates and budget changes. It also enables event-driven processing for tasks like transaction import and expense categorization. Kafka ensures scalable data flow between components for financial reports and analytics. Additionally, it helps decouple services like transaction import, categorization, and notification systems.
+
+
+**Event-Driven Architecture**\
+Transaction Streaming: \
+When transactions come in from bank APIs, Kafka can quickly send these updates to different parts of the system. \
+This allows for tasks like categorizing transactions and updating budgets to happen automatically and independently.\
+Real-Time Updates: \
+Kafka can process transaction updates as they happen. \
+This means users can see their financial information reflected in real time, keeping everything current and accurate.
