@@ -357,4 +357,7 @@ Ensure data security and compliance throughout the process.
 **Shared Goals and Collaborative Budgeting**\
 Bearcat Finance App would allow users to create and manage joint savings goals or budgets with family members,friends or partners. \
 Users can contribute to shared goals like vacations or home purchases and track progress in real-time. \
-This feature can enhance financial transparency and teamwork,helping groups or households manage expenses and save together more efficiently.
+This feature can enhance financial transparency and teamwork,helping groups or households manage expenses and save together more efficiently.\
+\
+**real-time synchronization implementation**
+we can use Kafka in our app for real-time synchronization across devices by streaming events like transaction updates and budget changes. It also enables event-driven processing for tasks like transaction import and expense categorization. Kafka ensures scalable data flow between components for financial reports and analytics. Additionally, it helps decouple services like transaction import, categorization, and notification systems.
