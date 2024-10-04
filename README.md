@@ -370,3 +370,9 @@ This allows for tasks like categorizing transactions and updating budgets to hap
 Real-Time Updates: \
 Kafka can process transaction updates as they happen. \
 This means users can see their financial information reflected in real time, keeping everything current and accurate.
+
+\
+**Security and Data Management in Bearcat Finance App**\
+**Data Encryption & Privacy:** Financial data is encrypted both at rest and in transit to ensure user privacy and data protection.\
+**Multi-Factor Authentication (MFA):** MFA is implemented for secure user authentication, adding an extra layer of security.\
+**Bank API Integration & Synchronization:** Secure integration with bank APIs allows transaction import, while real-time synchronization across devices ensures data consistency.
