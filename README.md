@@ -383,7 +383,11 @@ Add customizable goals with visual progress indicators, and automated savings su
 Implement reminders, milestone notifications, and goal-sharing for accountability. \
 Enhance with analytics, insights, and a rewards system to keep users motivated.
 
-
+\
+**Manual Expense Entry**\
+For BearCat Finance's manual expense entry, create a simple, intuitive form allowing users to add expenses with details like amount, category, and date.\
+Offer features like recurring expenses, custom categories, and editing/deleting options.\
+Include reports and notifications for better financial tracking and insights.
 
 
 
