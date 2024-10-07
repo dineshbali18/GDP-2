@@ -387,8 +387,14 @@ Enhance with analytics, insights, and a rewards system to keep users motivated.
 **Manual Expense Entry**\
 For BearCat Finance's manual expense entry, create a simple, intuitive form allowing users to add expenses with details like amount, category, and date.\
 Offer features like recurring expenses, custom categories, and editing/deleting options.\
-Include reports and notifications for better financial tracking and insights.
+Include reports and notifications for better financial tracking and insights.\
+\
 
+**Implement an Expense Splitting feature for shared expenses.**\
+Add functionality to split expenses between multiple users for shared purchases or group activities.\
+Allow users to assign portions of a transaction to other BearCat Finance users.\
+Integrate this with the Transaction table by adding fields for split users and respective amounts.\
+Track settled/unsettled amounts in real-time and provide reminders to users for pending settlements.\
 
 
 
