@@ -402,4 +402,9 @@ Track settled/unsettled amounts in real-time and provide reminders to users for 
 **Encrypted Data Transmission:** Use TLS (Transport Layer Security) to encrypt all communication between the Bearcat Finance App and the bank APIs, safeguarding sensitive financial information during transmission.\
 **Automated Transaction Sync:** Enable real-time, secure synchronization of transactions from linked bank accounts to the app, with periodic background updates for up-to-date financial tracking.
 
+\
+**Encryption of financial data at rest and in transit.** \
+Use **TLS (HTTPS)** for encrypting data in transit and consider **certificate pinning** for additional security. \
+Encrypt locally stored data with **AES-256** for data at rest, ensuring sensitive information is securely stored. \
+Ensure server-side encryption for any cloud-stored data to maintain end-to-end encryption.
 
