@@ -414,3 +414,7 @@ To implement real-time synchronization in BearCat Finance, leverage webhooks for
 Utilize background jobs for sync tasks and caching for quick access to recent data.\
 Ensure security with OAuth 2.0, encryption, and data validation.
 
+**Automated bill payment reminders feature**\
+Allows users to set up reminders for recurring bills and expenses.\
+Sends notifications via email and in-app alerts before due dates.\
+Option to link accounts for scheduling payments directly from the app.
