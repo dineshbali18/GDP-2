@@ -438,6 +438,6 @@ Option to link accounts for scheduling payments directly from the app.\
 
 \
 **Budget management interface.**
-1. Add UI elements like total budget, category budgets, progress bars, and alerts. \
-2. Provide options for users to add/remove budget categories and set time frames (e.g., monthly). \
+1. Add UI elements like total budget, category budgets, progress bars, and alerts. 
+2. Provide options for users to add/remove budget categories and set time frames (e.g., monthly). 
 3. Include charts or graphs to visualize spending distribution and budget usage.
