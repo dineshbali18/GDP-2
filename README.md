@@ -430,3 +430,8 @@ Option to link accounts for scheduling payments directly from the app.\
 1.⁠ ⁠Allow users to set personalized budget thresholds for different categories.\
 2.⁠ ⁠Send notifications (in-app, email, or SMS) when spending nears or exceeds these limits.\
 3.⁠ ⁠Provide real-time alerts to help users stay within their budgets and manage their finances proactively.
+
+**Spending Trends and Insights Dashboard**
+1. Create a visual dashboard displaying categorized spending trends and patterns over time.
+2. Include charts and graphs to highlight areas of high spending and savings opportunities.
+3. Provide detailed insights with monthly breakdowns, comparisons, and actionable recommendations for better financial management.
