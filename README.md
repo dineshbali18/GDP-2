@@ -417,4 +417,11 @@ Ensure security with OAuth 2.0, encryption, and data validation.
 **Automated bill payment reminders feature**\
 Allows users to set up reminders for recurring bills and expenses.\
 Sends notifications via email and in-app alerts before due dates.\
-Option to link accounts for scheduling payments directly from the app.
+Option to link accounts for scheduling payments directly from the app.\
+
+**Backup and Restore Feature**\
+1. Implement secure, encrypted backups of user data to cloud storage.
+2. Allow users to manually trigger backups or set up automatic periodic backups.
+3. Provide an easy-to-use restore option for recovering data in case of loss or device changes.
+4. Use end-to-end encryption (AES-256) to ensure data privacy during backups and restores.
+5. Notify users upon successful backup completion or restoration for added transparency.
