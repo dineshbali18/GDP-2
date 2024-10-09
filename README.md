@@ -435,3 +435,9 @@ Option to link accounts for scheduling payments directly from the app.\
 1. Create a visual dashboard displaying categorized spending trends and patterns over time.
 2. Include charts and graphs to highlight areas of high spending and savings opportunities.
 3. Provide detailed insights with monthly breakdowns, comparisons, and actionable recommendations for better financial management.
+
+\
+**Budget management interface.**
+1. Add UI elements like total budget, category budgets, progress bars, and alerts. \
+2. Provide options for users to add/remove budget categories and set time frames (e.g., monthly). \
+3. Include charts or graphs to visualize spending distribution and budget usage.
