@@ -425,3 +425,8 @@ Option to link accounts for scheduling payments directly from the app.\
 3. Provide an easy-to-use restore option for recovering data in case of loss or device changes.
 4. Use end-to-end encryption (AES-256) to ensure data privacy during backups and restores.
 5. Notify users upon successful backup completion or restoration for added transparency.
+
+**Custom Notifications for Budget Thresholds** \
+1.⁠ ⁠Allow users to set personalized budget thresholds for different categories.\
+2.⁠ ⁠Send notifications (in-app, email, or SMS) when spending nears or exceeds these limits.\
+3.⁠ ⁠Provide real-time alerts to help users stay within their budgets and manage their finances proactively.
