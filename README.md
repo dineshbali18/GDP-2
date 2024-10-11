@@ -463,4 +463,9 @@ Offer visual tools such as charts to help users analyze their spending patterns 
 **Automatic Categorization**: This feature assigns expenses to categories such as groceries or dining based on information from the bank or merchant.\
 **Custom Categories**: Users can create their own categories to better organize and manage their spending.\
 **Category Rules**: Users can establish rules that automatically categorize expenses based on specific keywords or merchant names.\
-**Tagging**: Users can attach tags to transactions for more detailed and personalized tracking.
+**Tagging**: Users can attach tags to transactions for more detailed and personalized tracking.\
+
+**Credit Score Monitoring Integration**:
+1. Integrate with third-party APIs to securely retrieve and display users' credit scores in real-time.
+2. Provide detailed insights on factors affecting credit scores, such as payment history and credit utilization.
+3. Offer personalized tips for improving credit health, along with notifications for any significant score changes.
