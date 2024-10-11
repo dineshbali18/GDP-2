@@ -458,3 +458,9 @@ Offer visual tools such as charts to help users analyze their spending patterns 
 1. The **Dashboard** will display the total account balance, recent transactions, and an expense breakdown, all securely pulled via OAuth2 with encrypted data.  
 2. **Budget Status** will show real-time updates, comparing spending to the set budget using color-coded charts for easy visualization.  
 3. **Savings Goals** will track progress with progress bars, displaying percentage completion and needed contributions to meet targets.
+
+**Expense categorization can be handled in several straightforward ways**\
+**Automatic Categorization**: This feature assigns expenses to categories such as groceries or dining based on information from the bank or merchant.\
+**Custom Categories**: Users can create their own categories to better organize and manage their spending.\
+**Category Rules**: Users can establish rules that automatically categorize expenses based on specific keywords or merchant names.\
+**Tagging**: Users can attach tags to transactions for more detailed and personalized tracking.
