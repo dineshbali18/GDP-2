@@ -469,3 +469,8 @@ Offer visual tools such as charts to help users analyze their spending patterns 
 1. Integrate with third-party APIs to securely retrieve and display users' credit scores in real-time.
 2. Provide detailed insights on factors affecting credit scores, such as payment history and credit utilization.
 3. Offer personalized tips for improving credit health, along with notifications for any significant score changes.
+
+**Investment Tracking Module:**\
+Enables users to link and track their investment portfolios, including stocks, bonds, and mutual funds.\
+Provides real-time updates on portfolio performance, asset allocation, and returns.\
+Includes detailed insights, graphs, and comparisons to help users monitor their investment growth and make informed decisions.
