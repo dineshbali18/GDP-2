@@ -452,3 +452,8 @@ Offer visual tools such as charts to help users analyze their spending patterns 
 **Spending Analysis:** The app analyzes user spending patterns over time to detect trends in various categories.\
 **Dynamic Budget Adjustments:** Based on the analysis, it automatically adjusts budget allocations to ensure spending aligns with financial goals.\
 **Personalized Recommendations:** Users receive tailored suggestions for budget changes to optimize their financial management based on real-time behavior.
+\
+**Dashboard with financial summary.** \
+1. The **Dashboard** will display the total account balance, recent transactions, and an expense breakdown, all securely pulled via OAuth2 with encrypted data.  
+2. **Budget Status** will show real-time updates, comparing spending to the set budget using color-coded charts for easy visualization.  
+3. **Savings Goals** will track progress with progress bars, displaying percentage completion and needed contributions to meet targets.
