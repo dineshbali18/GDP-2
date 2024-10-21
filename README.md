@@ -479,4 +479,9 @@ Includes detailed insights, graphs, and comparisons to help users monitor their 
 Creates a dedicated section for users to manage their profiles,update personal information,and manage preferences.\
 Adds profile picture support with options for users to upload or remove profile images.\
 Includes multi-language support for users to select their preferred language for the app interface.\
-Implements a dark mode option for user interface customization and accessibility.
+Implements a dark mode option for user interface customization and accessibility.\
+
+**Financial Goal Planning**\
+Introduce a long-term financial goal planning tool where users can set goals such as purchasing a house or saving for retirement.\
+Allow users to create multiple goals with specific timeframes and target amounts.\
+Provide progress tracking and suggest strategies to meet these goals, such as increasing savings or cutting expenses.\
