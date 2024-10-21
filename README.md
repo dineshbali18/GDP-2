@@ -496,3 +496,9 @@ Provide progress tracking and suggest strategies to meet these goals, such as in
 Add a search bar to allow users to search for specific transactions by keyword, merchant, or category.\
 Implement advanced filters enabling users to filter transactions based on date ranges, categories, and amounts.\
 Include a sorting feature to arrange transactions by date, amount, or category for better management.
+
+\
+**Multi-Currency Support**\
+Enable support for multiple currencies to allow users to manage and track expenses in different currencies.\
+Automatically convert transaction amounts into the user's primary currency using real-time exchange rates.\
+Provide detailed breakdowns showing converted amounts alongside the original transaction currency.
