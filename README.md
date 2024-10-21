@@ -474,3 +474,9 @@ Offer visual tools such as charts to help users analyze their spending patterns 
 Enables users to link and track their investment portfolios, including stocks, bonds, and mutual funds.\
 Provides real-time updates on portfolio performance, asset allocation, and returns.\
 Includes detailed insights, graphs, and comparisons to help users monitor their investment growth and make informed decisions.
+
+**User Profile Management**\
+Creates a dedicated section for users to manage their profiles,update personal information,and manage preferences.\
+Adds profile picture support with options for users to upload or remove profile images.\
+Includes multi-language support for users to select their preferred language for the app interface.\
+Implements a dark mode option for user interface customization and accessibility.
