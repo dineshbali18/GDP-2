@@ -490,3 +490,9 @@ Provide progress tracking and suggest strategies to meet these goals, such as in
 **CSV and PDF Export**: Users can export financial data, including transaction history, budget summaries, and savings goals, into CSV and PDF formats for easy sharing and external analysis.\
 **Third-party App Integration**: The app provides APIs that allow users to synchronize financial data with third-party tools like spreadsheet applications or tax preparation software for seamless integration.\
 **Automated Data Backup**: Regular, secure backups of financial data are supported, with options for integration into cloud storage services such as Google Drive or Dropbox for data retention and recovery.
+
+\
+**Transaction Search and Filter**\
+Add a search bar to allow users to search for specific transactions by keyword, merchant, or category.\
+Implement advanced filters enabling users to filter transactions based on date ranges, categories, and amounts.\
+Include a sorting feature to arrange transactions by date, amount, or category for better management.
