@@ -526,7 +526,7 @@ Save this data in the database, and initialize the remaining amount as remaining
 \
 **Data Protection**\
 Secure sensitive information, like transaction details, during transmission (via HTTPS) and while stored (by using strong encryption algorithms such as AES-256).\
-Ensure encryption keys are safely stored, preferably in a hardware security module (HSM) or a cloud-based key management solution.\
+Ensure encryption keys are safely stored, preferably in a hardware security module (HSM) or a cloud-based key management solution.
 
 
 
