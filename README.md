@@ -502,3 +502,8 @@ Include a sorting feature to arrange transactions by date, amount, or category f
 Enable support for multiple currencies to allow users to manage and track expenses in different currencies.\
 Automatically convert transaction amounts into the user's primary currency using real-time exchange rates.\
 Provide detailed breakdowns showing converted amounts alongside the original transaction currency.
+
+**Expense Forecasting**\
+⁠Implements an expense forecasting tool that uses historical spending data to predict future expenses.\
+⁠Provides insights into future spending trends and expected cash flow based on previous patterns.\
+⁠Offers suggestions for adjusting budgets or saving in anticipation of upcoming expenses.
