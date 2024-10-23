@@ -517,4 +517,8 @@ Provide detailed breakdowns showing converted amounts alongside the original tra
 **Multi-factor authentication for account security.**\
 Integrate MFA by adding a second authentication step after the user's login credentials.\
 use methods like OTP via SMS/email or time-based codes from an authenticator app, and offer biometric verification for supported devices.\
-Option for users to remember trusted devices, reducing the need for repeated MFA on frequently used devices while maintaining security for new or unrecognized devices.
+Option for users to remember trusted devices, reducing the need for repeated MFA on frequently used devices while maintaining security for new or unrecognized devices.\
+\
+**Implemention of create budgets feature**\
+When a user creates a budget, define an object like Budget with attributes such as category, amount, start_date, and end_date.\
+Save this data in the database, and initialize the remaining amount as remainingAmount = budgetAmount.\
