@@ -522,3 +522,16 @@ Option for users to remember trusted devices, reducing the need for repeated MFA
 **Implemention of create budgets feature**\
 When a user creates a budget, define an object like Budget with attributes such as category, amount, start_date, and end_date.\
 Save this data in the database, and initialize the remaining amount as remainingAmount = budgetAmount.\
+
+\
+**Data Protection**\
+Secure sensitive information, like transaction details, during transmission (via HTTPS) and while stored (by using strong encryption algorithms such as AES-256).\
+Ensure encryption keys are safely stored, preferably in a hardware security module (HSM) or a cloud-based key management solution.\
+
+
+
+
+
+
+
+
