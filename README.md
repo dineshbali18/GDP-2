@@ -512,8 +512,9 @@ Provide detailed breakdowns showing converted amounts alongside the original tra
 **Automatic & Manual Backups:** Enables scheduled and on-demand backups for data protection.\
 **Secure Cloud Storage:** Encrypted backups stored securely with real-time sync across devices.\
 **Full Data Recovery:** Restores all financial data, including transactions, budgets, and goals.
+
 \
 **Multi-factor authentication for account security.**\
 Integrate MFA by adding a second authentication step after the user's login credentials.\
-Use methods like OTP via SMS/email or time-based codes from an authenticator app, and offer biometric verification for supported devices.\
+use methods like OTP via SMS/email or time-based codes from an authenticator app, and offer biometric verification for supported devices.\
 Option for users to remember trusted devices, reducing the need for repeated MFA on frequently used devices while maintaining security for new or unrecognized devices.
