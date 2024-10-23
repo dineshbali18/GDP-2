@@ -507,3 +507,8 @@ Provide detailed breakdowns showing converted amounts alongside the original tra
 ⁠Implements an expense forecasting tool that uses historical spending data to predict future expenses.\
 ⁠Provides insights into future spending trends and expected cash flow based on previous patterns.\
 ⁠Offers suggestions for adjusting budgets or saving in anticipation of upcoming expenses.
+
+**Backup and Restore Feature**\
+**Automatic & Manual Backups:** Enables scheduled and on-demand backups for data protection.\
+**Secure Cloud Storage:** Encrypted backups stored securely with real-time sync across devices.\
+**Full Data Recovery:** Restores all financial data, including transactions, budgets, and goals.
