@@ -548,4 +548,9 @@ The design is user-friendly, featuring adjustable notifications and recommendati
 **Dashboard with financial summary.**\
 **Net Worth & Budget Overview**: Summarizes assets, liabilities, and monthly budget tracking.\
 **Income vs. Expenses**: Displays monthly totals with category breakdowns.\
-**Savings & Transaction Tracking**: Shows savings goal progress and recent transactions at a glance.
+**Savings & Transaction Tracking**: Shows savings goal progress and recent transactions at a glance.\
+\
+**implementation of Saving goals**\
+The pseudocode outlines the management of savings goals in your app, defining a `Goal` class to store relevant attributes like `targetAmount` and `currentAmount`. \
+It includes functions to create, update, retrieve, and delete goals, facilitating user interaction and progress tracking. \
+Each goal's achievement status is dynamically updated based on the saved amounts.
