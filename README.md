@@ -537,3 +537,10 @@ Allows users to mark bills as paid and store payment details for future referenc
 **Spending Pattern Analysis:** Automatically analyzes user spending habits to identify categories with high or low expenditures.\
 **Dynamic Budget Adjustment:** Adjusts budget allocations based on recent spending trends, helping users stay within their overall financial limits.\
 **Real-Time Alerts:** Notifies users of adjustments and provides insights on budget modifications for better financial decision-making.
+
+\
+**Budget management interface**\
+The budget management interface in the BearCat Finance app enables users to effortlessly create, monitor, and modify their budgets.\
+It offers a concise view of spending categories, live expense tracking, and visual insights that support users in meeting their financial targets.\
+The design is user-friendly, featuring adjustable notifications and recommendations to help maximize savings.
+
