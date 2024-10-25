@@ -528,7 +528,10 @@ Save this data in the database, and initialize the remaining amount as remaining
 Secure sensitive information, like transaction details, during transmission (via HTTPS) and while stored (by using strong encryption algorithms such as AES-256).\
 Ensure encryption keys are safely stored, preferably in a hardware security module (HSM) or a cloud-based key management solution.
 
-
+**Bill Payment and Reminders**\
+Implements a bill payment tracking feature to help users manage and schedule recurring payments (e.g., rent, utilities, subscriptions).\
+Sets up automatic reminders for upcoming bill due dates with customizable notifications (in-app, email, SMS).\
+Allows users to mark bills as paid and store payment details for future reference.
 
 
 
