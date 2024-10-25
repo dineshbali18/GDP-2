@@ -544,3 +544,8 @@ The budget management interface in the BearCat Finance app enables users to effo
 It offers a concise view of spending categories, live expense tracking, and visual insights that support users in meeting their financial targets.\
 The design is user-friendly, featuring adjustable notifications and recommendations to help maximize savings.
 
+\
+**Dashboard with financial summary.**\
+**Net Worth & Budget Overview**: Summarizes assets, liabilities, and monthly budget tracking.\
+**Income vs. Expenses**: Displays monthly totals with category breakdowns.\
+**Savings & Transaction Tracking**: Shows savings goal progress and recent transactions at a glance.
