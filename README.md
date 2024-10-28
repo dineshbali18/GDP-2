@@ -559,3 +559,8 @@ Each goal's achievement status is dynamically updated based on the saved amounts
 **End-to-End Encryption:** Ensures all sensitive financial data, such as transactions and account information, is encrypted from the user's device to the server, protecting it from interception.\
 **Encryption at Rest and in Transit:** Encrypts data stored within the database and any data transferred across networks, ensuring data security during storage and while being transmitted.\
 **Key Management Protocols:** Utilizes secure key management practices for generating, storing, and rotating encryption keys, further securing user data against unauthorized access.
+
+**Transaction Search and Filter**\
+Implement a search function for transactions based on keywords, date ranges, and categories.\
+Allow users to filter transactions by amount, merchant, or custom tags.\
+Enable quick access to specific transactions and generate filtered reports for better analysis.
