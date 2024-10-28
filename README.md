@@ -564,3 +564,9 @@ Each goal's achievement status is dynamically updated based on the saved amounts
 Implement a search function for transactions based on keywords, date ranges, and categories.\
 Allow users to filter transactions by amount, merchant, or custom tags.\
 Enable quick access to specific transactions and generate filtered reports for better analysis.
+
+\
+**Financial reports and analytics**\
+Users can track expense trends and liabilities, and generate custom reports by date or category.\
+This enhances financial insights and promotes informed decision-making.\
+Track how actual spending compares to set budgets, highlighting any variances to help users adjust their financial plans proactively.
