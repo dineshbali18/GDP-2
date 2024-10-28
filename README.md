@@ -554,3 +554,8 @@ The design is user-friendly, featuring adjustable notifications and recommendati
 The pseudocode outlines the management of savings goals in your app, defining a `Goal` class to store relevant attributes like `targetAmount` and `currentAmount`. \
 It includes functions to create, update, retrieve, and delete goals, facilitating user interaction and progress tracking. \
 Each goal's achievement status is dynamically updated based on the saved amounts.
+
+**Data Encryption**\
+**End-to-End Encryption:** Ensures all sensitive financial data, such as transactions and account information, is encrypted from the user's device to the server, protecting it from interception.\
+**Encryption at Rest and in Transit:** Encrypts data stored within the database and any data transferred across networks, ensuring data security during storage and while being transmitted.\
+**Key Management Protocols:** Utilizes secure key management practices for generating, storing, and rotating encryption keys, further securing user data against unauthorized access.
