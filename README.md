@@ -572,4 +572,10 @@ This enhances financial insights and promotes informed decision-making.\
 Track how actual spending compares to set budgets, highlighting any variances to help users adjust their financial plans proactively.\
 \
 **implementation of expense tracking**\
-To implement expense tracking with bank imports and manual entries, integrate the Plaid API to fetch transaction details like date, amount, and category, and store them in a MySQL database. Ensure consistency in structure to align imported and manually added transactions. Then, provide a unified interface where users can track, categorize, and analyze expenses seamlessly across both data sources.
+To implement expense traFinancial Summary Dashboardcking with bank imports and manual entries, integrate the Plaid API to fetch transaction details like date, amount, and category, and store them in a MySQL database. Ensure consistency in structure to align imported and manually added transactions. Then, provide a unified interface where users can track, categorize, and analyze expenses seamlessly across both data sources.
+
+**Financial Summary Dashboard**\
+The dashboard offers a quick overview of overall expenses, income, and savings progress, giving users an immediate sense of their financial well-being. \
+ It features interactive charts that visually depict spending patterns across various categories.\
+ Real-time updates ensure the summary reflects the latest data, supporting well-informed financial decisions.
+
