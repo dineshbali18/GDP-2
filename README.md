@@ -589,3 +589,8 @@ The dashboard offers a quick overview of overall expenses, income, and savings p
 **TLS Encryption:** Ensure all data transmitted between the app and bank API is encrypted using TLS (Transport Layer Security) to protect sensitive financial information from interception.\
 **Token-Based Access:** Implement token-based access controls with short expiration times and refresh tokens to reduce the risk of unauthorized access if a token is compromised.
 
+\
+**Financial reports and analytics.**\
+Integrate trend analysis to show spending patterns over time (e.g., weekly, monthly).\
+Add comparison charts for budgeted vs. actual expenses by category.\
+Enable alerts for significant spending deviations or when nearing budget limits.
