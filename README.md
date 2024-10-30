@@ -584,3 +584,8 @@ The dashboard offers a quick overview of overall expenses, income, and savings p
  By utilizing cloud-based technology, any changes made on one device are immediately reflected on others, minimizing delays and avoiding data conflicts.\
  This functionality is crucial for collaboration, enhancing accessibility by ensuring users can access the most current information anytime, anywhere.
 
+ **Securely Connecting with bank API**\
+**OAuth 2.0 Authentication:** Use OAuth 2.0 for secure authentication, allowing Bearcat Finance to request user consent before accessing bank data without exposing login credentials.\
+**TLS Encryption:** Ensure all data transmitted between the app and bank API is encrypted using TLS (Transport Layer Security) to protect sensitive financial information from interception.\
+**Token-Based Access:** Implement token-based access controls with short expiration times and refresh tokens to reduce the risk of unauthorized access if a token is compromised.
+
