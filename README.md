@@ -593,4 +593,8 @@ The dashboard offers a quick overview of overall expenses, income, and savings p
 **Financial reports and analytics.**\
 Integrate trend analysis to show spending patterns over time (e.g., weekly, monthly).\
 Add comparison charts for budgeted vs. actual expenses by category.\
-Enable alerts for significant spending deviations or when nearing budget limits.
+Enable alerts for significant spending deviations or when nearing budget limits.\
+\
+**implementation of expense tracking**\
+The Bearcat Finance App enables expense tracking through bank API integration, which automatically imports and categorizes transactions, \
+and through a manual entry option where users can input expenses with category, amount, and notes. Both methods keep the dashboard up-to-date.\
