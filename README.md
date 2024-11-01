@@ -618,3 +618,8 @@ Use encrypted fields for sensitive data like account numbers and API keys, and r
 To implement real-time synchronization across devices, establish a cloud-based backend using a service such as Firebase or AWS Amplify for efficient data storage and instant updates.\
 Utilize WebSockets or real-time database listeners to immediately broadcast changes to all connected devices. \
 Additionally, implement strategies for maintaining data consistency and conflict resolution to manage simultaneous updates from various devices.
+
+**Financial Goal Planning**\
+**Goal Setup:** Users set custom financial goals with target amounts, deadlines, and priorities.\
+**Progress Tracking:** Visual indicators show current savings and timelines to keep users motivated.\
+**Savings Tips:** Automated recommendations suggest weekly savings targets and spending adjustments.
