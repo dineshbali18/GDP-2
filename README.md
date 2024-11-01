@@ -603,3 +603,8 @@ and through a manual entry option where users can input expenses with category, 
 **implementing bank server for application**
 To implement a bank server integration for Bearcat Finance to Establish encrypted connections to ensure data security and compliance with financial regulations,\ retrieving account balances and transaction details with user consent. Implement OAuth 2.0 for user authentication, \allowing Bearcat Finance to securely fetch and update bank information in real-time.\
 \
+\
+**Savings goals with progress tracking.**\
+Users can set specific savings goals with target amounts and deadlines, making progress easy to track.\
+A visual progress bar shows real-time updates on each goal's completion status.\
+The goals are integrated into the main dashboard, allowing users to view savings alongside financial summaries and analytics.
