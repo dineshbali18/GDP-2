@@ -623,3 +623,9 @@ Additionally, implement strategies for maintaining data consistency and conflict
 **Goal Setup:** Users set custom financial goals with target amounts, deadlines, and priorities.\
 **Progress Tracking:** Visual indicators show current savings and timelines to keep users motivated.\
 **Savings Tips:** Automated recommendations suggest weekly savings targets and spending adjustments.
+
+**Secure Self-Hosted Bank Server API for Bearcat Finance**\
+Implement a self-hosted bank server using a REST API with endpoints for registration, login, balance retrieval, and transaction history. \
+Use JWT for secure authentication, generating tokens on login and validating them on each request. \
+Store hashed passwords using bcrypt and ensure all sensitive data transmission occurs over HTTPS. \
+This setup provides a secure, standalone solution for managing bank data in Bearcat Finance.
