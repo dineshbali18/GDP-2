@@ -628,4 +628,8 @@ Additionally, implement strategies for maintaining data consistency and conflict
 Implement a self-hosted bank server using a REST API with endpoints for registration, login, balance retrieval, and transaction history. \
 Use JWT for secure authentication, generating tokens on login and validating them on each request. \
 Store hashed passwords using bcrypt and ensure all sensitive data transmission occurs over HTTPS. \
-This setup provides a secure, standalone solution for managing bank data in Bearcat Finance.
+This setup provides a secure, standalone solution for managing bank data in Bearcat Finance.\
+**implemention of storing user details in the database**\
+To securely store user details, save their information like name, email, and password in a database.\
+Use a strong hash (like bcrypt) to protect passwords, and enable multi-factor authentication for extra security.\
+Encrypt sensitive data and ensure it’s protected during transmission and storage.\
