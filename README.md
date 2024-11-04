@@ -639,3 +639,9 @@ Generate summaries of income, expenses, and category-based spending for selected
 Calculate totals and compare against budgets to highlight overspending. \
 Store each report with key details, and use tools like JasperReports or Apache POI to generate user-friendly PDFs or Excel files.
 
+**Automated Tax Categorization and Reporting**\
+**Automated Tax Categorization:** Classifies transactions into tax-relevant categories (e.g., business expenses, personal spending) using predefined tax rules and machine learning.\
+**Real-Time Tax Report Generation:** Compiles tax-deductible expenses and generates organized reports for tax filing, simplifying year-end tax preparation.\
+**User-Customizable Tax Rules:** Allows users to customize tax rules to better align with their unique tax requirements, ensuring accuracy and compliance.
+
+
