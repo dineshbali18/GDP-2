@@ -642,6 +642,11 @@ Store each report with key details, and use tools like JasperReports or Apache P
 **Automated Tax Categorization and Reporting**\
 **Automated Tax Categorization:** Classifies transactions into tax-relevant categories (e.g., business expenses, personal spending) using predefined tax rules and machine learning.\
 **Real-Time Tax Report Generation:** Compiles tax-deductible expenses and generates organized reports for tax filing, simplifying year-end tax preparation.\
-**User-Customizable Tax Rules:** Allows users to customize tax rules to better align with their unique tax requirements, ensuring accuracy and compliance.
+**User-Customizable Tax Rules:** Allows users to customize tax rules to better align with their unique tax requirements, ensuring accuracy and compliance.\
+
+**Interactive Expense Category Charts**\
+The BearCat Finance app includes interactive charts that categorize expenses, allowing users to effortlessly monitor their spending habits.\
+With dynamic filtering and real-time updates, these charts provide users with a detailed view of where their money goes.\
+Helping them make well-informed financial decisions based on their spending trends.
 
 
