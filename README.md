@@ -649,4 +649,8 @@ The BearCat Finance app includes interactive charts that categorize expenses, al
 With dynamic filtering and real-time updates, these charts provide users with a detailed view of where their money goes.\
 Helping them make well-informed financial decisions based on their spending trends.
 
-
+\
+**Expense tracking and categorization.**\
+Real-time expense tracking keeps users updated on their financial activity instantly.\
+Integration with budgeting tools lets users allocate funds to specific categories, improving financial control.\
+Customizable categories provide flexibility, allowing users to track expenses unique to their lifestyle.
