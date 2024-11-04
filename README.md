@@ -633,3 +633,9 @@ This setup provides a secure, standalone solution for managing bank data in Bear
 To securely store user details, save their information like name, email, and password in a database.\
 Use a strong hash (like bcrypt) to protect passwords, and enable multi-factor authentication for extra security.\
 Encrypt sensitive data and ensure it’s protected during transmission and storage.\
+
+**Implementation of financial reports in Bearcat Finance** \
+Generate summaries of income, expenses, and category-based spending for selected periods. \
+Calculate totals and compare against budgets to highlight overspending. \
+Store each report with key details, and use tools like JasperReports or Apache POI to generate user-friendly PDFs or Excel files.
+
