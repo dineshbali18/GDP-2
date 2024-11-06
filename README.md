@@ -654,3 +654,14 @@ Helping them make well-informed financial decisions based on their spending tren
 Real-time expense tracking keeps users updated on their financial activity instantly.\
 Integration with budgeting tools lets users allocate funds to specific categories, improving financial control.\
 Customizable categories provide flexibility, allowing users to track expenses unique to their lifestyle.
+
+\
+**Interactive charts for expense categories.**\
+Users can tap on chart sections to view detailed expense data within each category.\
+Dynamic filters allow users to customize views by month, quarter, or year.\
+Color-coded categories make it easy to track and compare spending at a glance.
+
+
+
+
+
