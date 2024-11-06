@@ -661,7 +661,7 @@ Users can tap on chart sections to view detailed expense data within each catego
 Dynamic filters allow users to customize views by month, quarter, or year.\
 Color-coded categories make it easy to track and compare spending at a glance.
 
-
-
-
-
+**Expense Splitting feature.**\
+**Select Participants:** Choose users to split expenses, either equally or by custom amounts.\
+**Balance Tracking:** Track who owes whom with automated balance calculations.\
+**Split Summary:** View shared expense summaries in financial reports.
