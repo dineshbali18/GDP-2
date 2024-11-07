@@ -665,3 +665,9 @@ Color-coded categories make it easy to track and compare spending at a glance.
 **Select Participants:** Choose users to split expenses, either equally or by custom amounts.\
 **Balance Tracking:** Track who owes whom with automated balance calculations.\
 **Split Summary:** View shared expense summaries in financial reports.
+
+\
+**Financial Overview Dashboard**\
+The Financial Overview Dashboard provides a quick snapshot of overall financial health, showing total expenses, income, and progress towards savings goals.\
+Interactive charts offer a visual breakdown of spending patterns across various categories, making it easy to identify trends.\
+With real-time updates, the summary always displays the latest data, empowering users to make well-informed financial choices.
