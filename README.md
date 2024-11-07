@@ -677,3 +677,8 @@ To implement a bank API call from the server using an API key, the server first 
 The API key is included in the request headers for authentication and authorization. Upon receiving the request, \
 the server processes the response, extracting and handling the financial data as needed for the application.\
 
+**To implement saving goals on the frontend of the Bearcat Finance App**\
+We can create a form where users can set and customize their saving goals, including the target amount, due date, and progress. \
+Use React's state to track user input and dynamically update the saving goal's progress based on user-defined contributions. \
+You can visualize the progress using interactive charts (like a progress bar or a pie chart) integrated with libraries like Chart.js or ApexCharts. \
+Once the user submits the saving goal, the data can be stored in the backend for persistent tracking.
