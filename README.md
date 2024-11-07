@@ -670,4 +670,10 @@ Color-coded categories make it easy to track and compare spending at a glance.
 **Financial Overview Dashboard**\
 The Financial Overview Dashboard provides a quick snapshot of overall financial health, showing total expenses, income, and progress towards savings goals.\
 Interactive charts offer a visual breakdown of spending patterns across various categories, making it easy to identify trends.\
-With real-time updates, the summary always displays the latest data, empowering users to make well-informed financial choices.
+With real-time updates, the summary always displays the latest data, empowering users to make well-informed financial choices.\
+\
+**Implementing Bank API call**\
+To implement a bank API call from the server using an API key, the server first generates an HTTP request to the bank's API endpoint. \
+The API key is included in the request headers for authentication and authorization. Upon receiving the request, \
+the server processes the response, extracting and handling the financial data as needed for the application.\
+
