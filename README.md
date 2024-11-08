@@ -703,3 +703,9 @@ Also added options for users to edit or delete their saving goals for better goa
 Added an ⁠ Expenses ⁠ table linked to ⁠ UserID ⁠ to store detailed expense records for each user, including categories, amounts, and dates. \
 Implemented functionality to track and categorize expenses, providing users with insights into spending patterns. \
 Added the ability for users to edit or delete expenses and receive notifications when spending exceeds predefined budget limits.
+
+\
+**Budget Management Interface**\
+The BearCat Finance app's budget management interface enables users to create, monitor, and modify their budgets with ease.\
+It offers a straightforward view of spending categories, real-time tracking of expenses, and visual summaries to support users in meeting their financial objectives.\
+The interface is user-friendly, featuring customizable notifications and recommendations to help users maximize their savings.
