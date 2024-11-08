@@ -692,4 +692,9 @@ Once the user submits the saving goal, the data can be stored in the backend for
 **Relational database**\
 Data Security: Encryption is applied to sensitive columns like AccountNumbers and TransactionAmounts to ensure data protection at rest and in transit.\
 Indexes: Indexed columns such as UserID in Transactions and AccountID in Accounts improve query speed for financial summary, report generation, and expense tracking.\
-Triggers: Automated triggers are set up for the Transactions table to update related tables, like SavingsGoals progress, ensuring accurate and real-time financial summaries on the dashboard.
+Triggers: Automated triggers are set up for the Transactions table to update related tables, like SavingsGoals progress, ensuring accurate and real-time financial summaries on the dashboard.\
+\
+**linking saving goals with user**\
+Added a `SavingGoals` table linked to `UserID` to store each user's target savings amount and deadlines. \
+Implemented functionality to track progress toward goals based on monthly contributions, with alerts to notify users of milestones or if they’re falling behind.\
+Also added options for users to edit or delete their saving goals for better goal management.\
