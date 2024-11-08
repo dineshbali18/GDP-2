@@ -687,3 +687,9 @@ Once the user submits the saving goal, the data can be stored in the backend for
 **Progress Visualization:** Use interactive charts to track savings goal progress, with color-coded indicators for milestones and deadlines.\
 **Goal Comparison:** Enable users to compare multiple savings goals side-by-side, highlighting areas that need more attention or adjustments.\
 **Predictive Insights:** Integrate predictive analytics to forecast goal completion based on spending patterns, providing alerts and recommendations for staying on track.
+
+\
+**Relational database**\
+Data Security: Encryption is applied to sensitive columns like AccountNumbers and TransactionAmounts to ensure data protection at rest and in transit.\
+Indexes: Indexed columns such as UserID in Transactions and AccountID in Accounts improve query speed for financial summary, report generation, and expense tracking.\
+Triggers: Automated triggers are set up for the Transactions table to update related tables, like SavingsGoals progress, ensuring accurate and real-time financial summaries on the dashboard.
