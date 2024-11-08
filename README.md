@@ -698,3 +698,8 @@ Triggers: Automated triggers are set up for the Transactions table to update rel
 Added a `SavingGoals` table linked to `UserID` to store each user's target savings amount and deadlines. \
 Implemented functionality to track progress toward goals based on monthly contributions, with alerts to notify users of milestones or if they’re falling behind.\
 Also added options for users to edit or delete their saving goals for better goal management.\
+
+**Expenses ⁠ table linked to ⁠ UserID**\
+Added an ⁠ Expenses ⁠ table linked to ⁠ UserID ⁠ to store detailed expense records for each user, including categories, amounts, and dates. \
+Implemented functionality to track and categorize expenses, providing users with insights into spending patterns. \
+Added the ability for users to edit or delete expenses and receive notifications when spending exceeds predefined budget limits.
