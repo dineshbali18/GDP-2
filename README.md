@@ -715,3 +715,8 @@ The interface is user-friendly, featuring customizable notifications and recomme
 Microservices Architecture: Split the app into independent services (e.g., transaction processing, categorization, reporting) to allow separate scaling and minimize downtime.\
 Database Replication and Sharding: Use replica databases for read-only operations and sharding to spread data across multiple databases, optimizing response times and load distribution.\
 Load Balancing: Distribute user requests across multiple app instances using a load balancer to handle high traffic and maintain uptime during peak loads.
+
+**Investment Tracking Module**\
+**Portfolio Tracking:** Enables users to monitor various investment assets (stocks, bonds, etc.) and view portfolio performance.\
+**Real-Time Updates:** Provides up-to-date market data and insights on asset performance.\
+**Goal Alignment:** Integrates investment tracking with savings goals for optimized financial planning.
