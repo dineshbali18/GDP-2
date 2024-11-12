@@ -725,3 +725,10 @@ Load Balancing: Distribute user requests across multiple app instances using a l
 **Designing a Secure Relational Database for BearCat Finance**
 A relational database for BearCat Finance would organize user data, transactions, and account details in structured tables with defined relationships, promoting data integrity and consistency.\ This setup enables efficient querying, updating, and linking of data across tables, supporting comprehensive reporting and analytics.\
 Essential security measures, such as encryption and access control, safeguard sensitive financial information.
+\
+**interactive Financial Charts**\
+Designed a personalized dashboard for the finance app to give users an overview of their financial health.\
+The dashboard displays key metrics, including total income, expenses, savings, and remaining budget, along with interactive charts for spending by category.\
+Users can see recent transactions, view progress toward savings goals, and receive alerts for budget overspending—all in one centralized view. \
+This layout helps users quickly assess their financial status and make informed decisions.\
+\
