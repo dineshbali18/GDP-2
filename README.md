@@ -720,3 +720,8 @@ Load Balancing: Distribute user requests across multiple app instances using a l
 **Portfolio Tracking:** Enables users to monitor various investment assets (stocks, bonds, etc.) and view portfolio performance.\
 **Real-Time Updates:** Provides up-to-date market data and insights on asset performance.\
 **Goal Alignment:** Integrates investment tracking with savings goals for optimized financial planning.
+
+\
+**Designing a Secure Relational Database for BearCat Finance**
+A relational database for BearCat Finance would organize user data, transactions, and account details in structured tables with defined relationships, promoting data integrity and consistency.\ This setup enables efficient querying, updating, and linking of data across tables, supporting comprehensive reporting and analytics.\
+Essential security measures, such as encryption and access control, safeguard sensitive financial information.
