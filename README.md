@@ -735,3 +735,8 @@ This layout helps users quickly assess their financial status and make informed 
 **Reak time Synchronization**/
 Implementing real-time synchronization in the Bearcat Finance App is essential for keeping users' financial data consistent and up-to-date across multiple devices.\ Real-time synchronization allows users to view and manage their finances on any device—whether mobile, tablet, or desktop without worrying about\ outdated information or manually updating data.\
 \
+\
+**Budget creation and tracking.**\
+Add flexible, user-defined budget categories with real-time tracking and alerts for overspending.\
+Summarize budgets and expenses on the dashboard with interactive charts to compare spending trends.\
+Include analytics with recommendations and projected spending to help users stay on track.
