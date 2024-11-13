@@ -740,3 +740,8 @@ Implementing real-time synchronization in the Bearcat Finance App is essential f
 Add flexible, user-defined budget categories with real-time tracking and alerts for overspending.\
 Summarize budgets and expenses on the dashboard with interactive charts to compare spending trends.\
 Include analytics with recommendations and projected spending to help users stay on track.
+
+**Automated Bill Payment Reminders feature**\
+**Timely Alerts:** Users receive timely reminders for upcoming bills, helping them avoid late payments.\
+**Customizable Scheduling:** Flexible options to set reminder dates and frequencies based on billing cycles.\
+**Integrated Notifications:** Notifications are sent via in-app alerts, emails, or SMS for added convenience.
