@@ -746,7 +746,3 @@ Include analytics with recommendations and projected spending to help users stay
 **Customizable Scheduling:** Flexible options to set reminder dates and frequencies based on billing cycles.\
 **Integrated Notifications:** Notifications are sent via in-app alerts, emails, or SMS for added convenience.\
 \
-**Real time implementation UI**\
-For real-time updates, implement state management with Redux or Context API to sync financial data across components.\
-Use WebSocket or Firebase for live data fetching, allowing updates to reflect immediately in the dashboard when transactions or budgets change.\
-This setup ensures users always view the most current financial information.\
