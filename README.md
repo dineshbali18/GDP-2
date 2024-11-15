@@ -778,3 +778,8 @@ Color-Blind Friendly Palettes: Use patterns or color schemes to accommodate visu
 **Data Minimization**\
 Request only the essential permissions (scopes) and data necessary to complete transactions.\
 Refrain from storing non-essential information to reduce the app's risk profile.
+\
+**Real-time synchronization across devices.**\
+Using a cloud-based database like Firebase. \
+Implement features to sync user data, including budgets, expenses, and savings goals, seamlessly.\
+Ensure synchronization is secure and works efficiently with minimal latency.
