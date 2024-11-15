@@ -773,3 +773,8 @@ Spending Alerts: Highlight overspending in specific categories using visual cues
 Financial Reports: Export interactive charts to PDFs or shareable formats for further analysis.\
 Mobile-Friendly Design: Optimized for smaller screens with responsive touch controls.\
 Color-Blind Friendly Palettes: Use patterns or color schemes to accommodate visual impairments.
+
+/
+**Data Minimization**\
+Request only the essential permissions (scopes) and data necessary to complete transactions.\
+Refrain from storing non-essential information to reduce the app's risk profile.
