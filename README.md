@@ -762,4 +762,8 @@ To enable secure bank account connections within the BearCat Finance app, consid
 These APIs provide access to account details, transactions, and balances while ensuring compliance with industry standards such as PCI-DSS and PSD2.\
 With available SDKs, integration becomes straightforward, and a strong emphasis on user consent, data encryption, and regulatory compliance upholds data security throughout the process.
 
+**Expense Recap and Monthly Report Generation**\
+**Automated Expense Recap:** Automatically summarize monthly expenses by category, highlighting spending trends.\
+**Interactive Reports:** Generate visual charts and graphs for clear insights into monthly financial activity.\
+**Downloadable Reports:** Provide users with the option to export detailed monthly reports in PDF or Excel format for easy record-keeping.
 
