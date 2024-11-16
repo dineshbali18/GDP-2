@@ -782,4 +782,9 @@ Refrain from storing non-essential information to reduce the app's risk profile.
 **Real-time synchronization across devices.**\
 Using a cloud-based database like Firebase. \
 Implement features to sync user data, including budgets, expenses, and savings goals, seamlessly.\
-Ensure synchronization is secure and works efficiently with minimal latency.
+Ensure synchronization is secure and works efficiently with minimal latency.\
+\
+**implementing transaction listing in frontend**
+Display recent transactions with a FlatList, mapping each item to show the transaction amount, date, and category.\
+Use conditional styling to differentiate income and expenses, e.g., green for income and red for expenses.\
+\
