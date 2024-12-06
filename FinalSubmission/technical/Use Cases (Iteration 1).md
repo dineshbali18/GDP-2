@@ -164,4 +164,4 @@
 •	**Postconditions:** Financial data is stored, updated, and retrieved from a secure, relational database.\
 •	**Diagram Reference:** Use Case Diagram 15 – Relational Database Interaction
 
-[UML Diagrams For Use Cases](https://github.com/chathuryareddy2212/GDPFall2024-Group3/tree/main/FinalSubmission/technical)
+[UML Diagrams For Use Cases](https://github.com/chathuryareddy2212/GDPFall2024-Group3/blob/main/FinalSubmission/technical/UML%20Diagrams%20For%20Use%20Cases%20Iteration%201.md)
