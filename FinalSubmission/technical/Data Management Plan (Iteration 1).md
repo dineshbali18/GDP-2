@@ -1,4 +1,4 @@
-# Data Management Plan for BearCat Finance App (Team-3)
+# Data Management Plan Iteration 1
 
 ## 1. Summary of Data to Store:
 The data to be stored is related to personal finance management and includes user-specific financial information. Below is a high-level overview of the fields and entities:
