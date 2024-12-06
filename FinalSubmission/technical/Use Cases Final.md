@@ -1,4 +1,4 @@
-## Use Cases Iteration 2
+## Use Cases Final
 **The Bearcat Finance App is a personal finance management system designed to help users manage their expenses, budgets, and savings goals. Below are the identified use cases for how users will interact with the system.**
 
 **Use Case 1: Track Expenses**\
