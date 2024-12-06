@@ -1,4 +1,4 @@
-## Functional Requirements List Iteration 1
+## Functional Requirements List Iteration 2
 # The system SHALL:
 ## 1. Budget Creation and tracking
 The system SHALL allow users to set a budget via `set_budget()`.\
