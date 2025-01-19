@@ -8,7 +8,7 @@ const expenseRoutes = require('./routes/expenseRoutes');
 const userRoutes = require('./routes/userRoutes');
 app.use(express.json());
 
-app.use('/api/budget', budgetRoutes);
+app.use('/api/budget', budcalgetRoutes);
 app.use('/api/saving-goals', savingGoalsRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/users', userRoutes);
