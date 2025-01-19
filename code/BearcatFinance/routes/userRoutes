@@ -1,24 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const { registerUser, loginUser, getUserDetails } = require('../controllers/userController');  // Import controller methods
 
-router.post('/users/register', (req, res) => {
-    return res.json({ message: "Register a new user" });
-});
+// Route to register a new user
+router.post('/register', registerUser);
 
-router.post('/users/login', (req, res) => {
-    return res.json({ message: "Login a user" });
-});
+// Route to authenticate a user
+router.post('/login', loginUser);
 
-router.get('/users/:userId', (req, res) => {
-    return res.json({ message: "Get user details" });
-});
-
-router.put('/users/:userId', (req, res) => {
-    return res.json({ message: "Update user details" });
-});
-
-router.delete('/users/:userId', (req, res) => {
-    return res.json({ message: "Delete a user" });
-});
+// Route to get user details by userID
+router.get('/:userID', getUserDetails);  // Use dynamic route parameter for userID
 
 module.exports = router;
