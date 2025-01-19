@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize');  // Import Sequelize
 const budgetRoutes = require('./routes/budgetRoutes');
 const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes.js');
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
