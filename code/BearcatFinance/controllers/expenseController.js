@@ -106,6 +106,25 @@ const expensesController = {
       return res.status(500).json({ error: 'Failed to delete expense.' });
     }
   },
+  syncTransactions: async (req, res) => {
+    try {
+      // Fetch transactions from Bearcat Bank API
+      const response = await axios.get('https://api.bearcatbank.com/transactions');
+      const transactions = response.data;
+
+      // Add each transaction to the expenses table
+      for (const transaction of transactions) {
+        await addExpense(transaction);
+      }
+
+      return res.status(200).send('Transactions synced successfully');
+    } catch (error) {
+      console.error('Error syncing transactions:', error);
+      return res.status(500).send('Error syncing transactions: ' + error.message);
+    }
+  },
 };
+
+
 
 module.exports = expensesController;

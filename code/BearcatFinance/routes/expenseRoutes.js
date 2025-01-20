@@ -17,4 +17,10 @@ router.put('/expenses/:expenseId', expensesController.updateExpense);
 // Delete an expense
 router.delete('/expenses/:expenseId', expensesController.deleteExpense);
 
+// also create an endpoint to get the transactions from our bearcat bank and add them to 
+// our expenses table.
+router.get('/sync-transactions', expensesController.syncTransactions);
+
+
+
 module.exports = router;
