@@ -1,24 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const budgetsController = require('../controllers/budgetsController');
 
-router.get('/user/:userId/budgets', (req, res) => {
-    return res.json({ message: "Gets budgets for a user" });
-});
+// Get all budgets for a specific user
+router.get('/user/:userId/budgets', budgetsController.getBudgetsForUser);
 
-router.get('/budgets/:budgetId', (req, res) => {
-    return res.json({ message: "Gets details of a specific budget" });
-});
+// Get details of a specific budget
+router.get('/budgets/:budgetId', budgetsController.getBudgetById);
 
-router.post('/budgets', (req, res) => {
-    return res.json({ message: "Creates a new budget" });
-});
+// Create a new budget
+router.post('/budgets', budgetsController.createBudget);
 
-router.put('/budgets/:budgetId', (req, res) => {
-    return res.json({ message: "Updates a budget" });
-});
+// Update a specific budget
+router.put('/budgets/:budgetId', budgetsController.updateBudget);
 
-router.delete('/budgets/:budgetId', (req, res) => {
-    return res.json({ message: "Deletes a budget" });
-});
+// Delete a specific budget
+router.delete('/budgets/:budgetId', budgetsController.deleteBudget);
 
 module.exports = router;
