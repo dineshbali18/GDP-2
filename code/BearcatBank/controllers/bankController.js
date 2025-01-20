@@ -1,4 +1,4 @@
-const BankAccountDetails = require('../models/BankAccountDetails');
+const BankAccountDetails = require('../models/bank');
 const Transactions = require('../models/transactions');
 
 // Create a new bank account

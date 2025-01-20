@@ -1,51 +1,45 @@
 const express = require('express');
 const app = express();
-const port = 3000;
-const { Sequelize } = require('sequelize');  // Import Sequelize
+const port = 3001;
+const { Sequelize } = require('sequelize');
 
-// Import route files
-const budgetRoutes = require('./routes/budgetRoutes');
-const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
-const expenseRoutes = require('./routes/expenseRoutes');
-const userRoutes = require('./routes/userRoutes.js');
+// Set up Sequelize connection
+const sequelize = new Sequelize('bearcat_bank', 'root', 'root', {
+  host: 'localhost',
+  dialect: 'mysql',
+  port: 3306,
+});
+
+// Test the database connection
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+// Import models and pass the sequelize instance
+const Bank = require('./models/bank')(sequelize, Sequelize);
+const Transactions = require('./models/transactions')(sequelize, Sequelize);
+
+// Sync the database to create tables
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Database & tables created!');
+  })
+  .catch(err => {
+    console.error('Error creating database & tables:', err);
+  });
+
+// Import bankRoutes
+const bankRoutes = require('./routes/bankRoutes');
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
-// Set up the Sequelize connection to MySQL
-const sequelize = new Sequelize('mysql://root:root@localhost:3306/', {
-  dialect: 'mysql',  // Specify the dialect as MySQL
-  logging: false     // Set to true to log SQL queries in the console
-});
-
-// Test the MySQL connection
-sequelize.authenticate()
-  .then(() => {
-    console.log('Connection to the MySQL database has been established successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the MySQL database:', err);
-  });
-
-// Sync the database (create tables if they don't exist)
-sequelize.sync({ force: false })  // Set force: true to drop and recreate tables during development
-  .then(() => {
-    console.log('Database synchronized successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to synchronize the database:', err);
-  });
-
-// Set up routes
-app.use('/api/budget', budgetRoutes);
-app.use('/api/saving-goals', savingGoalsRoutes);
-app.use('/api/expenses', expenseRoutes);
-app.use('/api/users', userRoutes);
-
-// Default route
-app.get('/', (req, res) => {
-  res.send('Server is running...');
-});
+// Use the imported bankRoutes
+app.use('/bank', bankRoutes);
 
 // Start the server
 app.listen(port, () => {
