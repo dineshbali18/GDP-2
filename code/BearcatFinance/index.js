@@ -1,48 +1,52 @@
 const express = require('express');
 const app = express();
-const port = 3000;
-const { Sequelize } = require('sequelize');  // Import Sequelize
+const port = 3001;
+const { Sequelize } = require('sequelize');
 
-// Import route files
-const budgetRoutes = require('./routes/budgetRoutes');
-const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
-const expenseRoutes = require('./routes/expenseRoutes');
-const userRoutes = require('./routes/userRoutes.js');
-
-// Middleware for parsing JSON bodies
-app.use(express.json());
-
-// Set up the Sequelize connection to MySQL
-const sequelize = new Sequelize('mysql://username:password@localhost:3306/database_name', {
-  dialect: 'mysql',  // Specify the dialect as MySQL
-  logging: false     // Set to true to log SQL queries in the console
+const sequelize = new Sequelize('bearcat_finance_app', 'root', 'root', {
+  host: 'localhost',
+  dialect: 'mysql',
+  port: 3306,
 });
 
-// Test the MySQL connection
 sequelize.authenticate()
   .then(() => {
-    console.log('Connection to the MySQL database has been established successfully.');
+    console.log('Connection has been established successfully.');
   })
-  .catch((err) => {
-    console.error('Unable to connect to the MySQL database:', err);
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
   });
 
-// Sync the database (create tables if they don't exist)
-sequelize.sync({ force: false })  // Set force: true to drop and recreate tables during development
+// const BankDetails = require('./models/bankDetails')(sequelize, Sequelize);
+// const Budgets = require('./models/budgets')(sequelize, Sequelize);
+// const Expenses = require('./models/expenses')(sequelize, Sequelize);
+// const SavingGoals = require('./models/savingGoals')(sequelize, Sequelize);
+const User = require('./models/user')(sequelize, Sequelize);
+// const UserBankAccounts = require('./models/userBankAccounts')(sequelize, Sequelize);
+
+sequelize.sync({ force: true })
   .then(() => {
-    console.log('Database synchronized successfully.');
+    console.log('Database & tables created!');
   })
-  .catch((err) => {
-    console.error('Unable to synchronize the database:', err);
+  .catch(err => {
+    console.error('Error creating database & tables:', err);
   });
 
-// Set up routes
-app.use('/api/budget', budgetRoutes);
-app.use('/api/saving-goals', savingGoalsRoutes);
-app.use('/api/expenses', expenseRoutes);
-app.use('/api/users', userRoutes);
+// const budgetRoutes = require('./routes/budgetRoutes');
+// const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
+// const expenseRoutes = require('./routes/expenseRoutes');
+const userRoutes = require('./routes/userRoutes');
+// const bankRoutes = require('./routes/bankRoutes');
 
-// Default route
+app.use(express.json());
+
+// app.use('/api/budget', budgetRoutes);
+// app.use('/api/saving-goals', savingGoalsRoutes);
+// app.use('/api/expenses', expenseRoutes);
+app.use('/api/users', userRoutes);
+// app.use('/bank', bankRoutes);
+
+// Root route
 app.get('/', (req, res) => {
   res.send('Server is running...');
 });

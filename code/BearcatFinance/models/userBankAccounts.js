@@ -1,39 +1,33 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const Users = require('./Users'); // Ensure the Users model exists
-const BankDetails = require('./bankDetails.js'); // Ensure the BankDetails model exists
-
-const UserBankAccounts = sequelize.define('UserBankAccounts', {
-  UserBankAccountID: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  UserID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Users,
-      key: 'UserID',
+module.exports = (sequelize, DataTypes) => {
+  const UserBankAccounts = sequelize.define('UserBankAccounts', {
+    UserBankAccountID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-  },
-  BankID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: BankDetails,
-      key: 'BankID',
+    UserID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users', // Name of the table
+        key: 'UserID',
+      },
     },
-  },
-  AccountNumber: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  Username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+    BankID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'BankDetails', // Name of the table
+        key: 'BankID',
+      },
+    },
+    AccountNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    AccountBalance: {
+      type: DataTypes.DECIMAL(15, 2),
+      defaultValue: 0.0,
+    },
+  });
 
-module.exports = UserBankAccounts;
+  return UserBankAccounts;
+};

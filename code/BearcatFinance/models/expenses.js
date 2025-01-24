@@ -1,46 +1,37 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const Transactions = require('./Transactions');
-const Category = require('./Category'); // Ensure you define the Category model
-
-const Expenses = sequelize.define('Expenses', {
-  TransactionID: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: {
-      model: Transactions,
-      key: 'TransactionID',
+module.exports = (sequelize, DataTypes) => {
+  const Expenses = sequelize.define('Expenses', {
+    ExpenseID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-  },
-  AccountID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  Date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  Description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  CategoryID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Category,
-      key: 'CategoryID',
+    TransactionID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Transactions', // Name of the table
+        key: 'TransactionID',
+      },
     },
-  },
-  Amount: {
-    type: DataTypes.DECIMAL(15, 2),
-    allowNull: false,
-  },
-  TransactionType: {
-    type: DataTypes.ENUM('credit', 'debit'),
-    allowNull: false,
-  },
-});
+    CategoryID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Categories', // Name of the table
+        key: 'CategoryID',
+      },
+    },
+    Amount: {
+      type: DataTypes.DECIMAL(15, 2),
+      allowNull: false,
+    },
+    Description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    Date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+  });
 
-module.exports = Expenses;
+  return Expenses;
+};

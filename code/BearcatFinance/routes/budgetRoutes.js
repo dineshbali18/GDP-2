@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const budgetsController = require('../controllers/budgetsController');
+const budgetsController = require('../controllers/budgetController');
 
 // Get all budgets for a specific user
 router.get('/user/:userId/budgets', budgetsController.getBudgetsForUser);

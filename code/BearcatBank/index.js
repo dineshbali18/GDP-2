@@ -20,7 +20,7 @@ sequelize.authenticate()
   });
 
 // Import models and pass the sequelize instance
-const Bank = require('./models/bank')(sequelize, Sequelize);
+const BankAccountDetails = require('./models/bank')(sequelize, Sequelize);
 const Transactions = require('./models/transactions')(sequelize, Sequelize);
 
 // Sync the database to create tables
@@ -40,6 +40,10 @@ app.use(express.json());
 
 // Use the imported bankRoutes
 app.use('/bank', bankRoutes);
+
+app.get('/test1', (req, res) => {
+  res.send('Hello World!');
+});
 
 // Start the server
 app.listen(port, () => {

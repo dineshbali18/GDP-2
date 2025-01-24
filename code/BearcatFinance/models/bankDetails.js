@@ -1,21 +1,20 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+module.exports = (sequelize, DataTypes) => {
+  const BankDetails = sequelize.define('BankDetails', {
+    BankID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    BankName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    BankApiKey: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  });
 
-const BankDetails = sequelize.define('BankDetails', {
-  BankID: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  BankName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  BankAPIKey: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
-
-module.exports = BankDetails;
+  return BankDetails;
+};
