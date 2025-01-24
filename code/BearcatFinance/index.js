@@ -17,12 +17,15 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-// const BankDetails = require('./models/bankDetails')(sequelize, Sequelize);
-// const Budgets = require('./models/budgets')(sequelize, Sequelize);
-// const Expenses = require('./models/expenses')(sequelize, Sequelize);
-// const SavingGoals = require('./models/savingGoals')(sequelize, Sequelize);
-const User = require('./models/user')(sequelize, Sequelize);
-// const UserBankAccounts = require('./models/userBankAccounts')(sequelize, Sequelize);
+const Category = require('./models/categories')(sequelize, Sequelize);
+const BankDetails = require('./models/bankDetails')(sequelize, Sequelize);
+const User = require('./models/users')(sequelize, Sequelize);
+const Budgets = require('./models/budgets')(sequelize, Sequelize);
+const Expenses = require('./models/expenses')(sequelize, Sequelize);
+const SavingGoals = require('./models/savingGoals')(sequelize, Sequelize);
+const UserBankAccounts = require('./models/userBankAccounts')(sequelize, Sequelize);
+
+
 
 sequelize.sync({ force: true })
   .then(() => {
@@ -32,19 +35,19 @@ sequelize.sync({ force: true })
     console.error('Error creating database & tables:', err);
   });
 
-// const budgetRoutes = require('./routes/budgetRoutes');
-// const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
-// const expenseRoutes = require('./routes/expenseRoutes');
+const budgetRoutes = require('./routes/budgetRoutes');
+const savingGoalsRoutes = require('./routes/savingGoalsRoutes');
+const expenseRoutes = require('./routes/expenseRoutes');
 const userRoutes = require('./routes/userRoutes');
-// const bankRoutes = require('./routes/bankRoutes');
+
 
 app.use(express.json());
 
-// app.use('/api/budget', budgetRoutes);
-// app.use('/api/saving-goals', savingGoalsRoutes);
-// app.use('/api/expenses', expenseRoutes);
+app.use('/api/budget', budgetRoutes);
+app.use('/api/saving-goals', savingGoalsRoutes);
+app.use('/api/expenses', expenseRoutes);
 app.use('/api/users', userRoutes);
-// app.use('/bank', bankRoutes);
+
 
 // Root route
 app.get('/', (req, res) => {

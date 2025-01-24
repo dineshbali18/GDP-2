@@ -2,10 +2,10 @@ const { v1: uuidv1 } = require('uuid');
 const crypto = require('crypto');
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define('Users', {
     UserID: {
-      type: DataTypes.UUID,
-      defaultValue: uuidv1,
+      type: DataTypes.INTEGER,
+      autoincrement: true,
       primaryKey: true,
     },
     username: {

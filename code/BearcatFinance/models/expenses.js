@@ -7,16 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     TransactionID: {
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Transactions', // Name of the table
-        key: 'TransactionID',
-      },
     },
     CategoryID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Categories', // Name of the table
-        key: 'CategoryID',
+        model: 'categories', // Name of the table
+        key: 'id',
       },
     },
     Amount: {

@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserID: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      references: {
+        model: 'users', // Name of the table
+        key: 'UserID',
+      },
     },
     GoalName: {
       type: DataTypes.STRING,
