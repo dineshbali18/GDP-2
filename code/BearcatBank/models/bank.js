@@ -14,9 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       AccountNumber: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         unique: true,
         allowNull: false,
+        autoIncrement: true,
       },
       AccountBalance: {
         type: DataTypes.DECIMAL(15, 2),
