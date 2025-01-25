@@ -19,6 +19,7 @@ sequelize.authenticate()
 
 const BankAccountDetails = require('./models/bank')(sequelize, Sequelize);
 const Transactions = require('./models/transactions')(sequelize, Sequelize);
+const User = require('./models/users')(sequelize, Sequelize);
 
 sequelize.sync({ force: true })
   .then(() => {
@@ -29,10 +30,14 @@ sequelize.sync({ force: true })
   });
 
 const bankRoutes = require('./routes/bankRoutes');
-
+const userRoutes = require('./routes/userRoutes');
 app.use(express.json());
 
+app.use('/user',userRoutes)
 app.use('/bank', bankRoutes);
+app.use('/test', (req, res) => {
+  res.send('Hello World!');
+});
 
 app.get('/test1', (req, res) => {
   res.send('Hello World!');

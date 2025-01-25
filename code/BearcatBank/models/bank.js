@@ -13,12 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      AccountNumber: {
-        type: DataTypes.INTEGER,
-        unique: true,
-        allowNull: false,
-        autoIncrement: true,
-      },
       AccountBalance: {
         type: DataTypes.DECIMAL(15, 2),
         defaultValue: 0.0,
