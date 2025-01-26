@@ -55,29 +55,45 @@ module.exports = (sequelize) => {
   };
 
   const loginUser = async (req, res) => {
-    const { username, password } = req.body;
-
+    const { email, password } = req.body;
+  
     try {
-      const user = await User.findOne({ where: { username } });
-
+      // Check if the user exists by username
+      const user = await User.findOne({ where: { email } });
+  
       if (user && await user.validatePassword(password)) {
-        // OTP generation for 2FA
+        // Step 1: Generate OTP for 2FA
         const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email: user.email });
-
-        if (otpApiResponse.status !== 200 || !otpApiResponse.data.success) {
-          return res.status(500).json({ error: 'Failed to send OTP for 2FA.' });
+  
+        console.log("otpApiResponse", otpApiResponse);
+  
+        // Check if OTP generation was successful
+        if (otpApiResponse.status !== 200) {
+          return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
         }
-
-        res.status(200).json({
-          message: 'Authentication successful. OTP sent for 2FA.',
+  
+        // Step 2: Send OTP to the user's email
+        const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email: user.email });
+  
+        console.log("sendOtpResponse", sendOtpResponse.status);
+  
+        // Check if OTP sending was successful
+        if (sendOtpResponse.status !== 200) {
+          return res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
+        }
+  
+        // If everything is successful, respond with the login confirmation and OTP sent
+        return res.status(200).json({
+          message: 'Authentication successful. OTP has been sent for 2FA.',
           user: { username: user.username, email: user.email },
         });
       } else {
-        res.status(400).json({ error: 'Invalid credentials' });
+        return res.status(400).json({ error: 'Invalid credentials' });
       }
+  
     } catch (err) {
       console.error('Error during login:', err);
-      res.status(500).json({ error: 'An error occurred during login.' });
+      return res.status(500).json({ error: 'An error occurred during login.' });
     }
   };
 

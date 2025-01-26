@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
     username: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
     },
     password: {
       type: DataTypes.STRING(150),
@@ -33,6 +32,12 @@ module.exports = (sequelize) => {
   User.beforeCreate((user) => {
     user.password = crypto.createHash('sha256').update(user.password).digest('hex');
   });
+
+  // Method to validate password
+  User.prototype.validatePassword = function (password) {
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+    return this.password === hashedPassword;
+  };
 
   return User;
 };
