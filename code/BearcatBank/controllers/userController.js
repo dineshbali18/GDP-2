@@ -7,41 +7,51 @@ module.exports = (sequelize) => {
 
   const registerUser = async (req, res) => {
     const { username, email, phoneNum, password } = req.body;
-
+  
     try {
+      // Check if the user already exists
       const existingUser = await User.findOne({ where: { email } });
       if (existingUser) {
         return res.status(400).json({ error: 'User already exists' });
       }
-
+  
+      // Create the user in the database
       const user = await User.create({ username, email, phoneNum, password });
-      if(user.UserID!=undefined){
-        res.status(201).json({
-          message: 'User registered successfully.',
+      
+      if (user.UserID !== undefined) {
+        // Step 1: Make request to AWS OTP service for 2FA (Generate OTP)
+        const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email });
+  
+        console.log("otpApiResponse", otpApiResponse);
+        // Check if OTP generation was successful
+        if (otpApiResponse.status !== 200) {
+          // Rollback user creation if OTP generation failed
+          await user.destroy();
+          return res.status(500).json({ error: 'Failed to generate OTP. Registration rolled back.' });
+        }
+  
+        // Step 2: Send OTP to the user's email
+        const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email });
+  
+        console.log("sendOtpResponse::::::::::", sendOtpResponse.status);
+        // Check if OTP sending was successful
+        if (sendOtpResponse.status !== 200) {
+          // Rollback user creation if OTP sending failed
+          await user.destroy();
+          return res.status(500).json({ error: 'Failed to send OTP. Registration rolled back.' });
+        }
+  
+        // If everything is successful, respond with the user registration details
+        return res.status(201).json({
+          message: 'User registered successfully. OTP has been sent.',
           user: { username: user.username, email: user.email, phoneNum: user.phoneNum },
         });
       }
+  
     } catch (err) {
-        console.error('Error registering user:', err);
-        res.status(500).json({ error: 'An error occurred during registration.' });
+      console.error('Error registering user:', err);
+      return res.status(500).json({ error: 'An error occurred during registration.' });
     }
-      // Make request to AWS OTP service for 2FA
-    //   const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email });
-
-    //   if (otpApiResponse.status !== 200 || !otpApiResponse.data.success) {
-    //     await user.destroy();
-    //     return res.status(500).json({ error: 'Failed to generate OTP. Registration rolled back.' });
-    //   }
-
-    //   res.status(201).json({
-    //     message: 'User registered successfully. OTP has been sent.',
-    //     user: { username: user.username, email: user.email, phoneNum: user.phoneNum },
-    //   });
-    // } catch (err) {
-    //   console.error('Error registering user:', err);
-    //   res.status(500).json({ error: 'An error occurred during registration.' });
-    // }
-    
   };
 
   const loginUser = async (req, res) => {
