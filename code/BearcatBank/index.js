@@ -34,9 +34,12 @@ sequelize.sync({ force: false }) // Set force: false to avoid dropping tables on
   });
 
 // Routes (Pass sequelize to routes and controllers correctly)
-const userRoutes = require('./routes/userRoutes')(sequelize);  
+const userRoutes = require('./routes/userRoutes')(sequelize);
+const bankRoutes = require('./routes/bankRoutes')(sequelize);
+
 app.use(express.json());
 app.use('/user', userRoutes);
+app.use('/bank', bankRoutes);
 
 // Basic Routes for Testing
 app.use('/test', (req, res) => {

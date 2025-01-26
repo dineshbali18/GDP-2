@@ -1,15 +1,20 @@
 const express = require('express');
-const { createBankAccount, addTransaction, getAllTransactions } = require('../controllers/bankController');
-
 const router = express.Router();
 
-// Route to create a new bank account
-// router.post('/createAccount', createBankAccount);
+module.exports = (sequelize) => {
+  // Import controller methods
+  const bankController = require('../controllers/bankController')(sequelize); // Import the controller and pass sequelize
 
-// // Route to add a transaction to a specific bank account
-// router.post('/addTransaction', addTransaction);
+  const { createBankAccount, addTransaction, getAllTransactions } = bankController;
 
-// // Route to get all transactions for a specific bank account
-// router.get('/transactions/:AccountNumber', getAllTransactions);
+  // Route to create a new bank account
+  router.post('/createAccount', createBankAccount);
 
-module.exports = router;
+  // Route to add a transaction to a specific bank account
+  router.post('/addTransaction', addTransaction);
+
+  // Route to get all transactions for a specific bank account
+  router.get('/transactions/:AccountNumber', getAllTransactions);
+
+  return router;
+};
