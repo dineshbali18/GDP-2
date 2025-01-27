@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../jwt/verify');
+
 
 module.exports = (sequelize) => {
   // Import controller methods
@@ -14,7 +16,7 @@ module.exports = (sequelize) => {
   router.post('/login', loginUser);
 
   // Route to get user details
-  router.get('/details/:userID', getUserDetails);
+  router.get('/details/:userID', verifyToken, getUserDetails);
 
   return router;
 };

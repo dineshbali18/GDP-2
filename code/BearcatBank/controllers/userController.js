@@ -110,6 +110,7 @@ module.exports = (sequelize) => {
 
   const getUserDetails = async (req, res) => {
     const { userID } = req.params;
+    
 
     try {
       const user = await User.findOne({ where: { UserID: userID } });
