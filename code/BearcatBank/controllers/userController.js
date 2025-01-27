@@ -1,5 +1,7 @@
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
+const SECRET_KEY = process.env.JWT_SECRET || 'gdpFall2024Group3SecretKey';
 
 // Ensure sequelize is passed correctly to the controller
 module.exports = (sequelize) => {
@@ -58,14 +60,14 @@ module.exports = (sequelize) => {
     const { email, password } = req.body;
   
     try {
-      // Check if the user exists by username
+      // Check if the user exists by email
       const user = await User.findOne({ where: { email } });
   
       if (user && await user.validatePassword(password)) {
         // Step 1: Generate OTP for 2FA
         const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email: user.email });
   
-        console.log("otpApiResponse", otpApiResponse);
+        console.log("otpApiResponse", otpApiResponse.status);
   
         // Check if OTP generation was successful
         if (otpApiResponse.status !== 200) {
@@ -82,15 +84,24 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
         }
   
-        // If everything is successful, respond with the login confirmation and OTP sent
+        // Step 3: Generate a JWT token (but do not consider it authenticated until OTP is verified)
+        const token = jwt.sign(
+          {
+            userId: user.id,
+            email: user.email,
+          },
+          SECRET_KEY,
+          { expiresIn: '5h' } 
+        );
+  
         return res.status(200).json({
           message: 'Authentication successful. OTP has been sent for 2FA.',
-          user: { username: user.username, email: user.email },
+          token, 
+          user: { username: user.username, email: user.email, id: user.UserID },
         });
       } else {
         return res.status(400).json({ error: 'Invalid credentials' });
       }
-  
     } catch (err) {
       console.error('Error during login:', err);
       return res.status(500).json({ error: 'An error occurred during login.' });
