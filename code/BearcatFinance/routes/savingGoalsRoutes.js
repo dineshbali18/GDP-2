@@ -1,20 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const savingGoalsController = require('../controllers/savingGoalsController');
+const verifyToken = require('../jwt/verify');
 
-// Get all saving goals for a user
-router.get('/saving-goals/user/:userId', savingGoalsController.getSavingGoalsForUser);
+module.exports = (sequelize) => {
+  // Import controller methods
+  const savingGoalsController = require('../controllers/savingGoalsController')(sequelize);
 
-// Get details of a specific saving goal
-router.get('/saving-goals/goal/:goalId', savingGoalsController.getSavingGoalById);
+  const {
+    getSavingGoalsForUser,
+    getSavingGoalById,
+    addSavingGoal,
+    updateSavingGoal,
+    deleteSavingGoal
+  } = savingGoalsController;
 
-// Add a new saving goal
-router.post('/saving-goals', savingGoalsController.addSavingGoal);
+  // Get all saving goals for a user
+  router.get('/user/:userId', verifyToken, getSavingGoalsForUser);
 
-// Update a saving goal
-router.put('/saving-goals/:goalId', savingGoalsController.updateSavingGoal);
+  // Get details of a specific saving goal
+  router.get('/goal/:goalId', verifyToken, getSavingGoalById);
 
-// Delete a saving goal
-router.delete('/saving-goals/:goalId', savingGoalsController.deleteSavingGoal);
+  // Add a new saving goal
+  router.post('/', verifyToken, addSavingGoal);
 
-module.exports = router;
+  // Update a saving goal
+  router.put('/:goalId', verifyToken, updateSavingGoal);
+
+  // Delete a saving goal
+  router.delete('/:goalId', verifyToken, deleteSavingGoal);
+
+  return router;
+};

@@ -1,19 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getUserDetails } = require('../controllers/userController');  // Import controller methods
+const verifyToken = require('../jwt/verify');
 
-// Route to register a new user
-router.post('/register', registerUser);
-// after clicking on signup and after each login make a req to AWSotpmicroservice
-// so that i will generate a code req body is the emial and validate it in the next page..
 
-// Route to authenticate a user
-router.post('/login', loginUser);
+module.exports = (sequelize) => {
+  // Import controller methods
+  const userController = require('../controllers/userController')(sequelize); // Import the controller and pass sequelize
 
-// Route to authenticate a user
-router.post('/', loginUser);
+  const { registerUser, loginUser, getUserDetails } = userController;
 
-// Route to get user details by userID
-router.get('/:userID', getUserDetails);  // Use dynamic route parameter for userID
+  // Route to register a new user
+  router.post('/register', registerUser);
 
-module.exports = router;
+  // Route to login a user
+  router.post('/login', loginUser);
+
+  // Route to get user details
+  router.get('/details/:userID', verifyToken, getUserDetails);
+
+  return router;
+};

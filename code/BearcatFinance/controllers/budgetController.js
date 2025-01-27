@@ -1,8 +1,8 @@
-const Budgets = require('../models/budgets');
+module.exports = (sequelize) => {
+  const Budgets = require('../models/budgets')(sequelize); // Import the Budgets model
 
-const budgetsController = {
   // Get all budgets for a specific user
-  getBudgetsForUser: async (req, res) => {
+  const getBudgetsForUser = async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -16,10 +16,10 @@ const budgetsController = {
       console.error('Error fetching budgets:', err);
       return res.status(500).json({ error: 'Failed to fetch budgets for the user.' });
     }
-  },
+  };
 
   // Get details of a specific budget
-  getBudgetById: async (req, res) => {
+  const getBudgetById = async (req, res) => {
     const { budgetId } = req.params;
 
     try {
@@ -33,10 +33,10 @@ const budgetsController = {
       console.error('Error fetching budget details:', err);
       return res.status(500).json({ error: 'Failed to fetch budget details.' });
     }
-  },
+  };
 
   // Create a new budget
-  createBudget: async (req, res) => {
+  const createBudget = async (req, res) => {
     const { UserID, CategoryID, BudgetAmount, StartDate, EndDate } = req.body;
 
     try {
@@ -56,10 +56,10 @@ const budgetsController = {
       console.error('Error creating budget:', err);
       return res.status(500).json({ error: 'Failed to create budget.' });
     }
-  },
+  };
 
   // Update a specific budget
-  updateBudget: async (req, res) => {
+  const updateBudget = async (req, res) => {
     const { budgetId } = req.params;
     const { BudgetAmount, StartDate, EndDate } = req.body;
 
@@ -79,10 +79,10 @@ const budgetsController = {
       console.error('Error updating budget:', err);
       return res.status(500).json({ error: 'Failed to update budget.' });
     }
-  },
+  };
 
   // Delete a specific budget
-  deleteBudget: async (req, res) => {
+  const deleteBudget = async (req, res) => {
     const { budgetId } = req.params;
 
     try {
@@ -98,7 +98,13 @@ const budgetsController = {
       console.error('Error deleting budget:', err);
       return res.status(500).json({ error: 'Failed to delete budget.' });
     }
-  },
-};
+  };
 
-module.exports = budgetsController;
+  return {
+    getBudgetsForUser,
+    getBudgetById,
+    createBudget,
+    updateBudget,
+    deleteBudget,
+  };
+};

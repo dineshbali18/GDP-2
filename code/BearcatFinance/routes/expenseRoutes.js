@@ -1,26 +1,37 @@
 const express = require('express');
 const router = express.Router();
-const expensesController = require('../controllers/expenseController');
+const verifyToken = require('../jwt/verify');
 
-// Get all expenses for a specific user
-router.get('/expenses/user/:userId', expensesController.getExpensesForUser);
+module.exports = (sequelize) => {
+  // Import controller methods
+  const expensesController = require('../controllers/expenseController')(sequelize); // Import the controller and pass sequelize
 
-// Get details of a specific expense
-router.get('/expenses/:expenseId', expensesController.getExpenseById);
+  const { 
+    getExpensesForUser,
+    getExpenseById,
+    addExpense,
+    updateExpense,
+    deleteExpense,
+    syncTransactions
+  } = expensesController;
 
-// Add a new expense
-router.post('/expenses', expensesController.addExpense);
+  // Get all expenses for a specific user
+  router.get('/expenses/user/:userId', verifyToken, getExpensesForUser);
 
-// Update an expense
-router.put('/expenses/:expenseId', expensesController.updateExpense);
+  // Get details of a specific expense
+  router.get('/expenses/:expenseId', verifyToken, getExpenseById);
 
-// Delete an expense
-router.delete('/expenses/:expenseId', expensesController.deleteExpense);
+  // Add a new expense
+  router.post('/expenses', verifyToken, addExpense);
 
-// also create an endpoint to get the transactions from our bearcat bank and add them to 
-// our expenses table.
-router.get('/sync-transactions', expensesController.syncTransactions);
+  // Update an expense
+  router.put('/expenses/:expenseId', verifyToken, updateExpense);
 
+  // Delete an expense
+  router.delete('/expenses/:expenseId', verifyToken, deleteExpense);
 
+  // Sync transactions from Bearcat Bank and add them to expenses table
+  router.get('/sync-transactions', verifyToken, syncTransactions);
 
-module.exports = router;
+  return router;
+};

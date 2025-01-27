@@ -1,4 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
+const crypto = require('crypto');
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
   const Budgets = sequelize.define('Budgets', {
     BudgetID: {
       type: DataTypes.INTEGER,
@@ -22,6 +25,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  // Hook to format BudgetName before creation (example use case, replace with actual logic if needed)
+  Budgets.beforeCreate((budget) => {
+    budget.BudgetName = budget.BudgetName.trim();
+  });
+
+  // Instance method to calculate remaining days for the budget
+  Budgets.prototype.getRemainingDays = function () {
+    const today = new Date();
+    const endDate = new Date(this.EndDate);
+    const diffTime = endDate - today;
+    return diffTime > 0 ? Math.ceil(diffTime / (1000 * 60 * 60 * 24)) : 0;
+  };
 
   return Budgets;
 };

@@ -1,8 +1,10 @@
-const Expenses = require('../models/expenses');
+const axios = require('axios');
 
-const expensesController = {
+module.exports = (sequelize) => {
+  const Expenses = require('../models/expenses')(sequelize); // Import the Expenses model
+
   // Get all expenses for a specific user
-  getExpensesForUser: async (req, res) => {
+  const getExpensesForUser = async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -16,10 +18,10 @@ const expensesController = {
       console.error('Error fetching expenses:', err);
       return res.status(500).json({ error: 'Failed to fetch expenses for the user.' });
     }
-  },
+  };
 
   // Get details of a specific expense
-  getExpenseById: async (req, res) => {
+  const getExpenseById = async (req, res) => {
     const { expenseId } = req.params;
 
     try {
@@ -33,34 +35,21 @@ const expensesController = {
       console.error('Error fetching expense details:', err);
       return res.status(500).json({ error: 'Failed to fetch expense details.' });
     }
-  },
+  };
 
   // Add a new expense
-  addExpense: async (req, res) => {
-    const { AccountID, Date, Description, CategoryID, Amount, TransactionType } = req.body;
-
+  const addExpense = async (expenseData) => {
     try {
-      const newExpense = await Expenses.create({
-        AccountID,
-        Date,
-        Description,
-        CategoryID,
-        Amount,
-        TransactionType,
-      });
-
-      return res.status(201).json({
-        message: 'Expense added successfully.',
-        expense: newExpense,
-      });
+      const newExpense = await Expenses.create(expenseData);
+      return newExpense;
     } catch (err) {
       console.error('Error adding expense:', err);
-      return res.status(500).json({ error: 'Failed to add expense.' });
+      throw new Error('Failed to add expense.');
     }
-  },
+  };
 
   // Update an expense
-  updateExpense: async (req, res) => {
+  const updateExpense = async (req, res) => {
     const { expenseId } = req.params;
     const { Date, Description, CategoryID, Amount, TransactionType } = req.body;
 
@@ -86,10 +75,10 @@ const expensesController = {
       console.error('Error updating expense:', err);
       return res.status(500).json({ error: 'Failed to update expense.' });
     }
-  },
+  };
 
   // Delete an expense
-  deleteExpense: async (req, res) => {
+  const deleteExpense = async (req, res) => {
     const { expenseId } = req.params;
 
     try {
@@ -105,8 +94,10 @@ const expensesController = {
       console.error('Error deleting expense:', err);
       return res.status(500).json({ error: 'Failed to delete expense.' });
     }
-  },
-  syncTransactions: async (req, res) => {
+  };
+
+  // Sync transactions with Bearcat Bank API
+  const syncTransactions = async (req, res) => {
     try {
       // Fetch transactions from Bearcat Bank API
       const response = await axios.get('https://api.bearcatbank.com/transactions');
@@ -122,9 +113,14 @@ const expensesController = {
       console.error('Error syncing transactions:', error);
       return res.status(500).send('Error syncing transactions: ' + error.message);
     }
-  },
+  };
+
+  return {
+    getExpensesForUser,
+    getExpenseById,
+    addExpense,
+    updateExpense,
+    deleteExpense,
+    syncTransactions,
+  };
 };
-
-
-
-module.exports = expensesController;

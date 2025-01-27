@@ -1,8 +1,10 @@
-const SavingGoals = require('../models/savingGoals');
+const axios = require('axios');
 
-const savingGoalsController = {
+module.exports = (sequelize) => {
+  const SavingGoals = require('../models/savingGoals')(sequelize); // Import the SavingGoals model
+
   // Get all saving goals for a user
-  getSavingGoalsForUser: async (req, res) => {
+  const getSavingGoalsForUser = async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -16,10 +18,10 @@ const savingGoalsController = {
       console.error('Error fetching saving goals:', err);
       return res.status(500).json({ error: 'Failed to fetch saving goals for the user.' });
     }
-  },
+  };
 
   // Get details of a specific saving goal
-  getSavingGoalById: async (req, res) => {
+  const getSavingGoalById = async (req, res) => {
     const { goalId } = req.params;
 
     try {
@@ -33,10 +35,10 @@ const savingGoalsController = {
       console.error('Error fetching saving goal details:', err);
       return res.status(500).json({ error: 'Failed to fetch saving goal details.' });
     }
-  },
+  };
 
   // Add a new saving goal
-  addSavingGoal: async (req, res) => {
+  const addSavingGoal = async (req, res) => {
     const { UserID, GoalName, TargetAmount, CurrentAmount, Deadline } = req.body;
 
     try {
@@ -56,10 +58,10 @@ const savingGoalsController = {
       console.error('Error adding saving goal:', err);
       return res.status(500).json({ error: 'Failed to add saving goal.' });
     }
-  },
+  };
 
   // Update a saving goal
-  updateSavingGoal: async (req, res) => {
+  const updateSavingGoal = async (req, res) => {
     const { goalId } = req.params;
     const { GoalName, TargetAmount, CurrentAmount, Deadline } = req.body;
 
@@ -84,10 +86,10 @@ const savingGoalsController = {
       console.error('Error updating saving goal:', err);
       return res.status(500).json({ error: 'Failed to update saving goal.' });
     }
-  },
+  };
 
   // Delete a saving goal
-  deleteSavingGoal: async (req, res) => {
+  const deleteSavingGoal = async (req, res) => {
     const { goalId } = req.params;
 
     try {
@@ -103,7 +105,7 @@ const savingGoalsController = {
       console.error('Error deleting saving goal:', err);
       return res.status(500).json({ error: 'Failed to delete saving goal.' });
     }
-  },
-};
+  };
 
-module.exports = savingGoalsController;
+  return { getSavingGoalsForUser, getSavingGoalById, addSavingGoal, updateSavingGoal, deleteSavingGoal };
+};

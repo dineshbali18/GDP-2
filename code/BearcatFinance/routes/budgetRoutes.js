@@ -1,20 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const budgetsController = require('../controllers/budgetController');
+const verifyToken = require('../jwt/verify');
 
-// Get all budgets for a specific user
-router.get('/user/:userId/budgets', budgetsController.getBudgetsForUser);
+module.exports = (sequelize) => {
+  // Import controller methods
+  const budgetsController = require('../controllers/budgetController')(sequelize); // Import the controller and pass sequelize
 
-// Get details of a specific budget
-router.get('/budgets/:budgetId', budgetsController.getBudgetById);
+  const {
+    getBudgetsForUser,
+    getBudgetById,
+    createBudget,
+    updateBudget,
+    deleteBudget
+  } = budgetsController;
 
-// Create a new budget
-router.post('/budgets', budgetsController.createBudget);
+  // Get all budgets for a specific user
+  router.get('/user/:userId/budgets', verifyToken, getBudgetsForUser);
 
-// Update a specific budget
-router.put('/budgets/:budgetId', budgetsController.updateBudget);
+  // Get details of a specific budget
+  router.get('/budgets/:budgetId', verifyToken, getBudgetById);
 
-// Delete a specific budget
-router.delete('/budgets/:budgetId', budgetsController.deleteBudget);
+  // Create a new budget
+  router.post('/budgets', verifyToken, createBudget);
 
-module.exports = router;
+  // Update a specific budget
+  router.put('/budgets/:budgetId', verifyToken, updateBudget);
+
+  // Delete a specific budget
+  router.delete('/budgets/:budgetId', verifyToken, deleteBudget);
+
+  return router;
+};

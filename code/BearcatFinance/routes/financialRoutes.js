@@ -1,24 +1,33 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../jwt/verify');
 
-router.get('/financial-reports/:userId', (req, res) => {
-    return res.json({ message: "Get all financial reports for a user" });
-});
+module.exports = (sequelize) => {
+  // Import controller methods
+  const financialReportsController = require('../controllers/financialReportsController')(sequelize);
 
-router.get('/financial-reports/:reportId', (req, res) => {
-    return res.json({ message: "Get details of a specific financial report" });
-});
+  const {
+    getFinancialReportsForUser,
+    getFinancialReportById,
+    generateFinancialReport,
+    updateFinancialReport,
+    deleteFinancialReport
+  } = financialReportsController;
 
-router.post('/financial-reports', (req, res) => {
-    return res.json({ message: "Generate a new financial report" });
-});
+  // Get all financial reports for a user
+  router.get('/user/:userId', verifyToken, getFinancialReportsForUser);
 
-router.put('/financial-reports/:reportId', (req, res) => {
-    return res.json({ message: "Update a financial report" });
-});
+  // Get details of a specific financial report
+  router.get('/:reportId', verifyToken, getFinancialReportById);
 
-router.delete('/financial-reports/:reportId', (req, res) => {
-    return res.json({ message: "Delete a financial report" });
-});
+  // Generate a new financial report
+  router.post('/', verifyToken, generateFinancialReport);
 
-module.exports = router;
+  // Update a financial report
+  router.put('/:reportId', verifyToken, updateFinancialReport);
+
+  // Delete a financial report
+  router.delete('/:reportId', verifyToken, deleteFinancialReport);
+
+  return router;
+};

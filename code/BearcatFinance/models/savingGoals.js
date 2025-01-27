@@ -1,4 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
+const crypto = require('crypto');
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
   const SavingGoals = sequelize.define('SavingGoals', {
     GoalID: {
       type: DataTypes.INTEGER,
@@ -7,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserID: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'users', // Name of the table
         key: 'UserID',
@@ -29,7 +33,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
   });
+
+  // Hook to format GoalName before creation (example use case, replace with actual logic if needed)
+  SavingGoals.beforeCreate((goal) => {
+    goal.GoalName = goal.GoalName.trim();
+  });
+
+  // Instance method to calculate remaining amount needed to reach the goal
+  SavingGoals.prototype.getRemainingAmount = function () {
+    return this.TargetAmount - this.CurrentAmount;
+  };
 
   return SavingGoals;
 };

@@ -1,4 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
+const crypto = require('crypto');
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
   const Expenses = sequelize.define('Expenses', {
     ExpenseID: {
       type: DataTypes.INTEGER,
@@ -7,9 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     TransactionID: {
       type: DataTypes.INTEGER,
+      allowNull: true,
     },
     CategoryID: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'categories', // Name of the table
         key: 'id',
@@ -28,6 +33,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
     },
   });
+
+  // Hook to format Description before creation (example use case, replace with actual logic if needed)
+  Expenses.beforeCreate((expense) => {
+    if (expense.Description) {
+      expense.Description = expense.Description.trim();
+    }
+  });
+
+  // Instance method to format expense details as a string
+  Expenses.prototype.getExpenseDetails = function () {
+    return `Expense: ${this.Description || 'N/A'}, Amount: $${this.Amount}, Date: ${this.Date}`;
+  };
 
   return Expenses;
 };
