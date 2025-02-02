@@ -1,20 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const verifyTokenWithUserID = require('../jwt/verify');
 
 module.exports = (sequelize) => {
-  // Import controller methods
-  const bankController = require('../controllers/bankController')(sequelize); // Import the controller and pass sequelize
-
+  const bankController = require('../controllers/bankController')(sequelize); 
   const { createBankAccount, addTransaction, getAllTransactions } = bankController;
 
-  // Route to create a new bank account
-  router.post('/createAccount', createBankAccount);
+  router.post('/createAccount', verifyTokenWithUserID ,createBankAccount);
 
-  // Route to add a transaction to a specific bank account
-  router.post('/addTransaction', addTransaction);
+  router.post('/addTransaction',verifyTokenWithUserID , addTransaction);
 
-  // Route to get all transactions for a specific bank account
-  router.get('/transactions/:AccountNumber', getAllTransactions);
+  router.get('/transactions/:AccountNumber',verifyTokenWithUserID , getAllTransactions);
 
   return router;
 };

@@ -15,6 +15,10 @@ module.exports = (sequelize) => {
         key: 'AccountNumber',
       },
     },
+    Products: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,

@@ -53,26 +53,29 @@ module.exports = (sequelize) => {
       const user = await User.findOne({ where: { email } });
   
       if (user && await user.validatePassword(password)) {
-        const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email: user.email });
+        // const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email: user.email });
   
-        console.log("otpApiResponse", otpApiResponse.status);
+        // console.log("otpApiResponse", otpApiResponse.status);
   
-        if (otpApiResponse.status !== 200) {
-          return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
-        }
+        // if (otpApiResponse.status !== 200) {
+        //   return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
+        // }
   
-        const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email: user.email });
+        // const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email: user.email });
   
-        console.log("sendOtpResponse", sendOtpResponse.status);
+        // console.log("sendOtpResponse", sendOtpResponse.status);
   
-        if (sendOtpResponse.status !== 200) {
-          return res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
-        }
+        // if (sendOtpResponse.status !== 200) {
+        //   return res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
+        // }
+
+        console.log('User:1111111111', user);
   
         const token = jwt.sign(
           {
-            userId: user.id,
+            userID: user.UserID,
             email: user.email,
+            role: user.role,
           },
           SECRET_KEY,
           { expiresIn: '5h' } 

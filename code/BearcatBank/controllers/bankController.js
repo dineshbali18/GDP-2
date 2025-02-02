@@ -1,12 +1,19 @@
+const user = require('../models/user');
+
 module.exports = (sequelize) => {
   const BankAccount = require('../models/bankAccount')(sequelize);
   const Transaction = require('../models/transaction')(sequelize);
 
   const createBankAccount = async (req, res) => {
-    const { AccountNumber, userID } = req.body;
+    const { customer_userID,AccountNumber } = req.body;
 
+    admin_userID = req.user.role === 'admin' ? req.user.userID : null;
+    if(admin_userID === null){
+      return res.status(401).json({ error: 'Unauthorized access' });
+    }
     try {
-      const existingAccount = await BankAccount.findOne({ where: { AccountNumber } });
+      userID = customer_userID;
+      const existingAccount = await BankAccount.findOne({ where: { userID } });
       if (existingAccount) {
         return res.status(400).json({ error: 'Account already exists' });
       }
@@ -20,10 +27,12 @@ module.exports = (sequelize) => {
   };
 
   const addTransaction = async (req, res) => {
-    const { AccountNumber, amount, type } = req.body;
+    userID = req.user.userID;
+    const { amount, type, Products } = req.body;
 
     try {
-      const account = await BankAccount.findOne({ where: { AccountNumber } });
+      const account = await BankAccount.findOne({ where: { userID } });
+      console.log("account::::::::::::",account);
       if (!account) {
         return res.status(404).json({ error: 'Account not found' });
       }
@@ -41,8 +50,8 @@ module.exports = (sequelize) => {
 
       account.balance = newBalance;
       await account.save();
-
-      const transaction = await Transaction.create({ AccountNumber, amount, type });
+      const AccountNumber = account.AccountNumber;
+      const transaction = await Transaction.create({ AccountNumber, amount, type, Products });
       res.status(201).json({ message: 'Transaction added successfully', transaction });
     } catch (err) {
       console.error('Error adding transaction:', err);
