@@ -17,7 +17,6 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-// Importing models
 const User = require('./models/user')(sequelize, DataTypes);
 const BankAccountDetails = require('./models/bankAccount')(sequelize, DataTypes);
 const UserBankAccounts = require('./models/userBankAccounts')(sequelize, DataTypes);
@@ -35,7 +34,6 @@ sequelize.sync({ force: false })
     console.error('Error creating database & tables:', err);
   });
 
-// Importing routes
 const userRoutes = require('./routes/userRoutes')(sequelize);
 const userBankAccountRoutes = require('./routes/userBankAccountRoutes')(sequelize);
 const savingGoalRoutes = require('./routes/savingGoalRoutes')(sequelize);
@@ -44,10 +42,9 @@ const categoryRoutes = require('./routes/categoryRoutes')(sequelize);
 const budgetRoutes = require('./routes/budgetRoutes')(sequelize);
 const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
 
-// Middleware
+
 app.use(express.json());
 
-// Setting up routes
 app.use('/user', userRoutes);
 app.use('/userBankAccount', userBankAccountRoutes);
 app.use('/savingGoal', savingGoalRoutes);
@@ -56,7 +53,6 @@ app.use('/category', categoryRoutes);
 app.use('/budget', budgetRoutes);
 app.use('/bankDetail', bankDetailRoutes);
 
-// Test routes
 app.use('/test', (req, res) => {
   res.send('Hello World!');
 });

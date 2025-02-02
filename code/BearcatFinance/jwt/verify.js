@@ -14,7 +14,7 @@ const verifyTokenWithUserID = (req, res, next) => {
         return res.status(401).json({ error: 'Token missing.' });
       }
   
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, SECRET_KEY);
   
       const { userID } = req.body || req.params || {}; 
       if (userID && decoded.userID !== userID) {

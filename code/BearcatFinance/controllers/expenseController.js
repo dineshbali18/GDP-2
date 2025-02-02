@@ -100,9 +100,18 @@ module.exports = (sequelize) => {
   const syncTransactions = async (req, res) => {
     try {
       // Fetch transactions from Bearcat Bank API
-      const response = await axios.get('https://api.bearcatbank.com/transactions');
+      // we are passng a hardcoded account number for now
+      const response = await axios.get('http://localhost:3001/bank/transactions/123456789');
       const transactions = response.data;
+      // each product should be a new transaction in the expenses table
+      // however the deposit and withdrawal are individual transactions
+      // keep an offset in database to keep track of the last transaction synced.
 
+
+      //once the new transactions come we have to update our budgets and saving goals.
+      //for that we have to use kafka or redis to publish the new transactions and then update the budgets and saving goals.
+
+      //batch insert all transactions here.
       // Add each transaction to the expenses table
       for (const transaction of transactions) {
         await addExpense(transaction);
