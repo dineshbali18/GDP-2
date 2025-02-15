@@ -37,12 +37,12 @@ sequelize.sync({ force: false })
   });
 
 const userRoutes = require('./routes/userRoutes')(sequelize);
-const userBankAccountRoutes = require('./routes/')(sequelize);
+const userBankAccountRoutes = require('./routes/userBankAccountRoutes')(sequelize);
 const savingGoalRoutes = require('./routes/savingGoalsRoutes')(sequelize);
 const expenseRoutes = require('./routes/expenseRoutes')(sequelize);
-const categoryRoutes = require('./routes/')(sequelize);
+const categoryRoutes = require('./routes/categoryRoutes')(sequelize);
 const budgetRoutes = require('./routes/budgetRoutes')(sequelize);
-const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
+const bankDetailRoutes = require('./routes/bankDetailsRoutes')(sequelize);
 
 
 app.use(express.json());

@@ -1,6 +1,6 @@
 // controllers/categoryController.js
 module.exports = (sequelize) => {
-    const Category = require('../models/category')(sequelize);
+    const Category = require('../models/categories')(sequelize);
   
     // Get all categories
     const getCategories = async (req, res) => {
