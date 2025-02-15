@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   const BankDetails = require('../models/bankDetails')(sequelize);
 
   // Get all bank details
-  const getAllBanks = async (req, res) => {
+  const getAllBanksDetails = async (req, res) => {
     try {
       const banks = await BankDetails.findAll();
       if (!banks || banks.length === 0) {
@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
   };
 
   // Get a single bank detail by BankID
-  const getBankById = async (req, res) => {
+  const getBankDetailsById = async (req, res) => {
     try {
       const { bankId } = req.params;
       const bank = await BankDetails.findByPk(bankId);
@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
   };
 
   // Create a new bank detail
-  const createBank = async (req, res) => {
+  const addBankDetails = async (req, res) => {
     try {
       const bankData = req.body;
       const newBank = await BankDetails.create(bankData);
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
   };
 
   // Update an existing bank detail
-  const updateBank = async (req, res) => {
+  const updateBankDetails = async (req, res) => {
     try {
       const { bankId } = req.params;
       const { BankName, BankApiKey } = req.body;
@@ -74,7 +74,7 @@ module.exports = (sequelize) => {
   };
 
   // Delete a bank detail
-  const deleteBank = async (req, res) => {
+  const deleteBankDetails = async (req, res) => {
     try {
       const { bankId } = req.params;
       const bank = await BankDetails.findByPk(bankId);
@@ -90,10 +90,10 @@ module.exports = (sequelize) => {
   };
 
   return {
-    getAllBanks,
-    getBankById,
-    createBank,
-    updateBank,
-    deleteBank,
+    getAllBanksDetails,
+    getBankDetailsById,
+    addBankDetails,
+    updateBankDetails,
+    deleteBankDetails,
   };
 };
