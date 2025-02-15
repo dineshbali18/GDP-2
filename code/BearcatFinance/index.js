@@ -37,23 +37,23 @@ sequelize.sync({ force: false })
   });
 
 const userRoutes = require('./routes/userRoutes')(sequelize);
-// const userBankAccountRoutes = require('./routes/')(sequelize);
+const userBankAccountRoutes = require('./routes/')(sequelize);
 const savingGoalRoutes = require('./routes/savingGoalsRoutes')(sequelize);
 const expenseRoutes = require('./routes/expenseRoutes')(sequelize);
-// const categoryRoutes = require('./routes/')(sequelize);
+const categoryRoutes = require('./routes/')(sequelize);
 const budgetRoutes = require('./routes/budgetRoutes')(sequelize);
-// const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
+const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
 
 
 app.use(express.json());
 
 app.use('/user', userRoutes);
-// app.use('/userBankAccount', userBankAccountRoutes);
+app.use('/userBankAccount', userBankAccountRoutes);
 app.use('/savingGoal', savingGoalRoutes);
 app.use('/expense', expenseRoutes);
-// app.use('/category', categoryRoutes);
+app.use('/category', categoryRoutes);
 app.use('/budget', budgetRoutes);
-// app.use('/bankDetail', bankDetailRoutes);
+app.use('/bankDetail', bankDetailRoutes);
 
 app.use('/test', (req, res) => {
   console.log("Test route hit 11111111111111111111111",req.query);

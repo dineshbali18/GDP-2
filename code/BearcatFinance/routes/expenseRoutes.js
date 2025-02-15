@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
   router.get('/expenses/:expenseId', verifyToken, getExpenseById);
 
   // Add a new expense
-  router.post('/expenses', verifyToken, addExpense);
+  router.post('/create/expenses', verifyToken, addExpense);
 
   // Update an expense
   router.put('/expenses/:expenseId', verifyToken, updateExpense);
