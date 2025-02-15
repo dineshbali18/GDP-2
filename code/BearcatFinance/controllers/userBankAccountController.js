@@ -3,12 +3,10 @@ module.exports = (sequelize) => {
     const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
   
     // Get all bank accounts
-    const getAllAccounts = async (req, res) => {
+    const getAllUserAccounts = async (req, res) => {
+      console.log("AAAAAAAAAAAAAAA",req.user);
       try {
-        const accounts = await UserBankAccounts.findAll();
-        if (!accounts || accounts.length === 0) {
-          return res.status(404).json({ message: 'No bank accounts found.' });
-        }
+        const accounts = await UserBankAccounts.findAll({where : {UserID : req.user.userId}});
         return res.status(200).json(accounts);
       } catch (err) {
         console.error('Error fetching bank accounts:', err);
@@ -32,7 +30,7 @@ module.exports = (sequelize) => {
     };
   
     // Create a new bank account
-    const createAccount = async (req, res) => {
+    const addAccount = async (req, res) => {
       try {
         const accountData = req.body;
         const newAccount = await UserBankAccounts.create(accountData);
@@ -80,9 +78,9 @@ module.exports = (sequelize) => {
     };
   
     return {
-      getAllAccounts,
+      getAllUserAccounts,
       getAccountById,
-      createAccount,
+      addAccount,
       updateAccount,
       deleteAccount,
     };
