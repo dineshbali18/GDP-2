@@ -1,7 +1,10 @@
 const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
 const app = express();
-const port = 3001;
+const port = 3002;
+// const redis = require('./redis/redisClient');
+const { redisPublisher } = require('./redis/redisClient')
+require('./redis/subcriber/redisSubscriber');
 
 const sequelize = new Sequelize('bearcat_finance_app', 'root', 'root', {
   host: 'localhost',
@@ -17,12 +20,11 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-const User = require('./models/user')(sequelize, DataTypes);
-const BankAccountDetails = require('./models/bankAccount')(sequelize, DataTypes);
+  const Category = require('./models/categories')(sequelize, DataTypes);
+const User = require('./models/users')(sequelize, DataTypes);
 const UserBankAccounts = require('./models/userBankAccounts')(sequelize, DataTypes);
 const SavingGoals = require('./models/savingGoals')(sequelize, DataTypes);
 const Expenses = require('./models/expenses')(sequelize, DataTypes);
-const Category = require('./models/category')(sequelize, DataTypes);
 const Budgets = require('./models/budgets')(sequelize, DataTypes);
 const BankDetails = require('./models/bankDetails')(sequelize, DataTypes);
 
@@ -35,25 +37,29 @@ sequelize.sync({ force: false })
   });
 
 const userRoutes = require('./routes/userRoutes')(sequelize);
-const userBankAccountRoutes = require('./routes/userBankAccountRoutes')(sequelize);
-const savingGoalRoutes = require('./routes/savingGoalRoutes')(sequelize);
+// const userBankAccountRoutes = require('./routes/')(sequelize);
+const savingGoalRoutes = require('./routes/savingGoalsRoutes')(sequelize);
 const expenseRoutes = require('./routes/expenseRoutes')(sequelize);
-const categoryRoutes = require('./routes/categoryRoutes')(sequelize);
+// const categoryRoutes = require('./routes/')(sequelize);
 const budgetRoutes = require('./routes/budgetRoutes')(sequelize);
-const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
+// const bankDetailRoutes = require('./routes/bankDetailRoutes')(sequelize);
 
 
 app.use(express.json());
 
 app.use('/user', userRoutes);
-app.use('/userBankAccount', userBankAccountRoutes);
+// app.use('/userBankAccount', userBankAccountRoutes);
 app.use('/savingGoal', savingGoalRoutes);
 app.use('/expense', expenseRoutes);
-app.use('/category', categoryRoutes);
+// app.use('/category', categoryRoutes);
 app.use('/budget', budgetRoutes);
-app.use('/bankDetail', bankDetailRoutes);
+// app.use('/bankDetail', bankDetailRoutes);
 
 app.use('/test', (req, res) => {
+  console.log("Test route hit 11111111111111111111111",req.query);
+  msgId = req.query.msgId;
+  console.log("param::::::::::::::::::::::::::::::::::::",msgId);
+  redisPublisher.publish('transactions.sync', JSON.stringify(msgId));
   res.send('Hello World!');
 });
 

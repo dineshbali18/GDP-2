@@ -20,6 +20,7 @@
     "express-validator": "^7.2.1",
     "formidable": "^3.5.2",
     "git": "^0.1.5",
+    "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
     "loadash": "^1.0.0",
     "mongoose": "^8.9.5",

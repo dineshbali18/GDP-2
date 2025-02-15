@@ -1,4 +1,5 @@
 const axios = require('axios');
+const redis = require('../redis/redisClient');
 
 module.exports = (sequelize) => {
   const Expenses = require('../models/expenses')(sequelize); // Import the Expenses model
@@ -96,33 +97,32 @@ module.exports = (sequelize) => {
     }
   };
 
-  // Sync transactions with Bearcat Bank API
   const syncTransactions = async (req, res) => {
     try {
-      // Fetch transactions from Bearcat Bank API
-      // we are passng a hardcoded account number for now
-      const response = await axios.get('http://localhost:3001/bank/transactions/123456789');
-      const transactions = response.data;
-      // each product should be a new transaction in the expenses table
-      // however the deposit and withdrawal are individual transactions
-      // keep an offset in database to keep track of the last transaction synced.
+        const accountId = '123456789'; 
+        const lastSyncedId = await getLastSyncedTransactionId(accountId);
 
+        const response = await axios.get(`http://localhost:3001/bank/transactions/${accountId}?since=${lastSyncedId}`);
+        const transactions = response.data;
 
-      //once the new transactions come we have to update our budgets and saving goals.
-      //for that we have to use kafka or redis to publish the new transactions and then update the budgets and saving goals.
+        if (!transactions || transactions.length === 0) {
+            return res.status(200).send('No new transactions to sync');
+        }
 
-      //batch insert all transactions here.
-      // Add each transaction to the expenses table
-      for (const transaction of transactions) {
-        await addExpense(transaction);
-      }
+        await addExpensesBatch(transactions);  
 
-      return res.status(200).send('Transactions synced successfully');
+        const message = JSON.stringify(transactions);
+        await publishAsync('transactions.sync', message);  // Publish to Redis
+
+        await updateLastSyncedTransactionId(accountId, transactions[transactions.length - 1].id);
+
+        return res.status(200).send('Transactions synced successfully');
     } catch (error) {
-      console.error('Error syncing transactions:', error);
-      return res.status(500).send('Error syncing transactions: ' + error.message);
+        console.error('Error syncing transactions:', error);
+        return res.status(500).send('Error syncing transactions: ' + error.message);
     }
-  };
+};
+
 
   return {
     getExpensesForUser,

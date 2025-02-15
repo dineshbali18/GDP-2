@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.JWT_SECRET || 'gdpFall2024Group3SecretKey';
 
 module.exports = (sequelize) => {
-  const User = require('../models/user')(sequelize); 
+  const User = require('../models/users')(sequelize); 
 
   const registerUser = async (req, res) => {
     const { username, email, phoneNum, password } = req.body;

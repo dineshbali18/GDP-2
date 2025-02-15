@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
   // Delete an expense
   router.delete('/expenses/:expenseId', verifyToken, deleteExpense);
 
+  //make a request to sync transactions from Bearcat Bank to expenses table 
   // Sync transactions from Bearcat Bank and add them to expenses table
   router.get('/sync-transactions', verifyToken, syncTransactions);
 
