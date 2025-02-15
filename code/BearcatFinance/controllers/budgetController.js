@@ -37,13 +37,13 @@ module.exports = (sequelize) => {
 
   // Create a new budget
   const createBudget = async (req, res) => {
-    const { UserID, CategoryID, BudgetAmount, StartDate, EndDate } = req.body;
+    const { BudgetName, UserID, Amount, StartDate, EndDate } = req.body;
 
     try {
       const newBudget = await Budgets.create({
+        BudgetName,
         UserID,
-        CategoryID,
-        BudgetAmount,
+        Amount,
         StartDate,
         EndDate,
       });
