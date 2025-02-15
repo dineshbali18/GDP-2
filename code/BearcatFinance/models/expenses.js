@@ -28,6 +28,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    UserID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users', // Name of the table
+        key: 'UserID',
+      },
+    },
     Date: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

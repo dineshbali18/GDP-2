@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-  const User = sequelize.define('User', {
+  const Users = sequelize.define('Users', {
     UserID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -34,14 +34,14 @@ module.exports = (sequelize) => {
     },
   });
 
-  User.beforeCreate((user) => {
+  Users.beforeCreate((user) => {
     user.password = crypto.createHash('sha256').update(user.password).digest('hex');
   });
 
-  User.prototype.validatePassword = function (password) {
+  Users.prototype.validatePassword = function (password) {
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     return this.password === hashedPassword;
   };
 
-  return User;
+  return Users;
 };

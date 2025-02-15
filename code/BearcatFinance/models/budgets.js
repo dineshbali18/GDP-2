@@ -12,6 +12,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    UserID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users', // Name of the table
+        key: 'UserID',
+      },
+    },
     Amount: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
