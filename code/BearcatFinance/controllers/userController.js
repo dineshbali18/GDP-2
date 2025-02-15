@@ -68,10 +68,11 @@ module.exports = (sequelize) => {
         if (sendOtpResponse.status !== 200) {
           return res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
         }
-  
+        console.log("USER:::",user);
+        console.log("USERID:::111",user.UserID);
         const token = jwt.sign(
           {
-            userId: user.id,
+            userId: user.UserID,
             email: user.email,
           },
           SECRET_KEY,

@@ -38,16 +38,20 @@ module.exports = (sequelize) => {
     }
   };
 
-  // Add a new expense
-  const addExpense = async (expenseData) => {
+  const addExpense = async (req, res) => {
     try {
+      // Assuming expense data is sent in the request body
+      const expenseData = req.body;
+      expenseData.UserID = req.user.userId;
       const newExpense = await Expenses.create(expenseData);
-      return newExpense;
+      return res.json({ success: true, data: newExpense });
     } catch (err) {
       console.error('Error adding expense:', err);
-      throw new Error('Failed to add expense.');
+      return res.json({ success: false, error: 'Failed to add expense. Please try again.' });
     }
   };
+  
+  
 
   // Update an expense
   const updateExpense = async (req, res) => {

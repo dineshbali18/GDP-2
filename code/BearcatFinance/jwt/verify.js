@@ -16,8 +16,12 @@ const verifyTokenWithUserID = (req, res, next) => {
   
       const decoded = jwt.verify(token, SECRET_KEY);
   
-      const { userID } = req.body || req.params || {}; 
-      if (userID && decoded.userID !== userID) {
+      const { userID } = req.body || req.params || {};
+      console.log('userID:111', userID); 
+      console.log('userID:222', decoded); 
+      console.log('userID:222', decoded.userId); 
+
+      if (userID && decoded.userId !== userID) {
         return res.status(403).json({ error: 'User ID does not match token.' });
       }
   

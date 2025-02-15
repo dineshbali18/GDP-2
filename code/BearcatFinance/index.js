@@ -20,7 +20,7 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-  const Category = require('./models/categories')(sequelize, DataTypes);
+const Category = require('./models/categories')(sequelize, DataTypes);
 const User = require('./models/users')(sequelize, DataTypes);
 const UserBankAccounts = require('./models/userBankAccounts')(sequelize, DataTypes);
 const SavingGoals = require('./models/savingGoals')(sequelize, DataTypes);
@@ -53,7 +53,7 @@ app.use('/savingGoal', savingGoalRoutes);
 app.use('/expense', expenseRoutes);
 app.use('/category', categoryRoutes);
 app.use('/budget', budgetRoutes);
-app.use('/bankDetail', bankDetailRoutes);
+app.use('/bankDetails', bankDetailRoutes);
 
 app.use('/test', (req, res) => {
   console.log("Test route hit 11111111111111111111111",req.query);
