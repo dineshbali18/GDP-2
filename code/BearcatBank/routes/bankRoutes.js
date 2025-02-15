@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
 
   router.post('/addTransaction',verifyTokenWithUserID , addTransaction);
 
-  router.get('/transactions/:AccountNumber',verifyTokenWithUserID , getAllTransactions);
+  router.get('/transactions/:AccountNumber' , getAllTransactions);
 
   return router;
 };
