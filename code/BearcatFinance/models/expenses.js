@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'categories', // Name of the table
+        model: 'Categories', // Name of the table
         key: 'id',
       },
     },
