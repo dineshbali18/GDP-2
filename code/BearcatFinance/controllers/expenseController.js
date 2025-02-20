@@ -14,6 +14,8 @@ module.exports = (sequelize) => {
         return res.status(404).json({ message: 'No expenses found for this user.' });
       }
 
+      console.log("Eeeeeeee",expenses[0].ExpenseID)
+
       return res.status(200).json(expenses);
     } catch (err) {
       console.error('Error fetching expenses:', err);

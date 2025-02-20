@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -16,9 +15,27 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Categories', // Name of the table
+        model: 'Categories',
         key: 'id',
       },
+    },
+    GoalID: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'SavingGoals',  // Ensure 'Goals' table exists
+        key: 'GoalID',
+      },
+      defaultValue:null,
+    },
+    BudgetID: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Budgets',
+        key: 'BudgetID',
+      },
+      defaultValue:null,
     },
     Amount: {
       type: DataTypes.DECIMAL(15, 2),
@@ -28,11 +45,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    TransactionType: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    Merchandise: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     UserID: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users', // Name of the table
+        model: 'Users',
         key: 'UserID',
       },
     },
@@ -42,14 +67,12 @@ module.exports = (sequelize) => {
     },
   });
 
-  // Hook to format Description before creation (example use case, replace with actual logic if needed)
   Expenses.beforeCreate((expense) => {
     if (expense.Description) {
       expense.Description = expense.Description.trim();
     }
   });
 
-  // Instance method to format expense details as a string
   Expenses.prototype.getExpenseDetails = function () {
     return `Expense: ${this.Description || 'N/A'}, Amount: $${this.Amount}, Date: ${this.Date}`;
   };
