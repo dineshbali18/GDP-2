@@ -23,6 +23,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    merchandise: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     type: {
       type: DataTypes.ENUM,
       values: ['deposit', 'withdrawal'],
