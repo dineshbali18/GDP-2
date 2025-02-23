@@ -39,21 +39,21 @@ module.exports = (sequelize) => {
   });
 
   // Hook to hash account number before creation (example use case, replace with actual logic if needed)
-  UserBankAccounts.beforeCreate((account) => {
-    account.AccountNumber = crypto
-      .createHash('sha256')
-      .update(account.AccountNumber)
-      .digest('hex');
-  });
+  // UserBankAccounts.beforeCreate((account) => {
+  //   account.AccountNumber = crypto
+  //     .createHash('sha256')
+  //     .update(account.AccountNumber)
+  //     .digest('hex');
+  // });
 
   // Instance method to validate account number (example use case, replace with actual logic if needed)
-  UserBankAccounts.prototype.validateAccountNumber = function (accountNumber) {
-    const hashedAccountNumber = crypto
-      .createHash('sha256')
-      .update(accountNumber)
-      .digest('hex');
-    return this.AccountNumber === hashedAccountNumber;
-  };
+  // UserBankAccounts.prototype.validateAccountNumber = function (accountNumber) {
+  //   const hashedAccountNumber = crypto
+  //     .createHash('sha256')
+  //     .update(accountNumber)
+  //     .digest('hex');
+  //   return this.AccountNumber === hashedAccountNumber;
+  // };
 
   return UserBankAccounts;
 };
