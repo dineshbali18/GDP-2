@@ -28,5 +28,13 @@ module.exports = (sequelize) => {
     return `Category: ${this.name}, Description: ${this.description || 'N/A'}`;
   };
 
+  Categories.getCategoryNameById = async function (categoryId) {
+    const category = await Categories.findByPk(categoryId);
+    if (category) {
+      return category.name;
+    }
+    throw new Error('Category not found');
+  };
+  
   return Categories;
 };

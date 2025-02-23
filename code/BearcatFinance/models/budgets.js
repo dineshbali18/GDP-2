@@ -24,6 +24,10 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
     },
+    AmountSpent:{
+      type: DataTypes.DECIMAL(15, 2),
+      allowNull: false,
+    },
     StartDate: {
       type: DataTypes.DATE,
       allowNull: false,

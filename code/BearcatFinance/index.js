@@ -3,8 +3,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 const app = express();
 const port = 3002;
 // const redis = require('./redis/redisClient');
-const { redisPublisher } = require('./redis/redisClient')
-require('./redis/subcriber/redisSubscriber');
+// const { redisPublisher } = require('./redis/redisClient')
+// require('./redis/subcriber/redisSubscriber');
 
 const sequelize = new Sequelize('bearcat_finance_app', 'root', 'root', {
   host: 'localhost',
