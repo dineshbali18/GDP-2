@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       const user = await User.create({ username, email, phoneNum, password });
       
       if (user.UserID !== undefined) {
-        const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email });
+        const otpApiResponse = await axios.post('http://18.117.93.67:3000/api/user/generateotp', { email });
   
         console.log("otpApiResponse", otpApiResponse);
         if (otpApiResponse.status !== 200) {
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to generate OTP. Registration rolled back.' });
         }
   
-        const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email });
+        const sendOtpResponse = await axios.post('http://18.117.93.67:3000/api/user/sendotp', { email });
   
         console.log("sendOtpResponse::::::::::", sendOtpResponse.status);
         if (sendOtpResponse.status !== 200) {

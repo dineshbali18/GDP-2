@@ -3,8 +3,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 const app = express();
 const port = 3001;
 
-const sequelize = new Sequelize('bearcat_bank', 'root', 'root', {
-  host: 'localhost',
+const sequelize = new Sequelize('bearcat_bank', 'admin', 'Gdpteam3', {
+  host: 'database-1.cbm6q2wayzrp.us-east-2.rds.amazonaws.com',
   dialect: 'mysql',
   port: 3306, 
 });

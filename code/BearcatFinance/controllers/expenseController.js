@@ -187,7 +187,7 @@ const Categories = require('../models/categories')(sequelize);
         const accountId = '123456789'; 
         const lastSyncedId = await getLastSyncedTransactionId(accountId);
 
-        const response = await axios.get(`http://localhost:3001/bank/transactions/${accountId}?since=${lastSyncedId}`);
+        const response = await axios.get(`http://18.117.93.67:3001/bank/transactions/${accountId}?since=${lastSyncedId}`);
         const transactions = response.data;
 
         if (!transactions || transactions.length === 0) {
