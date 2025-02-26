@@ -137,22 +137,20 @@ const Categories = require('../models/categories')(sequelize);
   // Update an expense
   const updateExpense = async (req, res) => {
     const { expenseId } = req.params;
-    const { Date, Description, CategoryID, Amount, TransactionType } = req.body;
-
+  
     try {
       const expense = await Expenses.findByPk(expenseId);
       if (!expense) {
         return res.status(404).json({ message: 'Expense not found.' });
       }
-
-      await expense.update({
-        Date,
-        Description,
-        CategoryID,
-        Amount,
-        TransactionType,
-      });
-
+  
+      // Filter out undefined fields to update only provided ones
+      const updateData = Object.fromEntries(
+        Object.entries(req.body).filter(([_, value]) => value !== undefined)
+      );
+  
+      await expense.update(updateData);
+  
       return res.status(200).json({
         message: 'Expense updated successfully.',
         expense,
@@ -162,6 +160,7 @@ const Categories = require('../models/categories')(sequelize);
       return res.status(500).json({ error: 'Failed to update expense.' });
     }
   };
+  
 
   // Delete an expense
   const deleteExpense = async (req, res) => {
