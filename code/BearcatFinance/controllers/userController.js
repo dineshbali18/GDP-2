@@ -114,5 +114,32 @@ module.exports = (sequelize) => {
     }
   };
 
-  return { registerUser, loginUser, getUserDetails };
+    // New function to update user details
+    const updateUser = async (req, res) => {
+      const { email, username, phoneNum, password } = req.body;  // Fields to be updated
+      try {
+        const user = await User.findOne({ where: { email } });
+  
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+  
+        // Update user details if provided
+        if (username) user.username = username;
+        if (phoneNum) user.phoneNum = phoneNum;
+        if (password) user.password = password;
+  
+        await user.save();  // Save the updated user
+  
+        return res.status(200).json({
+          message: 'User details updated successfully',
+          user: { username: user.username, email: user.email, phoneNum: user.phoneNum },
+        });
+      } catch (err) {
+        console.error('Error updating user:', err);
+        return res.status(500).json({ error: 'An error occurred while updating user details.' });
+      }
+    };
+
+  return { registerUser, loginUser, getUserDetails,updateUser };
 };

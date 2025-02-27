@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
   // Import controller methods
   const userController = require('../controllers/userController')(sequelize); // Import the controller and pass sequelize
 
-  const { registerUser, loginUser, getUserDetails } = userController;
+  const { registerUser, loginUser, getUserDetails, updateUser } = userController;
 
   // Route to register a new user
   router.post('/register', registerUser);
@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
 
   // Route to get user details
   router.get('/details/:userID', verifyToken, getUserDetails);
+
+  // update user basing on the field sent
+  router.post("/update",verifyToken,updateUser);
 
   return router;
 };
