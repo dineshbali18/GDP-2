@@ -38,6 +38,10 @@ module.exports = (sequelize) => {
     user.password = crypto.createHash('sha256').update(user.password).digest('hex');
   });
 
+  Users.beforeUpdate((user)=>{
+    user.password = crypto.createHash('sha256').update(user.password).digest('hex');
+  });
+
   Users.prototype.validatePassword = function (password) {
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     return this.password === hashedPassword;

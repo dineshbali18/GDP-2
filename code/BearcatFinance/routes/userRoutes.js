@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
   router.get('/details/:userID', verifyToken, getUserDetails);
 
   // update user basing on the field sent
-  router.post("/update",verifyToken,updateUser);
+  router.post("/update",updateUser);
 
   return router;
 };
