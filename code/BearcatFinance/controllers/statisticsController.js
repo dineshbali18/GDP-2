@@ -175,7 +175,7 @@ module.exports = (sequelize) => {
             const currentYear = now.getFullYear();
     
             // Fetch all expenses related to the user and their budgets
-            const expenses = await Expenses.findAll({ where: { UserID: userId } });
+            const expenses = await Expenses.findAll({ where: { UserID: userId }});
     
             // Function to calculate the **week of the month** dynamically
             function getWeekOfMonth(date) {
@@ -207,14 +207,19 @@ module.exports = (sequelize) => {
                     if (expense.BudgetID !== budget.BudgetID) return;
     
                     const amount = parseFloat(expense.Amount);
-                    const expenseDate = new Date(expense.Date);
-                    const expenseWeek = getWeekNumber(expenseDate);
-                    const expenseMonth = expenseDate.getMonth(); // 0-indexed
+                    console.log("DATEEEEE",expense.Date)
+                    let expenseDate = new Date(expense.Date);
+                    expenseDate = new Date(expenseDate.getUTCFullYear(), expenseDate.getUTCMonth(), expenseDate.getUTCDate()); // Ensure UTC-based date without time zone shift
+                    // expenseDate.setHours(0, 0, 0, 0);
+                    console.log("EEEEDDDD",expenseDate)
+                    let expenseWeek = getWeekNumber(expenseDate);
+                    let expenseMonth = expenseDate.getMonth(); // 0-indexed
                     const expenseYear = expenseDate.getFullYear();
-    
-                    // **Ensure transactions on the 1st of a month are correctly categorized**
-                    if (expenseDate.getDate() === 1) {
-                        expenseMonth = expenseDate.getMonth(); // Explicitly set correct month
+                    console.log("DATE::::",expenseDate.getDate())
+                    console.log(expense.Description);
+                    // Fix the issue for March 1st and ensure the month is correctly handled
+                    if (expenseDate.getDate() === 1 && expenseMonth !== currentMonth) {
+                        expenseMonth = expenseDate.getMonth();
                     }
     
                     // **Weekly Deduction Calculation**
@@ -255,6 +260,7 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch budgets for the user." });
         }
     };
+    
     
     // Utility function to calculate the week number of the year (ISO 8601 format)
     function getWeekNumber(date) {
