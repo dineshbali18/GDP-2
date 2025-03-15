@@ -164,80 +164,91 @@ module.exports = (sequelize) => {
             const now = new Date();
     
             // Fetch the budgets for the user
-            const budgets = await Budgets.findAll({
-                where: { UserID: userId }
-            });
+            const budgets = await Budgets.findAll({ where: { UserID: userId } });
     
             // Initialize the response object
             const response = { Budgets: [] };
     
-            // Get the current week and current month details
+            // Get the current week, month, and year details
             const currentWeek = getWeekNumber(now);
-            const currentMonth = now.getMonth(); // 0-indexed (0 for January, 11 for December)
+            const currentMonth = now.getMonth(); // 0 for January, 11 for December
             const currentYear = now.getFullYear();
     
             // Fetch all expenses related to the user and their budgets
-            const expenses = await Expenses.findAll({
-                where: {
-                    UserID: userId
-                    // BudgetID: { [Op.in]: budgets.map(b => b.id) }, // Filter by user's budgets
-                    // Date: { [Op.gte]: new Date(now.getFullYear() - 5, now.getMonth(), now.getDate()) } // Last 5 years expenses
-                }
-            });
+            const expenses = await Expenses.findAll({ where: { UserID: userId } });
+    
+            // Function to calculate the **week of the month** dynamically
+            function getWeekOfMonth(date) {
+                const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+                const dayOfMonth = date.getDate();
+                const firstWeekday = firstDayOfMonth.getDay(); // 0 (Sunday) to 6 (Saturday)
+                
+                return Math.floor((dayOfMonth + firstWeekday - 1) / 7) + 1;
+            }
+    
+            // **Calculate the actual number of weeks in the current month**
+            function getWeeksInMonth(year, month) {
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0); // Last day of the month
+                return getWeekOfMonth(lastDay);
+            }
+    
+            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+            let monthlyDeductions = Array(totalWeeksThisMonth).fill(0); // Dynamic week allocation
     
             // Initialize breakdowns for each budget
             budgets.forEach(budget => {
-                console.log("INiiiiiii",budget)
-                const { id: BudgetID, Amount: Amount, Category } = budget;
+                const { id: BudgetID, Amount, Category } = budget;
                 let weeklyDeductions = Array(7).fill(0);  // 7 days for the current week
-                let monthlyDeductions = Array(4).fill(0); // 4 weeks for the current month (weekly-based)
                 let yearlyDeductions = Array(12).fill(0);  // 12 months for the current year
     
                 // Process expenses for this budget
                 expenses.forEach(expense => {
-                    console.log("EEEEEEE",expense)
-                    if (expense.BudgetID !== budget.BudgetID) return;  // Skip expenses not related to this budget
+                    if (expense.BudgetID !== budget.BudgetID) return;
     
-                    console.log("BBBBBBB",budget)
                     const amount = parseFloat(expense.Amount);
                     const expenseDate = new Date(expense.Date);
                     const expenseWeek = getWeekNumber(expenseDate);
                     const expenseMonth = expenseDate.getMonth(); // 0-indexed
                     const expenseYear = expenseDate.getFullYear();
     
-                    // Weekly Deduction Calculation: Deduct amount to the current week (current day)
+                    // **Ensure transactions on the 1st of a month are correctly categorized**
+                    if (expenseDate.getDate() === 1) {
+                        expenseMonth = expenseDate.getMonth(); // Explicitly set correct month
+                    }
+    
+                    // **Weekly Deduction Calculation**
                     if (expenseWeek === currentWeek) {
                         const dayOfWeek = expenseDate.getDay(); // 0 for Sunday, 6 for Saturday
                         weeklyDeductions[dayOfWeek] += amount;
                     }
     
-                    // Monthly Deduction Calculation: Cumulative deduction based on weeks of the month
+                    // **Monthly Deduction Calculation (with dynamic weeks)**
                     if (expenseMonth === currentMonth) {
-                        const weekOfMonth = getWeekNumber(expenseDate); // Assuming weeks are categorized into months
-                        if (weekOfMonth <= 4) {
-                            monthlyDeductions[weekOfMonth - 1] += amount; // Store in the corresponding week of the month
+                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1; // Convert to 0-based index
+                        if (weekOfMonth < totalWeeksThisMonth) {
+                            monthlyDeductions[weekOfMonth] += amount;
+                        } else {
+                            monthlyDeductions[totalWeeksThisMonth - 1] += amount; // Merge last week into the last slot
                         }
                     }
     
-                    // Yearly Deduction Calculation: Cumulative deduction for the current year, excluding future months
+                    // **Yearly Deduction Calculation**
                     if (expenseYear === currentYear) {
-                        if (expenseMonth <= currentMonth) {
-                            yearlyDeductions[expenseMonth] += amount;
-                        }
+                        yearlyDeductions[expenseMonth] += amount;
                     }
                 });
     
                 // Add the breakdowns to the response
                 response.Budgets.push({
                     budgetname: Category,
-                    budgetTargetamount: budget.Amount,
+                    budgetTargetamount: Amount,
                     weekly: weeklyDeductions,
                     monthly: monthlyDeductions,
                     yearly: yearlyDeductions
                 });
             });
     
-            // Return the response
             return res.status(200).json(response);
         } catch (err) {
             console.error("Error fetching budgets:", err);
