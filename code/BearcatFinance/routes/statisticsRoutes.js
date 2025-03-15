@@ -8,6 +8,8 @@ module.exports = (sequelize) => {
 
     router.get('/user/:userId',statisticsController.getExpensesForUser);
 
+    router.get('/user/budgets/:userId',statisticsController.getBudgetsReportsForUser);
+
     return router;
 }
 

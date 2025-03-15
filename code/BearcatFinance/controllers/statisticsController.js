@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 
 module.exports = (sequelize) => {
     const Expenses = require("../models/expenses")(sequelize);
+    const Budgets = require("../models/budgets")(sequelize);
 
     const getExpensesForUser = async (req, res) => {
         const { userId } = req.params;
@@ -157,5 +158,102 @@ module.exports = (sequelize) => {
         }
     };
 
-    return { getExpensesForUser };
+    const getBudgetsReportsForUser = async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const now = new Date();
+    
+            // Fetch the budgets for the user
+            const budgets = await Budgets.findAll({
+                where: { UserID: userId }
+            });
+    
+            // Initialize the response object
+            const response = { Budgets: [] };
+    
+            // Get the current week and current month details
+            const currentWeek = getWeekNumber(now);
+            const currentMonth = now.getMonth(); // 0-indexed (0 for January, 11 for December)
+            const currentYear = now.getFullYear();
+    
+            // Fetch all expenses related to the user and their budgets
+            const expenses = await Expenses.findAll({
+                where: {
+                    UserID: userId
+                    // BudgetID: { [Op.in]: budgets.map(b => b.id) }, // Filter by user's budgets
+                    // Date: { [Op.gte]: new Date(now.getFullYear() - 5, now.getMonth(), now.getDate()) } // Last 5 years expenses
+                }
+            });
+    
+            // Initialize breakdowns for each budget
+            budgets.forEach(budget => {
+                console.log("INiiiiiii",budget)
+                const { id: BudgetID, Amount: Amount, Category } = budget;
+                let weeklyDeductions = Array(7).fill(0);  // 7 days for the current week
+                let monthlyDeductions = Array(4).fill(0); // 4 weeks for the current month (weekly-based)
+                let yearlyDeductions = Array(12).fill(0);  // 12 months for the current year
+    
+                // Process expenses for this budget
+                expenses.forEach(expense => {
+                    console.log("EEEEEEE",expense)
+                    if (expense.BudgetID !== budget.BudgetID) return;  // Skip expenses not related to this budget
+    
+                    console.log("BBBBBBB",budget)
+                    const amount = parseFloat(expense.Amount);
+                    const expenseDate = new Date(expense.Date);
+                    const expenseWeek = getWeekNumber(expenseDate);
+                    const expenseMonth = expenseDate.getMonth(); // 0-indexed
+                    const expenseYear = expenseDate.getFullYear();
+    
+                    // Weekly Deduction Calculation: Deduct amount to the current week (current day)
+                    if (expenseWeek === currentWeek) {
+                        const dayOfWeek = expenseDate.getDay(); // 0 for Sunday, 6 for Saturday
+                        weeklyDeductions[dayOfWeek] += amount;
+                    }
+    
+                    // Monthly Deduction Calculation: Cumulative deduction based on weeks of the month
+                    if (expenseMonth === currentMonth) {
+                        const weekOfMonth = getWeekNumber(expenseDate); // Assuming weeks are categorized into months
+                        if (weekOfMonth <= 4) {
+                            monthlyDeductions[weekOfMonth - 1] += amount; // Store in the corresponding week of the month
+                        }
+                    }
+    
+                    // Yearly Deduction Calculation: Cumulative deduction for the current year, excluding future months
+                    if (expenseYear === currentYear) {
+                        if (expenseMonth <= currentMonth) {
+                            yearlyDeductions[expenseMonth] += amount;
+                        }
+                    }
+                });
+    
+                // Add the breakdowns to the response
+                response.Budgets.push({
+                    budgetname: Category,
+                    budgetTargetamount: budget.Amount,
+                    weekly: weeklyDeductions,
+                    monthly: monthlyDeductions,
+                    yearly: yearlyDeductions
+                });
+            });
+    
+            // Return the response
+            return res.status(200).json(response);
+        } catch (err) {
+            console.error("Error fetching budgets:", err);
+            return res.status(500).json({ error: "Failed to fetch budgets for the user." });
+        }
+    };
+    
+    // Utility function to calculate the week number of the year (ISO 8601 format)
+    function getWeekNumber(date) {
+        const startDate = new Date(date.getFullYear(), 0, 1);
+        const diff = date - startDate;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+        return Math.ceil((dayOfYear + 1) / 7);
+    }
+    
+
+    return { getExpensesForUser,getBudgetsReportsForUser };
 };
