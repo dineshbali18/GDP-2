@@ -12,18 +12,18 @@ module.exports = (sequelize) => {
             const startOfWeek = new Date(now);
             startOfWeek.setDate(now.getDate() - now.getDay() + 1);
 
-            // Fetch expenses from the last 5 weeks
-            const startOfLastFiveWeeks = new Date(startOfWeek);
-            startOfLastFiveWeeks.setDate(startOfLastFiveWeeks.getDate() - 28); // Start from 5 weeks ago
+            // Fetch expenses from the last 5 months
+            const startOfLastFiveMonths = new Date(now);
+            startOfLastFiveMonths.setMonth(startOfLastFiveMonths.getMonth() - 4); // Start from 5 months ago
 
             // Fetch expenses from the last 5 years
             const startOfLastFiveYears = new Date(now);
-            startOfLastFiveYears.setFullYear(now.getFullYear() - 4); // Start from 5 years ago
+            startOfLastFiveYears.setFullYear(startOfLastFiveYears.getFullYear() - 4); // Start from 5 years ago
 
             const expenses = await Expenses.findAll({
                 where: {
                     UserID: userId,
-                    Date: { [Op.gte]: startOfLastFiveYears }
+                    Date: { [Op.gte]: startOfLastFiveMonths }
                 },
                 attributes: ["Amount", "Date"],
             });
@@ -48,9 +48,15 @@ module.exports = (sequelize) => {
                 }
             }
 
-            // Initialize monthly breakdown for the last 5 weeks (since we only need 5 weeks)
-            const monthKeyForWeekly = startOfWeek.toISOString().split("T")[0].substring(0, 7); // Current week month
-            monthlyBreakdown[monthKeyForWeekly] = [0, 0, 0, 0]; // Initialize 4 weeks for this month
+            // Initialize monthly breakdown for the last 5 months
+            let currentMonth = new Date(startOfWeek);
+            for (let i = 0; i < 5; i++) {
+                const monthKey = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+                monthlyBreakdown[monthKey] = [0, 0, 0, 0]; // Initialize 4 weeks for this month
+
+                // Move to the previous month
+                currentMonth.setMonth(currentMonth.getMonth() - 1);
+            }
 
             // Initialize yearly breakdown for the last 5 years
             for (let i = 0; i < 5; i++) {
@@ -86,10 +92,10 @@ module.exports = (sequelize) => {
                     }
                 });
 
-                // Update monthly breakdown for the current month only (last 5 weeks only)
-                if (monthlyBreakdown[monthKeyForWeekly]) {
+                // Update monthly breakdown for the current month
+                if (monthlyBreakdown[monthKey]) {
                     const weekIndex = Math.floor((expenseDate.getDate() - 1) / 7); // Week index (0-3)
-                    monthlyBreakdown[monthKeyForWeekly][weekIndex] += amount;
+                    monthlyBreakdown[monthKey][weekIndex] += amount;
                 }
 
                 // Update yearly breakdown
@@ -107,14 +113,32 @@ module.exports = (sequelize) => {
                 });
             });
 
+            // Convert monthly breakdown to show 0 for weeks that haven't passed yet
+            Object.keys(monthlyBreakdown).forEach(monthKey => {
+                const currentMonthStart = new Date(monthKey + "-01");
+                const currentMonthEnd = new Date(currentMonthStart);
+                currentMonthEnd.setMonth(currentMonthEnd.getMonth() + 1); // End of the current month
+
+                // Check if any week in the month is in the future
+                monthlyBreakdown[monthKey].forEach((weekAmount, weekIndex) => {
+                    const weekStart = new Date(currentMonthStart);
+                    weekStart.setDate(currentMonthStart.getDate() + weekIndex * 7);
+
+                    // If the week is in the future, set it to 0
+                    if (weekStart >= now) {
+                        monthlyBreakdown[monthKey][weekIndex] = 0;
+                    }
+                });
+            });
+
             // Convert yearly breakdown to set months after current month to 0 in the current year
             const currentYear = now.getFullYear().toString();
-            const currentMonth = now.getMonth(); // Current month (0-indexed)
+            const currentMonthIndex = now.getMonth(); // Current month (0-indexed)
             Object.keys(yearlyBreakdown).forEach(year => {
                 if (year === currentYear) {
                     Object.keys(yearlyBreakdown[year]).forEach(monthKey => {
                         const month = parseInt(monthKey.split("-")[1]) - 1; // Get 0-indexed month from YYYY-MM
-                        if (month > currentMonth) {
+                        if (month > currentMonthIndex) {
                             yearlyBreakdown[year][monthKey] = 0; // Set future months to 0
                         }
                     });
