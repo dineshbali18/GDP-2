@@ -28,6 +28,7 @@ const Expenses = require('./models/expenses')(sequelize, DataTypes);
 const Budgets = require('./models/budgets')(sequelize, DataTypes);
 const BankDetails = require('./models/bankDetails')(sequelize, DataTypes);
 
+
 sequelize.sync({ force: false }) 
   .then(() => {
     console.log('Database & tables created!');
@@ -43,6 +44,7 @@ const expenseRoutes = require('./routes/expenseRoutes')(sequelize);
 const categoryRoutes = require('./routes/categoryRoutes')(sequelize);
 const budgetRoutes = require('./routes/budgetRoutes')(sequelize);
 const bankDetailRoutes = require('./routes/bankDetailsRoutes')(sequelize);
+const statisticsRoutes = require('./routes/statisticsRoutes')(sequelize);
 
 
 app.use(express.json());
@@ -54,6 +56,7 @@ app.use('/expense', expenseRoutes);
 app.use('/category', categoryRoutes);
 app.use('/budget', budgetRoutes);
 app.use('/bankDetails', bankDetailRoutes);
+app.use('/financial',statisticsRoutes);
 
 app.use('/test', (req, res) => {
   console.log("Test route hit 11111111111111111111111",req.query);
