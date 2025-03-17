@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
             let yearlyBreakdown = {};
 
             // Initialize weekly breakdown for the last 5 weeks
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 1; i++) {
                 let weekStart = new Date(startOfWeek);
                 weekStart.setDate(weekStart.getDate() - i * 7);
                 let weekKey = weekStart.toISOString().split("T")[0];
@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
 
             // Initialize monthly breakdown for the last 5 months
             let currentMonth = new Date(startOfWeek);
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 1; i++) {
                 const monthKey = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
                 monthlyBreakdown[monthKey] = [0, 0, 0, 0]; // Initialize 4 weeks for this month
 
