@@ -10,6 +10,8 @@ module.exports = (sequelize) => {
 
     router.get('/user/budgets/:userId',statisticsController.getBudgetsReportsForUser);
 
+    router.get('/user/savinggoal/:userId',statisticsController.getSavingGoalsReportsForUser);
+
     return router;
 }
 

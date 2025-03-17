@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 module.exports = (sequelize) => {
     const Expenses = require("../models/expenses")(sequelize);
     const Budgets = require("../models/budgets")(sequelize);
+    const SavingGoal = require("../models/savingGoals")(sequelize);
 
     const getExpensesForUser = async (req, res) => {
         const { userId } = req.params;
@@ -260,6 +261,109 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch budgets for the user." });
         }
     };
+
+    const getSavingGoalsReportsForUser = async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const now = new Date();
+    
+            // Fetch the budgets for the user
+            const budgets = await SavingGoal.findAll({ where: { UserID: userId } });
+    
+            // Initialize the response object
+            const response = { Budgets: [] };
+    
+            // Get the current week, month, and year details
+            const currentWeek = getWeekNumber(now);
+            const currentMonth = now.getMonth(); // 0 for January, 11 for December
+            const currentYear = now.getFullYear();
+    
+            // Fetch all expenses related to the user and their budgets
+            const expenses = await Expenses.findAll({ where: { UserID: userId }});
+    
+            // Function to calculate the **week of the month** dynamically
+            function getWeekOfMonth(date) {
+                const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+                const dayOfMonth = date.getDate();
+                const firstWeekday = firstDayOfMonth.getDay(); // 0 (Sunday) to 6 (Saturday)
+                
+                return Math.floor((dayOfMonth + firstWeekday - 1) / 7) + 1;
+            }
+    
+            // **Calculate the actual number of weeks in the current month**
+            function getWeeksInMonth(year, month) {
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0); // Last day of the month
+                return getWeekOfMonth(lastDay);
+            }
+    
+            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+            let monthlyDeductions = Array(totalWeeksThisMonth).fill(0); // Dynamic week allocation
+    
+            // Initialize breakdowns for each budget
+            budgets.forEach(budget => {
+                const { id: BudgetID, Amount, Category } = budget;
+                let weeklyDeductions = Array(7).fill(0);  // 7 days for the current week
+                let yearlyDeductions = Array(12).fill(0);  // 12 months for the current year
+    
+                // Process expenses for this budget
+                expenses.forEach(expense => {
+                    if (expense.GoalID !== budget.GoalID) return;
+    
+                    const amount = parseFloat(expense.Amount);
+                    console.log("DATEEEEE",expense.Date)
+                    let expenseDate = new Date(expense.Date);
+                    expenseDate = new Date(expenseDate.getUTCFullYear(), expenseDate.getUTCMonth(), expenseDate.getUTCDate()); // Ensure UTC-based date without time zone shift
+                    // expenseDate.setHours(0, 0, 0, 0);
+                    console.log("EEEEDDDD",expenseDate)
+                    let expenseWeek = getWeekNumber(expenseDate);
+                    let expenseMonth = expenseDate.getMonth(); // 0-indexed
+                    const expenseYear = expenseDate.getFullYear();
+                    console.log("DATE::::",expenseDate.getDate())
+                    console.log(expense.Description);
+                    // Fix the issue for March 1st and ensure the month is correctly handled
+                    if (expenseDate.getDate() === 1 && expenseMonth !== currentMonth) {
+                        expenseMonth = expenseDate.getMonth();
+                    }
+    
+                    // **Weekly Deduction Calculation**
+                    if (expenseWeek === currentWeek) {
+                        const dayOfWeek = expenseDate.getDay(); // 0 for Sunday, 6 for Saturday
+                        weeklyDeductions[dayOfWeek] += amount;
+                    }
+    
+                    // **Monthly Deduction Calculation (with dynamic weeks)**
+                    if (expenseMonth === currentMonth) {
+                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1; // Convert to 0-based index
+                        if (weekOfMonth < totalWeeksThisMonth) {
+                            monthlyDeductions[weekOfMonth] += amount;
+                        } else {
+                            monthlyDeductions[totalWeeksThisMonth - 1] += amount; // Merge last week into the last slot
+                        }
+                    }
+    
+                    // **Yearly Deduction Calculation**
+                    if (expenseYear === currentYear) {
+                        yearlyDeductions[expenseMonth] += amount;
+                    }
+                });
+    
+                // Add the breakdowns to the response
+                response.Budgets.push({
+                    budgetname: Category,
+                    budgetTargetamount: Amount,
+                    weekly: weeklyDeductions,
+                    monthly: monthlyDeductions,
+                    yearly: yearlyDeductions
+                });
+            });
+    
+            return res.status(200).json(response);
+        } catch (err) {
+            console.error("Error fetching budgets:", err);
+            return res.status(500).json({ error: "Failed to fetch budgets for the user." });
+        }
+    };
     
     
     // Utility function to calculate the week number of the year (ISO 8601 format)
@@ -272,5 +376,5 @@ module.exports = (sequelize) => {
     }
     
 
-    return { getExpensesForUser,getBudgetsReportsForUser };
+    return { getExpensesForUser,getBudgetsReportsForUser, getSavingGoalsReportsForUser};
 };

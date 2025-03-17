@@ -6,8 +6,16 @@ const port = 3002;
 // const { redisPublisher } = require('./redis/redisClient')
 // require('./redis/subcriber/redisSubscriber');
 
-const sequelize = new Sequelize('bearcat_finance_app', 'admin', 'Gdpteam3', {
-  host: 'database-1.cbm6q2wayzrp.us-east-2.rds.amazonaws.com',
+// uncomment to connect to amazon database
+// const sequelize = new Sequelize('bearcat_finance_app', 'admin', 'Gdpteam3', {
+//   host: 'database-1.cbm6q2wayzrp.us-east-2.rds.amazonaws.com',
+//   dialect: 'mysql',
+//   port: 3306, 
+// });
+
+//connection for local database
+const sequelize = new Sequelize('bearcat_finance_app', 'root', 'Gdpteam3', {
+  host: 'localhost',
   dialect: 'mysql',
   port: 3306, 
 });
@@ -71,5 +79,5 @@ app.get('/test1', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://192.168.1.11:${port}`);
 });
