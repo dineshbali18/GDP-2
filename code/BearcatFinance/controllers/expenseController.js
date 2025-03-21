@@ -15,7 +15,7 @@ const Categories = require('../models/categories')(sequelize);
       // Fetch expenses for the user (only select the necessary fields)
       const expenses = await Expenses.findAll({
         where: { UserID: userId },
-        attributes: ['ExpenseID', 'CategoryID', 'TransactionType', 'Amount', 'Description', 'Merchandise', 'Date', 'createdAt', 'updatedAt'],
+        attributes: ['ExpenseID', 'CategoryID', 'TransactionType', 'Amount', 'Description', 'GoalID','BudgetID','Merchandise', 'Date', 'createdAt', 'updatedAt'],
       });
   
       if (expenses.length === 0) {
@@ -70,6 +70,8 @@ const Categories = require('../models/categories')(sequelize);
           CategoryName: categoryName, // Use the fetched category name
           Amount: expense.Amount,
           Description: expense.Description,
+          GoalID: expense.GoalID,
+          BudgetID: expense.BudgetID,
           TransactionType: transactionType,
           Merchandise: expense.Merchandise,
           Date: expense.Date,

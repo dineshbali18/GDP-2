@@ -2,18 +2,31 @@ const axios = require('axios');
 
 module.exports = (sequelize) => {
   const SavingGoals = require('../models/savingGoals')(sequelize); // Import the SavingGoals model
-
+  const Expenses = require('../models/expenses')(sequelize);
   // Get all saving goals for a user
   const getSavingGoalsForUser = async (req, res) => {
     const { userId } = req.params;
-
+  
     try {
+      // Fetch all saving goals for the user
       const goals = await SavingGoals.findAll({ where: { UserID: userId } });
-      if (goals.length === 0) {
-        return res.status(404).json({ message: 'No saving goals found for this user.' });
-      }
-
-      return res.status(200).json(goals);
+  
+      // if (goals.length === 0) {
+      //   return res.status(404).json({ message: 'No saving goals found for this user.' });
+      // }
+  
+      // Iterate through each goal and calculate total expenses
+      const goalsWithCurrentAmount = await Promise.all(
+        goals.map(async (goal) => {
+          const totalExpenses = await Expenses.sum('Amount', { where: { GoalID: goal.GoalID } });
+          return {
+            ...goal.toJSON(),
+            CurrentAmount: totalExpenses || 0, // If no expenses, default to 0
+          };
+        })
+      );
+  
+      return res.status(200).json(goalsWithCurrentAmount);
     } catch (err) {
       console.error('Error fetching saving goals:', err);
       return res.status(500).json({ error: 'Failed to fetch saving goals for the user.' });

@@ -23,10 +23,11 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'SavingGoals',  // Ensure 'Goals' table exists
+        model: 'SavingGoals',
         key: 'GoalID',
       },
-      defaultValue:null,
+      onDelete: 'SET NULL',  // 🔹 Ensures GoalID is set to NULL when the goal is deleted
+      onUpdate: 'CASCADE',
     },
     BudgetID: {
       type: DataTypes.INTEGER,
@@ -35,7 +36,8 @@ module.exports = (sequelize) => {
         model: 'Budgets',
         key: 'BudgetID',
       },
-      defaultValue:null,
+      onDelete: 'SET NULL',  // 🔹 Ensures BudgetID is set to NULL when the budget is deleted
+      onUpdate: 'CASCADE',
     },
     Amount: {
       type: DataTypes.DECIMAL(15, 2),
@@ -67,12 +69,14 @@ module.exports = (sequelize) => {
     },
   });
 
+  // Trim Description before saving
   Expenses.beforeCreate((expense) => {
     if (expense.Description) {
       expense.Description = expense.Description.trim();
     }
   });
 
+  // Method to get expense details
   Expenses.prototype.getExpenseDetails = function () {
     return `Expense: ${this.Description || 'N/A'}, Amount: $${this.Amount}, Date: ${this.Date}`;
   };
