@@ -1,12 +1,12 @@
 // const Redis = require('ioredis');
 
 // const redisPublisher = new Redis({
-//   host: '10.10.104.248',  // Change if using a remote Redis server
+//   host: '10.31.104.108',  // Change if using a remote Redis server
 //   port: 7000
 // });
 
 // const redisSubscriber = new Redis({
-//     host: '10.10.104.248',  // Change if using a remote Redis server
+//     host: '10.31.104.108',  // Change if using a remote Redis server
 //     port: 7000
 //   });
 
