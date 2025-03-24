@@ -21,8 +21,10 @@ module.exports = (sequelize) => {
           const totalExpenses = await Expenses.sum('Amount', { where: { GoalID: goal.GoalID } });
           return {
             ...goal.toJSON(),
-            CurrentAmount: totalExpenses!=null?totalExpenses+goal.CurrentAmount:goal.CurrentAmount, // If no expenses, default to 0
-          };
+            CurrentAmount: totalExpenses != null 
+            ? Number(totalExpenses) + Number(goal.CurrentAmount) 
+            : Number(goal.CurrentAmount),
+                  };
         })
       );
   

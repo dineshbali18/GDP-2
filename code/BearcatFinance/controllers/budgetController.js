@@ -1,22 +1,35 @@
 module.exports = (sequelize) => {
   const Budgets = require('../models/budgets')(sequelize); // Import the Budgets model
+  const Expenses = require('../models/expenses')(sequelize);
 
   // Get all budgets for a specific user
   const getBudgetsForUser = async (req, res) => {
     const { userId } = req.params;
-
+  
     try {
+      // Fetch all budgets for the user
       const budgets = await Budgets.findAll({ where: { UserID: userId } });
-      if (budgets.length === 0) {
-        return res.status(404).json({ message: 'No budgets found for this user.' });
-      }
-
-      return res.status(200).json(budgets);
+  
+      // Iterate through each budget and calculate total expenses
+      const budgetsWithCurrentAmount = await Promise.all(
+        budgets.map(async (budget) => {
+          const totalExpenses = await Expenses.sum('Amount', { where: { BudgetID: budget.BudgetID } });
+          return {
+            ...budget.toJSON(),
+            CurrentAmount: totalExpenses != null
+              ? Number(totalExpenses) + Number(budget.CurrentAmount)
+              : Number(budget.CurrentAmount),
+          };
+        })
+      );
+  
+      return res.status(200).json(budgetsWithCurrentAmount);
     } catch (err) {
       console.error('Error fetching budgets:', err);
       return res.status(500).json({ error: 'Failed to fetch budgets for the user.' });
     }
   };
+  
 
   // Get details of a specific budget
   const getBudgetById = async (req, res) => {
