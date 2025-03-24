@@ -77,7 +77,7 @@ module.exports = (sequelize) => {
   // Update a specific budget
   const updateBudget = async (req, res) => {
     const { budgetId } = req.params;
-    const { BudgetAmount, StartDate, EndDate } = req.body;
+    const { BudgetName, Amount, AmountSpent, StartDate, EndDate } = req.body;
 
     try {
       const budget = await Budgets.findByPk(budgetId);
@@ -85,7 +85,7 @@ module.exports = (sequelize) => {
         return res.status(404).json({ message: 'Budget not found.' });
       }
 
-      await budget.update({ BudgetAmount, StartDate, EndDate });
+      await budget.update({ BudgetName, Amount, AmountSpent, StartDate, EndDate });
 
       return res.status(200).json({
         message: 'Budget updated successfully.',
