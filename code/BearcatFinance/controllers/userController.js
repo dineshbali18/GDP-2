@@ -1,5 +1,6 @@
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const SECRET_KEY = process.env.JWT_SECRET || 'gdpFall2024Group3SecretKey';
 
@@ -116,6 +117,42 @@ module.exports = (sequelize) => {
   };
 
   const updateUser = async (req, res) => {
+    const { email, username, phoneNumber, password } = req.body;
+  
+    try {
+      const user = await User.findOne({ where: { email } });
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Prepare the fields to update
+      const updatedFields = {};
+      if (username) updatedFields.username = username;
+      if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
+  
+      // Only hash and update password if provided
+      if (password) {
+        updatedFields.password = crypto.createHash('sha256').update(password).digest('hex');
+      }
+  
+      await user.update(updatedFields);
+  
+      return res.status(200).json({
+        message: 'User details updated successfully',
+        user: {
+          username: user.username,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+        },
+      });
+    } catch (err) {
+      console.error('Error updating user:', err);
+      return res.status(500).json({ error: 'An error occurred while updating user details.' });
+    }
+  };
+  
+  const updateUserProfile = async (req, res) => {
     const { email, username, phoneNumber } = req.body;
   
     try {
@@ -124,20 +161,21 @@ module.exports = (sequelize) => {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-  console.log("UUUUUUU",user)
+  
       // Update only the provided fields
       const updatedFields = {};
       if (username) updatedFields.username = username;
       if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
-
-
-      console.log("AAAAAA",user)
   
-      await user.update(updatedFields);  // Update only specified fields
+      await user.update(updatedFields);
   
       return res.status(200).json({
         message: 'User details updated successfully',
-        user: { username: user.username, email: user.email, phoneNumber: user.phoneNumber },
+        user: {
+          username: user.username,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+        },
       });
     } catch (err) {
       console.error('Error updating user:', err);
@@ -146,5 +184,5 @@ module.exports = (sequelize) => {
   };
   
 
-  return { registerUser, loginUser, getUserDetails,updateUser };
+  return { registerUser, loginUser, getUserDetails,updateUser, updateUserProfile };
 };
