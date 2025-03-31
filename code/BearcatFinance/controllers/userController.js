@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       const user = await User.create({ username, email, phoneNum, password });
       
       if (user.UserID !== undefined) {
-        const otpApiResponse = await axios.post('http://10.31.104.108:3000/api/user/generateotp', { email });
+        const otpApiResponse = await axios.post('http://10.31.110.200:3000/api/user/generateotp', { email });
   
         console.log("otpApiResponse", otpApiResponse);
         if (otpApiResponse.status !== 200) {
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to generate OTP. Registration rolled back.' });
         }
   
-        const sendOtpResponse = await axios.post('http://10.31.104.108:3000/api/user/sendotp', { email });
+        const sendOtpResponse = await axios.post('http://10.31.110.200:3000/api/user/sendotp', { email });
   
         console.log("sendOtpResponse::::::::::", sendOtpResponse.status);
         if (sendOtpResponse.status !== 200) {
@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
       const user = await User.findOne({ where: { email } });
   
       if (user && await user.validatePassword(password)) {
-        const otpApiResponse = await axios.post('http://10.31.104.108:3000/api/user/generateotp', { email: user.email });
+        const otpApiResponse = await axios.post('http://10.31.110.200:3000/api/user/generateotp', { email: user.email });
   
         console.log("otpApiResponse", otpApiResponse.status);
   
@@ -61,7 +61,7 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
         }
   
-        const sendOtpResponse = await axios.post('http://10.31.104.108:3000/api/user/sendotp', { email: user.email });
+        const sendOtpResponse = await axios.post('http://10.31.110.200:3000/api/user/sendotp', { email: user.email });
   
         console.log("sendOtpResponse", sendOtpResponse.status);
   
@@ -82,7 +82,7 @@ module.exports = (sequelize) => {
         return res.status(200).json({
           message: 'Authentication successful. OTP has been sent for 2FA.',
           token, 
-          user: { username: user.username, email: user.email, id: user.UserID },
+          user: { username: user.username, email: user.email, id: user.UserID, phoneNumber: user.phoneNumber },
         });
       } else {
         return res.status(400).json({ error: 'Invalid credentials' });
@@ -100,10 +100,11 @@ module.exports = (sequelize) => {
     try {
       const user = await User.findOne({ where: { UserID: userID } });
 
+      console.log("UUUUU",user)
       if (user) {
         res.status(200).json({
           message: 'User details fetched successfully',
-          user: { username: user.username, email: user.email },
+          user: { username: user.username, email: user.email, phoneNumber: user.phoneNumber},
         });
       } else {
         res.status(404).json({ error: 'User not found' });
@@ -114,32 +115,36 @@ module.exports = (sequelize) => {
     }
   };
 
-    // New function to update user details
-    const updateUser = async (req, res) => {
-      const { email, username, phoneNum, password } = req.body;  // Fields to be updated
-      try {
-        const user = await User.findOne({ where: { email } });
+  const updateUser = async (req, res) => {
+    const { email, username, phoneNumber } = req.body;
   
-        if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-        }
+    try {
+      const user = await User.findOne({ where: { email } });
   
-        // Update user details if provided
-        if (username) user.username = username;
-        if (phoneNum) user.phoneNum = phoneNum;
-        if (password) user.password = password;
-  
-        await user.save();  // Save the updated user
-  
-        return res.status(200).json({
-          message: 'User details updated successfully',
-          user: { username: user.username, email: user.email, phoneNum: user.phoneNum },
-        });
-      } catch (err) {
-        console.error('Error updating user:', err);
-        return res.status(500).json({ error: 'An error occurred while updating user details.' });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
       }
-    };
+  console.log("UUUUUUU",user)
+      // Update only the provided fields
+      const updatedFields = {};
+      if (username) updatedFields.username = username;
+      if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
+
+
+      console.log("AAAAAA",user)
+  
+      await user.update(updatedFields);  // Update only specified fields
+  
+      return res.status(200).json({
+        message: 'User details updated successfully',
+        user: { username: user.username, email: user.email, phoneNumber: user.phoneNumber },
+      });
+    } catch (err) {
+      console.error('Error updating user:', err);
+      return res.status(500).json({ error: 'An error occurred while updating user details.' });
+    }
+  };
+  
 
   return { registerUser, loginUser, getUserDetails,updateUser };
 };

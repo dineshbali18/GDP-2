@@ -22,11 +22,15 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    phoneNumber: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
     role: {
       type: DataTypes.STRING(50),
       allowNull: false,
       defaultValue: 'user',
-
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -38,9 +42,9 @@ module.exports = (sequelize) => {
     user.password = crypto.createHash('sha256').update(user.password).digest('hex');
   });
 
-  Users.beforeUpdate((user)=>{
-    user.password = crypto.createHash('sha256').update(user.password).digest('hex');
-  });
+  // Users.beforeUpdate((user)=>{
+  //   user.password = crypto.createHash('sha256').update(user.password).digest('hex');
+  // });
 
   Users.prototype.validatePassword = function (password) {
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
