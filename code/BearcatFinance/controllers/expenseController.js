@@ -57,9 +57,9 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
         }
   
         // Classify by transaction type (Debit or Credit)
-        if (transactionType === 'Debit') {
+        if (transactionType &&  (transactionType.toLowerCase() === 'debit'|| transactionType.toLowerCase() === 'withdrawal')) {
           categorizedExpenses[categoryId].debitTotal += amount;
-        } else if (transactionType === 'Credit') {
+        } else if (transactionType && (transactionType.toLowerCase() === 'credit' || transactionType.toLowerCase() === 'deposit')) {
           categorizedExpenses[categoryId].creditTotal += amount;
         }
   
