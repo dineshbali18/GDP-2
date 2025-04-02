@@ -79,5 +79,5 @@ app.get('/test1', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://10.31.110.200:${port}`);
+  console.log(`Server is running on http://192.168.1.11:${port}`);
 });

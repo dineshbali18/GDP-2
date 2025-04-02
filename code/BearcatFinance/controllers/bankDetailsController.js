@@ -6,11 +6,14 @@ module.exports = (sequelize) => {
 
   // Get all bank details
   const getAllBanksDetails = async (req, res) => {
+    console.log("-------banks all")
     try {
       const banks = await BankDetails.findAll();
+      console.log("BBBBBB",banks);
       if (!banks || banks.length === 0) {
         return res.status(404).json({ message: 'No bank details found.' });
       }
+      console.log("AAAAAAAAA11",banks)
       return res.status(200).json(banks);
     } catch (err) {
       console.error('Error fetching bank details:', err);

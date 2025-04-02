@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       const user = await User.create({ username, email, phoneNum, password });
       
       if (user.UserID !== undefined) {
-        const otpApiResponse = await axios.post('http://10.31.110.200:3000/api/user/generateotp', { email });
+        const otpApiResponse = await axios.post('http://192.168.1.11:3000/api/user/generateotp', { email });
   
         console.log("otpApiResponse", otpApiResponse);
         if (otpApiResponse.status !== 200) {
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to generate OTP. Registration rolled back.' });
         }
   
-        const sendOtpResponse = await axios.post('http://10.31.110.200:3000/api/user/sendotp', { email });
+        const sendOtpResponse = await axios.post('http://192.168.1.11:3000/api/user/sendotp', { email });
   
         console.log("sendOtpResponse::::::::::", sendOtpResponse.status);
         if (sendOtpResponse.status !== 200) {
@@ -54,7 +54,7 @@ module.exports = (sequelize) => {
       const user = await User.findOne({ where: { email } });
   
       if (user && await user.validatePassword(password)) {
-        const otpApiResponse = await axios.post('http://10.31.110.200:3000/api/user/generateotp', { email: user.email });
+        const otpApiResponse = await axios.post('http://192.168.1.11:3000/api/user/generateotp', { email: user.email });
   
         console.log("otpApiResponse", otpApiResponse.status);
   
@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
           return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
         }
   
-        const sendOtpResponse = await axios.post('http://10.31.110.200:3000/api/user/sendotp', { email: user.email });
+        const sendOtpResponse = await axios.post('http://192.168.1.11:3000/api/user/sendotp', { email: user.email });
   
         console.log("sendOtpResponse", sendOtpResponse.status);
   
