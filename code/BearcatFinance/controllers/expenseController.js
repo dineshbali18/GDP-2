@@ -211,7 +211,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
 
             try {
                 // Fetch transactions from the bank API
-                const response = await axios.get(`http://192.168.1.11:3001/bank/transactions/${accountId}`);
+                const response = await axios.get(`http://192.168.1.11:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
                 console.log("SSSSSS", response.data);
 
                 if (response.data.error === "Account not found") {
