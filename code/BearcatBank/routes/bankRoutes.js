@@ -6,11 +6,11 @@ module.exports = (sequelize) => {
   const bankController = require('../controllers/bankController')(sequelize); 
   const { createBankAccount, addTransaction, getAllTransactions } = bankController;
 
-  router.post('/createAccount', verifyTokenWithUserID ,createBankAccount);
+  router.post('/createAccount', createBankAccount);
 
-  router.post('/addTransaction',verifyTokenWithUserID , addTransaction);
+  router.post('/addTransaction',addTransaction);
 
-  router.get('/transactions/:AccountNumber' , getAllTransactions);
+  router.get('/transactions/:AccountNumber/offset/:offset' , getAllTransactions);
 
   return router;
-};
+};  

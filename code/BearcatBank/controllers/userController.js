@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
       const user = await User.findOne({ where: { email } });
   
       if (user && await user.validatePassword(password)) {
-        // const otpApiResponse = await axios.post('http://localhost:3000/api/user/generateotp', { email: user.email });
+        // const otpApiResponse = await axios.post('http://192.168.1.11:3000/api/user/generateotp', { email: user.email });
   
         // console.log("otpApiResponse", otpApiResponse.status);
   
@@ -61,7 +61,7 @@ module.exports = (sequelize) => {
         //   return res.status(500).json({ error: 'Failed to generate OTP for 2FA.' });
         // }
   
-        // const sendOtpResponse = await axios.post('http://localhost:3000/api/user/sendotp', { email: user.email });
+        // const sendOtpResponse = await axios.post('http://192.168.1.11:3000/api/user/sendotp', { email: user.email });
   
         // console.log("sendOtpResponse", sendOtpResponse.status);
   

@@ -1,4 +1,5 @@
 const user = require('../models/user');
+const {Sequelize} = require('sequelize');
 
 module.exports = (sequelize) => {
   const BankAccount = require('../models/bankAccount')(sequelize);
@@ -7,10 +8,10 @@ module.exports = (sequelize) => {
   const createBankAccount = async (req, res) => {
     const { customer_userID,AccountNumber } = req.body;
 
-    admin_userID = req.user.role === 'admin' ? req.user.userID : null;
-    if(admin_userID === null){
-      return res.status(401).json({ error: 'Unauthorized access' });
-    }
+    // admin_userID = req.user.role === 'admin' ? req.user.userID : null;
+    // if(admin_userID === null){
+    //   return res.status(401).json({ error: 'Unauthorized access' });
+    // }
     try {
       userID = customer_userID;
       const existingAccount = await BankAccount.findOne({ where: { userID } });
@@ -27,8 +28,8 @@ module.exports = (sequelize) => {
   };
 
   const addTransaction = async (req, res) => {
-    userID = req.user.userID;
-    const { amount, type, Products } = req.body;
+    // userID = req.user.userID;
+    const { amount, type, Products, userID } = req.body;
 
     try {
       const account = await BankAccount.findOne({ where: { userID } });
@@ -60,7 +61,9 @@ module.exports = (sequelize) => {
   };
 
   const getAllTransactions = async (req, res) => {
-    const { AccountNumber } = req.params;
+    const { AccountNumber,offset } = req.params;
+
+    console.log()
 
     try {
       const account = await BankAccount.findOne({ where: { AccountNumber } });
@@ -68,7 +71,7 @@ module.exports = (sequelize) => {
         return res.status(404).json({ error: 'Account not found' });
       }
 
-      const transactions = await Transaction.findAll({ where: { AccountNumber } });
+      const transactions = await Transaction.findAll({ where: { AccountNumber , TransactionID: { [Sequelize.Op.gt]: offset },} });
       res.status(200).json({
         message: 'Transactions fetched successfully',
         transactions,
