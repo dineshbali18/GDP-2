@@ -16,6 +16,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
       const expenses = await Expenses.findAll({
         where: { UserID: userId },
         attributes: ['ExpenseID', 'CategoryID', 'TransactionType', 'Amount', 'Description', 'GoalID','BudgetID','Merchandise', 'Date', 'createdAt', 'updatedAt'],
+        order: [['Date', 'DESC']],
       });
   
       if (expenses.length === 0) {
