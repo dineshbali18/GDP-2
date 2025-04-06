@@ -15,8 +15,10 @@ module.exports = (sequelize) => {
       if (existingUser) {
         return res.status(400).json({ error: 'User already exists' });
       }
+
+      let phoneNumber=phoneNum;
   
-      const user = await User.create({ username, email, phoneNum, password });
+      const user = await User.create({ username, email, phoneNumber, password });
       
       if (user.UserID !== undefined) {
         const otpApiResponse = await axios.post('http://192.168.1.11:3000/api/user/generateotp', { email });
