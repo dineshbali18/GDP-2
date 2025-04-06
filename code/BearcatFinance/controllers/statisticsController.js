@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
             const startOfWeek = new Date(now);
             console.log("date",startOfWeek)
             startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Monday
+            console.log(startOfWeek.getDate())
     
             const startOfLastFiveMonths = new Date(now);
             startOfLastFiveMonths.setMonth(startOfLastFiveMonths.getMonth() - 4);
