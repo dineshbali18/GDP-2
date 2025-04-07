@@ -201,6 +201,137 @@ module.exports = (sequelize) => {
     };
     
     
+    // const getBudgetsReportsForUser = async (req, res) => {
+    //     const { userId } = req.params;
+    //     try {
+    //         const now = new Date();
+    
+    //         const budgets = await Budgets.findAll({ where: { UserID: userId } });
+    //         const response = { Budgets: [] };
+    
+    //         const currentWeek = getWeekNumber(now);
+    //         const currentMonth = now.getMonth();
+    //         const currentYear = now.getFullYear();
+    
+    //         const expenses = await Expenses.findAll({ where: { UserID: userId } });
+    
+    //         function getWeekNumber(date) {
+    //             const firstJan = new Date(date.getFullYear(), 0, 1);
+    //             const days = Math.floor((date - firstJan) / (24 * 60 * 60 * 1000));
+    //             return Math.ceil((days + firstJan.getDay() + 1) / 7);
+    //         }
+    
+    //         function getMonthWeeks(year, month) {
+    //             const weeks = [];
+    //             const start = new Date(year, month, 1);
+    //             const end = new Date(year, month + 1, 0);
+    
+    //             let current = new Date(start);
+    //             while (current <= end) {
+    //                 const weekStart = new Date(current);
+    //                 let weekEnd = new Date(current);
+    //                 weekEnd.setDate(weekEnd.getDate() + (7 - weekEnd.getDay() - 1));
+    //                 if (weekEnd > end) weekEnd = new Date(end);
+    
+    //                 weeks.push([new Date(weekStart), new Date(weekEnd)]);
+    //                 current = new Date(weekEnd);
+    //                 current.setDate(current.getDate() + 1);
+    //             }
+    
+    //             return weeks;
+    //         }
+    
+    //         const monthWeeks = getMonthWeeks(currentYear, currentMonth);
+    
+    //         budgets.forEach(budget => {
+    //             let { BudgetID, Amount, Category } = budget;
+    
+    //             const weeklySpent = Array(7).fill(0); // Monday to Sunday
+    //             const weeklyRemaining = Array(7).fill(Amount);
+    //             const monthlyRemaining = Array(monthWeeks.length).fill(Amount);
+    //             const yearlyRemaining = Array(12).fill(Amount);
+    
+    //             const filteredExpenses = expenses.filter(e =>
+    //                 e.BudgetID === BudgetID &&
+    //                 new Date(e.Date).getFullYear() === currentYear
+    //             );
+    
+    //             filteredExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+    
+    //             let totalSpentUntilNow = 0; // Track total spent up until today
+    
+    //             filteredExpenses.forEach(expense => {
+    //                 const amount = parseFloat(expense.Amount);
+    //                 const expenseDate = new Date(expense.Date);
+    //                 const expenseWeek = getWeekNumber(expenseDate);
+    //                 const expenseMonth = expenseDate.getMonth();
+    //                 const expenseYear = expenseDate.getFullYear();
+    
+    //                 // === Weekly ===
+    //                 if (expenseWeek === currentWeek && expenseYear === currentYear) {
+    //                     const dayIndex = (expenseDate.getDay() + 6) % 7;
+    //                     weeklySpent[dayIndex] += amount;
+    //                     for (let i = dayIndex; i < 7; i++) {
+    //                         weeklyRemaining[i] -= amount;
+    //                         if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
+    //                     }
+    //                     totalSpentUntilNow += amount;
+    //                 }
+    
+    //                 // === Monthly ===
+    //                 if (expenseMonth === currentMonth) {
+    //                     for (let i = 0; i < monthWeeks.length; i++) {
+    //                         const [start, end] = monthWeeks[i];
+    //                         if (expenseDate >= start && expenseDate <= end) {
+    //                             for (let j = i; j < monthWeeks.length; j++) {
+    //                                 monthlyRemaining[j] -= amount;
+    //                                 if (monthlyRemaining[j] < 0) monthlyRemaining[j] = 0;
+    //                             }
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    
+    //                 // === Yearly ===
+    //                 if (expenseYear === currentYear) {
+    //                     for (let i = expenseMonth; i < 12; i++) {
+    //                         yearlyRemaining[i] -= amount;
+    //                         if (yearlyRemaining[i] < 0) yearlyRemaining[i] = 0;
+    //                     }
+    //                 }
+    //             });
+    
+    //             // Adjust weekly remaining based on total spent until now
+    //             let remainingBudget = Amount - totalSpentUntilNow;
+    
+    //             for (let i = 0; i < weeklyRemaining.length; i++) {
+    //                 if (remainingBudget <= 0) {
+    //                     weeklyRemaining[i] = 0;
+    //                 } else if (remainingBudget < weeklyRemaining[i]) {
+    //                     weeklyRemaining[i] = remainingBudget;
+    //                     remainingBudget = 0;
+    //                 } else {
+    //                     weeklyRemaining[i] = remainingBudget;
+    //                     remainingBudget -= weeklyRemaining[i];
+    //                 }
+    //             }
+    
+    //             response.Budgets.push({
+    //                 budgetname: Category,
+    //                 budgetTargetamount: Amount,
+    //                 weekly: weeklyRemaining,
+    //                 monthly: monthlyRemaining,
+    //                 yearly: yearlyRemaining
+    //             });
+    //         });
+    
+    //         return res.status(200).json(response);
+    //     } catch (err) {
+    //         console.error("Error fetching budgets:", err);
+    //         return res.status(500).json({ error: "Failed to fetch budgets for the user." });
+    //     }
+    // };
+    
     const getBudgetsReportsForUser = async (req, res) => {
         const { userId } = req.params;
         try {
@@ -304,15 +435,29 @@ module.exports = (sequelize) => {
                 // Adjust weekly remaining based on total spent until now
                 let remainingBudget = Amount - totalSpentUntilNow;
     
-                for (let i = 0; i < weeklyRemaining.length; i++) {
-                    if (remainingBudget <= 0) {
-                        weeklyRemaining[i] = 0;
-                    } else if (remainingBudget < weeklyRemaining[i]) {
+                // Distribute the remaining budget across the days of the week
+                let i = 0;
+                while (remainingBudget > 0 && i < 7) {
+                    if (remainingBudget <= weeklyRemaining[i]) {
                         weeklyRemaining[i] = remainingBudget;
                         remainingBudget = 0;
                     } else {
-                        weeklyRemaining[i] = remainingBudget;
                         remainingBudget -= weeklyRemaining[i];
+                        weeklyRemaining[i] = weeklyRemaining[i];
+                    }
+                    i++;
+                }
+    
+                // If remaining budget is still left, continue distributing
+                if (remainingBudget > 0) {
+                    for (let j = 0; remainingBudget > 0 && j < 7; j++) {
+                        if (remainingBudget <= weeklyRemaining[j]) {
+                            weeklyRemaining[j] = remainingBudget;
+                            remainingBudget = 0;
+                        } else {
+                            weeklyRemaining[j] = weeklyRemaining[j];
+                            remainingBudget -= weeklyRemaining[j];
+                        }
                     }
                 }
     
