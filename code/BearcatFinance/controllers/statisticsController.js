@@ -14,10 +14,7 @@ module.exports = (sequelize) => {
             const now = new Date();
     
             const startOfWeek = new Date(now);
-            console.log("date",startOfWeek)
             startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Monday
-            console.log(startOfWeek.getDate())
-            
     
             const startOfLastFiveMonths = new Date(now);
             startOfLastFiveMonths.setMonth(startOfLastFiveMonths.getMonth() - 4);
@@ -51,20 +48,20 @@ module.exports = (sequelize) => {
                 let obj = {};
                 let currentMonth = new Date(now);
                 const year = currentMonth.getFullYear();
-                const month = currentMonth.getMonth(); // 0-based
+                const month = currentMonth.getMonth();
                 const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
                 obj[monthKey] = [];
     
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const daysInMonth = lastDay.getDate();
+                let current = new Date(year, month, 1);
+                let next = new Date(current);
     
-                const firstDayWeekday = firstDay.getDay() || 7; // make Sunday = 7
-                const totalDaysWithOffset = daysInMonth + (firstDayWeekday - 1);
-                const weekCount = Math.ceil(totalDaysWithOffset / 7);
-    
-                for (let i = 0; i < weekCount; i++) {
+                while (current.getMonth() === month) {
+                    // push empty bucket for this week
                     obj[monthKey].push(0);
+                    // Move to next Monday after this Sunday
+                    let day = current.getDay();
+                    let diff = (7 - day); // how many days to next Sunday
+                    current.setDate(current.getDate() + diff + 1);
                 }
     
                 return obj;
@@ -99,7 +96,8 @@ module.exports = (sequelize) => {
                 const expenseDate = new Date(expense.Date);
                 const formattedDate = expenseDate.toISOString().split("T")[0];
                 const year = formattedDate.substring(0, 4);
-                const monthKey = `${year}-${String(expenseDate.getMonth() + 1).padStart(2, "0")}`;
+                const month = String(expenseDate.getMonth() + 1).padStart(2, "0");
+                const monthKey = `${year}-${month}`;
                 const isIncome = ["Credit", "Deposit", "deposit", "credit"].includes(expense.TransactionType);
                 const isExpense = ["Debit", "Withdrawal", "debit", "withdrawal"].includes(expense.TransactionType);
     
@@ -118,10 +116,19 @@ module.exports = (sequelize) => {
     
                 const updateMonthly = (targetBreakdown) => {
                     if (targetBreakdown[monthKey]) {
-                        const firstOfMonth = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
-                        const firstWeekday = firstOfMonth.getDay() || 7; // Sunday as 7
-                        const dayOffset = expenseDate.getDate() + (firstWeekday - 1);
-                        const weekIndex = Math.floor((dayOffset - 1) / 7);
+                        let firstOfMonth = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
+                        let weekIndex = 0;
+                        let tempDate = new Date(firstOfMonth);
+    
+                        while (tempDate <= expenseDate && tempDate.getMonth() === firstOfMonth.getMonth()) {
+                            let day = tempDate.getDay();
+                            let nextSunday = new Date(tempDate);
+                            nextSunday.setDate(tempDate.getDate() + (7 - day));
+                            if (expenseDate <= nextSunday) break;
+                            tempDate.setDate(nextSunday.getDate() + 1);
+                            weekIndex++;
+                        }
+    
                         if (targetBreakdown[monthKey][weekIndex] !== undefined) {
                             targetBreakdown[monthKey][weekIndex] += amount;
                         }
@@ -145,13 +152,13 @@ module.exports = (sequelize) => {
                 }
             });
     
-            // Trim future weeks from monthly
             const trimFutureMonthly = (target) => {
                 Object.keys(target).forEach(monthKey => {
                     const baseDate = new Date(`${monthKey}-01`);
                     target[monthKey].forEach((_, i) => {
-                        const weekStart = new Date(baseDate);
-                        weekStart.setDate(1 + i * 7);
+                        let weekStart = new Date(baseDate);
+                        let day = weekStart.getDay();
+                        weekStart.setDate(1 + i * 7 - (day === 0 ? 6 : day - 1)); // Sunday fix
                         if (weekStart > now) {
                             target[monthKey][i] = 0;
                         }
@@ -193,6 +200,7 @@ module.exports = (sequelize) => {
         }
     };
     
+    
     const getBudgetsReportsForUser = async (req, res) => {
         const { userId } = req.params;
         try {
@@ -213,26 +221,34 @@ module.exports = (sequelize) => {
                 return Math.ceil((days + firstJan.getDay() + 1) / 7);
             }
     
-            function getWeekOfMonth(date) {
-                const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-                const day = date.getDate();
-                const firstWeekday = firstDay.getDay();
-                return Math.floor((day + ((firstWeekday + 6) % 7) - 1) / 7) + 1;
+            function getMonthWeeks(year, month) {
+                const weeks = [];
+                const start = new Date(year, month, 1);
+                const end = new Date(year, month + 1, 0);
+    
+                let current = new Date(start);
+                while (current <= end) {
+                    const weekStart = new Date(current);
+                    let weekEnd = new Date(current);
+                    weekEnd.setDate(weekEnd.getDate() + (7 - weekEnd.getDay() - 1));
+                    if (weekEnd > end) weekEnd = new Date(end);
+    
+                    weeks.push([new Date(weekStart), new Date(weekEnd)]);
+                    current = new Date(weekEnd);
+                    current.setDate(current.getDate() + 1);
+                }
+    
+                return weeks;
             }
     
-            function getWeeksInMonth(year, month) {
-                const lastDay = new Date(year, month + 1, 0);
-                return getWeekOfMonth(lastDay);
-            }
-    
-            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+            const monthWeeks = getMonthWeeks(currentYear, currentMonth);
     
             budgets.forEach(budget => {
                 let { BudgetID, Amount, Category } = budget;
     
-                const weeklySpent = Array(7).fill(0); // Monday to Sunday
+                const weeklySpent = Array(7).fill(0);
                 const weeklyRemaining = Array(7).fill(Amount);
-                const monthlyRemaining = Array(totalWeeksThisMonth).fill(Amount);
+                const monthlyRemaining = Array(monthWeeks.length).fill(Amount);
                 const yearlyRemaining = Array(12).fill(Amount);
     
                 const filteredExpenses = expenses.filter(e =>
@@ -244,43 +260,36 @@ module.exports = (sequelize) => {
     
                 filteredExpenses.forEach(expense => {
                     const amount = parseFloat(expense.Amount);
-                    let expenseDate = new Date(expense.Date);
-                    expenseDate = new Date(
-                        expenseDate.getUTCFullYear(),
-                        expenseDate.getUTCMonth(),
-                        expenseDate.getUTCDate()
-                    );
-    
+                    const expenseDate = new Date(expense.Date);
                     const expenseWeek = getWeekNumber(expenseDate);
                     const expenseMonth = expenseDate.getMonth();
                     const expenseYear = expenseDate.getFullYear();
     
-                    // === Weekly Logic (only if in current week) ===
+                    // === Weekly ===
                     if (expenseWeek === currentWeek && expenseYear === currentYear) {
-                        const jsDay = expenseDate.getDay(); // 0 = Sunday
-                        const monStartIndex = (jsDay + 6) % 7; // Make Monday = 0
-    
-                        weeklySpent[monStartIndex] += amount;
-    
-                        // Subtract this expense from today and onward
-                        for (let i = monStartIndex; i < 7; i++) {
+                        const dayIndex = (expenseDate.getDay() + 6) % 7;
+                        weeklySpent[dayIndex] += amount;
+                        for (let i = dayIndex; i < 7; i++) {
                             weeklyRemaining[i] -= amount;
                             if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
                         }
                     }
     
-                    // === Monthly Logic ===
+                    // === Monthly ===
                     if (expenseMonth === currentMonth) {
-                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1;
-                        const weekIndex = Math.min(weekOfMonth, totalWeeksThisMonth - 1);
-    
-                        for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
-                            monthlyRemaining[i] -= amount;
-                            if (monthlyRemaining[i] < 0) monthlyRemaining[i] = 0;
+                        for (let i = 0; i < monthWeeks.length; i++) {
+                            const [start, end] = monthWeeks[i];
+                            if (expenseDate >= start && expenseDate <= end) {
+                                for (let j = i; j < monthWeeks.length; j++) {
+                                    monthlyRemaining[j] -= amount;
+                                    if (monthlyRemaining[j] < 0) monthlyRemaining[j] = 0;
+                                }
+                                break;
+                            }
                         }
                     }
     
-                    // === Yearly Logic ===
+                    // === Yearly ===
                     if (expenseYear === currentYear) {
                         for (let i = expenseMonth; i < 12; i++) {
                             yearlyRemaining[i] -= amount;
@@ -305,6 +314,7 @@ module.exports = (sequelize) => {
         }
     };
     
+    
     const getSavingGoalsReportsForUser = async (req, res) => {
         const { userId } = req.params;
         try {
@@ -325,24 +335,32 @@ module.exports = (sequelize) => {
                 return Math.ceil((days + firstJan.getDay() + 1) / 7);
             }
     
-            function getWeekOfMonth(date) {
-                const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-                const day = date.getDate();
-                const firstWeekday = firstDay.getDay();
-                return Math.floor((day + ((firstWeekday + 6) % 7) - 1) / 7) + 1;
+            function getMonthWeeks(year, month) {
+                const weeks = [];
+                const start = new Date(year, month, 1);
+                const end = new Date(year, month + 1, 0);
+    
+                let current = new Date(start);
+                while (current <= end) {
+                    const weekStart = new Date(current);
+                    let weekEnd = new Date(current);
+                    weekEnd.setDate(weekEnd.getDate() + (7 - weekEnd.getDay() - 1));
+                    if (weekEnd > end) weekEnd = new Date(end);
+    
+                    weeks.push([new Date(weekStart), new Date(weekEnd)]);
+                    current = new Date(weekEnd);
+                    current.setDate(current.getDate() + 1);
+                }
+    
+                return weeks;
             }
     
-            function getWeeksInMonth(year, month) {
-                const lastDay = new Date(year, month + 1, 0);
-                return getWeekOfMonth(lastDay);
-            }
-    
-            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+            const monthWeeks = getMonthWeeks(currentYear, currentMonth);
     
             goals.forEach(goal => {
                 const { GoalID, Amount, Category } = goal;
                 let weeklyProgress = Array(7).fill(0);
-                let monthlyProgress = Array(totalWeeksThisMonth).fill(0);
+                let monthlyProgress = Array(monthWeeks.length).fill(0);
                 let yearlyProgress = Array(12).fill(0);
     
                 const goalExpenses = expenses.filter(exp => exp.GoalID === GoalID &&
@@ -353,38 +371,35 @@ module.exports = (sequelize) => {
     
                 goalExpenses.forEach(expense => {
                     const amount = parseFloat(expense.Amount);
-                    let expenseDate = new Date(expense.Date);
-                    expenseDate = new Date(
-                        expenseDate.getUTCFullYear(),
-                        expenseDate.getUTCMonth(),
-                        expenseDate.getUTCDate()
-                    );
-    
+                    const expenseDate = new Date(expense.Date);
                     const expenseWeek = getWeekNumber(expenseDate);
                     const expenseMonth = expenseDate.getMonth();
                     const expenseYear = expenseDate.getFullYear();
     
-                    // === Weekly Progress ===
+                    // === Weekly ===
                     if (expenseWeek === currentWeek && expenseYear === currentYear) {
-                        const jsDay = expenseDate.getDay();
-                        const monStartIndex = (jsDay + 6) % 7;
-                        for (let i = monStartIndex; i < 7; i++) {
+                        const dayIndex = (expenseDate.getDay() + 6) % 7;
+                        for (let i = dayIndex; i < 7; i++) {
                             weeklyProgress[i] += amount;
                             if (weeklyProgress[i] > Amount) weeklyProgress[i] = Amount;
                         }
                     }
     
-                    // === Monthly Progress ===
+                    // === Monthly ===
                     if (expenseMonth === currentMonth) {
-                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1;
-                        const weekIndex = Math.min(weekOfMonth, totalWeeksThisMonth - 1);
-                        for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
-                            monthlyProgress[i] += amount;
-                            if (monthlyProgress[i] > Amount) monthlyProgress[i] = Amount;
+                        for (let i = 0; i < monthWeeks.length; i++) {
+                            const [start, end] = monthWeeks[i];
+                            if (expenseDate >= start && expenseDate <= end) {
+                                for (let j = i; j < monthWeeks.length; j++) {
+                                    monthlyProgress[j] += amount;
+                                    if (monthlyProgress[j] > Amount) monthlyProgress[j] = Amount;
+                                }
+                                break;
+                            }
                         }
                     }
     
-                    // === Yearly Progress ===
+                    // === Yearly ===
                     if (expenseYear === currentYear) {
                         for (let i = expenseMonth; i < 12; i++) {
                             yearlyProgress[i] += amount;
@@ -408,6 +423,7 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch saving goals for the user." });
         }
     };
+    
     
     
     
