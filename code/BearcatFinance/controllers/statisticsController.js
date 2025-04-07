@@ -249,7 +249,7 @@ module.exports = (sequelize) => {
                 );
     
                 filteredExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-    
+    console.log("AMT",AmountSpent)
                 filteredExpenses.forEach(expense => {
                     const amount = parseFloat(expense.Amount);
                     let expenseDate = new Date(expense.Date);
@@ -284,7 +284,7 @@ module.exports = (sequelize) => {
     
                         for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
                             monthlyRemaining[i] -= amount;
-                            monthlyRemaining[i] -= AmountSpent;
+                            // monthlyRemaining[i] -= AmountSpent;
                             if (monthlyRemaining[i] < 0) monthlyRemaining[i] = 0;
                         }
                     }
@@ -293,7 +293,7 @@ module.exports = (sequelize) => {
                     if (expenseYear === currentYear) {
                         for (let i = expenseMonth; i < 12; i++) {
                             yearlyRemaining[i] -= amount;
-                            yearlyRemaining[i] -= AmountSpent;
+                            // yearlyRemaining[i] -= AmountSpent;
                             if (yearlyRemaining[i] < 0) yearlyRemaining[i] = 0;
                         }
                     }
