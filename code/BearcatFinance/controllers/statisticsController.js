@@ -246,7 +246,7 @@ module.exports = (sequelize) => {
             budgets.forEach(budget => {
                 let { BudgetID, Amount, Category } = budget;
     
-                const weeklySpent = Array(7).fill(0);
+                const weeklySpent = Array(7).fill(0); // Monday to Sunday
                 const weeklyRemaining = Array(7).fill(Amount);
                 const monthlyRemaining = Array(monthWeeks.length).fill(Amount);
                 const yearlyRemaining = Array(12).fill(Amount);
@@ -257,6 +257,8 @@ module.exports = (sequelize) => {
                 );
     
                 filteredExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+    
+                let totalSpentUntilNow = 0; // Track total spent up until today
     
                 filteredExpenses.forEach(expense => {
                     const amount = parseFloat(expense.Amount);
@@ -273,6 +275,7 @@ module.exports = (sequelize) => {
                             weeklyRemaining[i] -= amount;
                             if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
                         }
+                        totalSpentUntilNow += amount;
                     }
     
                     // === Monthly ===
@@ -298,6 +301,21 @@ module.exports = (sequelize) => {
                     }
                 });
     
+                // Adjust weekly remaining based on total spent until now
+                let remainingBudget = Amount - totalSpentUntilNow;
+    
+                for (let i = 0; i < weeklyRemaining.length; i++) {
+                    if (remainingBudget <= 0) {
+                        weeklyRemaining[i] = 0;
+                    } else if (remainingBudget < weeklyRemaining[i]) {
+                        weeklyRemaining[i] = remainingBudget;
+                        remainingBudget = 0;
+                    } else {
+                        weeklyRemaining[i] = remainingBudget;
+                        remainingBudget -= weeklyRemaining[i];
+                    }
+                }
+    
                 response.Budgets.push({
                     budgetname: Category,
                     budgetTargetamount: Amount,
@@ -313,6 +331,7 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch budgets for the user." });
         }
     };
+    
     
     
     const getSavingGoalsReportsForUser = async (req, res) => {
