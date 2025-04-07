@@ -378,7 +378,7 @@ module.exports = (sequelize) => {
                 let { BudgetID, Amount, Category } = budget;
     
                 const weeklySpent = Array(7).fill(0); // Monday to Sunday
-                const weeklyRemaining = Array(7).fill(Amount);
+                const weeklyRemaining = Array(7).fill(Amount); // Start with the full budget for now
                 const monthlyRemaining = Array(monthWeeks.length).fill(Amount);
                 const yearlyRemaining = Array(12).fill(Amount);
     
@@ -389,7 +389,7 @@ module.exports = (sequelize) => {
     
                 filteredExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
     
-                let totalSpentUntilNow = 0; // Track total spent up until today
+                let totalSpentUntilNow = 0; // Track total spent until now
     
                 filteredExpenses.forEach(expense => {
                     const amount = parseFloat(expense.Amount);
@@ -432,34 +432,37 @@ module.exports = (sequelize) => {
                     }
                 });
     
-                // Adjust weekly remaining based on total spent until now
-                let remainingBudget = Amount - totalSpentUntilNow;
+                // Calculate remaining weekly budget from the total spent so far
+                let remainingWeeklyBudget = Amount - totalSpentUntilNow;
     
-                // Distribute the remaining budget across the days of the week
+                // Propagate the remaining budget starting from the current week
                 let i = 0;
-                while (remainingBudget > 0 && i < 7) {
-                    if (remainingBudget <= weeklyRemaining[i]) {
-                        weeklyRemaining[i] = remainingBudget;
-                        remainingBudget = 0;
+                while (remainingWeeklyBudget > 0 && i < 7) {
+                    if (remainingWeeklyBudget <= weeklyRemaining[i]) {
+                        weeklyRemaining[i] = remainingWeeklyBudget;
+                        remainingWeeklyBudget = 0;
                     } else {
-                        remainingBudget -= weeklyRemaining[i];
+                        remainingWeeklyBudget -= weeklyRemaining[i];
                         weeklyRemaining[i] = weeklyRemaining[i];
                     }
                     i++;
                 }
     
-                // If remaining budget is still left, continue distributing
-                if (remainingBudget > 0) {
-                    for (let j = 0; remainingBudget > 0 && j < 7; j++) {
-                        if (remainingBudget <= weeklyRemaining[j]) {
-                            weeklyRemaining[j] = remainingBudget;
-                            remainingBudget = 0;
+                // If remaining weekly budget is still left, continue distributing
+                if (remainingWeeklyBudget > 0) {
+                    for (let j = 0; remainingWeeklyBudget > 0 && j < 7; j++) {
+                        if (remainingWeeklyBudget <= weeklyRemaining[j]) {
+                            weeklyRemaining[j] = remainingWeeklyBudget;
+                            remainingWeeklyBudget = 0;
                         } else {
                             weeklyRemaining[j] = weeklyRemaining[j];
-                            remainingBudget -= weeklyRemaining[j];
+                            remainingWeeklyBudget -= weeklyRemaining[j];
                         }
                     }
                 }
+    
+                // Update weekly remaining with the updated budget
+                weeklyRemaining[0] = remainingWeeklyBudget;
     
                 response.Budgets.push({
                     budgetname: Category,
@@ -476,6 +479,7 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch budgets for the user." });
         }
     };
+    
     
     
     
