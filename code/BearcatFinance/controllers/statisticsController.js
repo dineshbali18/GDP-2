@@ -202,9 +202,219 @@ module.exports = (sequelize) => {
     
     
     const getBudgetsReportsForUser = async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const now = new Date();
+    
+            const budgets = await Budgets.findAll({ where: { UserID: userId } });
+            const response = { Budgets: [] };
+    
+            const currentWeek = getWeekNumber(now);
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+    
+            const expenses = await Expenses.findAll({ where: { UserID: userId } });
+    
+            function getWeekNumber(date) {
+                const firstJan = new Date(date.getFullYear(), 0, 1);
+                const days = Math.floor((date - firstJan) / (24 * 60 * 60 * 1000));
+                return Math.ceil((days + firstJan.getDay() + 1) / 7);
+            }
+    
+            function getWeekOfMonth(date) {
+                const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                const day = date.getDate();
+                const firstWeekday = firstDay.getDay();
+                return Math.floor((day + ((firstWeekday + 6) % 7) - 1) / 7) + 1;
+            }
+    
+            function getWeeksInMonth(year, month) {
+                const lastDay = new Date(year, month + 1, 0);
+                return getWeekOfMonth(lastDay);
+            }
+    
+            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+    
+            budgets.forEach(budget => {
+                let { BudgetID, Amount, Category } = budget;
+    
+                const weeklySpent = Array(7).fill(0); // Monday to Sunday
+                const weeklyRemaining = Array(7).fill(Amount);
+                const monthlyRemaining = Array(totalWeeksThisMonth).fill(Amount);
+                const yearlyRemaining = Array(12).fill(Amount);
+    
+                const filteredExpenses = expenses.filter(e =>
+                    e.BudgetID === BudgetID &&
+                    new Date(e.Date).getFullYear() === currentYear
+                );
+    
+                filteredExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+    
+                filteredExpenses.forEach(expense => {
+                    const amount = parseFloat(expense.Amount);
+                    let expenseDate = new Date(expense.Date);
+                    expenseDate = new Date(
+                        expenseDate.getUTCFullYear(),
+                        expenseDate.getUTCMonth(),
+                        expenseDate.getUTCDate()
+                    );
+    
+                    const expenseWeek = getWeekNumber(expenseDate);
+                    const expenseMonth = expenseDate.getMonth();
+                    const expenseYear = expenseDate.getFullYear();
+    
+                    // === Weekly Logic (only if in current week) ===
+                    if (expenseWeek === currentWeek && expenseYear === currentYear) {
+                        const jsDay = expenseDate.getDay(); // 0 = Sunday
+                        const monStartIndex = (jsDay + 6) % 7; // Make Monday = 0
+    
+                        weeklySpent[monStartIndex] += amount;
+    
+                        // Subtract this expense from today and onward
+                        for (let i = monStartIndex; i < 7; i++) {
+                            weeklyRemaining[i] -= amount;
+                            if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
+                        }
+                    }
+    
+                    // === Monthly Logic ===
+                    if (expenseMonth === currentMonth) {
+                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1;
+                        const weekIndex = Math.min(weekOfMonth, totalWeeksThisMonth - 1);
+    
+                        for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
+                            monthlyRemaining[i] -= amount;
+                            if (monthlyRemaining[i] < 0) monthlyRemaining[i] = 0;
+                        }
+                    }
+    
+                    // === Yearly Logic ===
+                    if (expenseYear === currentYear) {
+                        for (let i = expenseMonth; i < 12; i++) {
+                            yearlyRemaining[i] -= amount;
+                            if (yearlyRemaining[i] < 0) yearlyRemaining[i] = 0;
+                        }
+                    }
+                });
+    
+                response.Budgets.push({
+                    budgetname: Category,
+                    budgetTargetamount: Amount,
+                    weekly: weeklyRemaining,
+                    monthly: monthlyRemaining,
+                    yearly: yearlyRemaining
+                });
+            });
+    
+            return res.status(200).json(response);
+        } catch (err) {
+            console.error("Error fetching budgets:", err);
+            return res.status(500).json({ error: "Failed to fetch budgets for the user." });
+        }
     };
     
     const getSavingGoalsReportsForUser = async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const now = new Date();
+    
+            const goals = await SavingGoal.findAll({ where: { UserID: userId } });
+            const response = { Budgets: [] };
+    
+            const currentWeek = getWeekNumber(now);
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+    
+            const expenses = await Expenses.findAll({ where: { UserID: userId } });
+    
+            function getWeekNumber(date) {
+                const firstJan = new Date(date.getFullYear(), 0, 1);
+                const days = Math.floor((date - firstJan) / (24 * 60 * 60 * 1000));
+                return Math.ceil((days + firstJan.getDay() + 1) / 7);
+            }
+    
+            function getWeekOfMonth(date) {
+                const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                const day = date.getDate();
+                const firstWeekday = firstDay.getDay();
+                return Math.floor((day + ((firstWeekday + 6) % 7) - 1) / 7) + 1;
+            }
+    
+            function getWeeksInMonth(year, month) {
+                const lastDay = new Date(year, month + 1, 0);
+                return getWeekOfMonth(lastDay);
+            }
+    
+            const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
+    
+            goals.forEach(goal => {
+                const { GoalID, Amount, Category } = goal;
+                let weeklyProgress = Array(7).fill(0);
+                let monthlyProgress = Array(totalWeeksThisMonth).fill(0);
+                let yearlyProgress = Array(12).fill(0);
+    
+                const goalExpenses = expenses.filter(exp => exp.GoalID === GoalID &&
+                    new Date(exp.Date).getFullYear() === currentYear
+                );
+    
+                goalExpenses.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+    
+                goalExpenses.forEach(expense => {
+                    const amount = parseFloat(expense.Amount);
+                    let expenseDate = new Date(expense.Date);
+                    expenseDate = new Date(
+                        expenseDate.getUTCFullYear(),
+                        expenseDate.getUTCMonth(),
+                        expenseDate.getUTCDate()
+                    );
+    
+                    const expenseWeek = getWeekNumber(expenseDate);
+                    const expenseMonth = expenseDate.getMonth();
+                    const expenseYear = expenseDate.getFullYear();
+    
+                    // === Weekly Progress ===
+                    if (expenseWeek === currentWeek && expenseYear === currentYear) {
+                        const jsDay = expenseDate.getDay();
+                        const monStartIndex = (jsDay + 6) % 7;
+                        for (let i = monStartIndex; i < 7; i++) {
+                            weeklyProgress[i] += amount;
+                            if (weeklyProgress[i] > Amount) weeklyProgress[i] = Amount;
+                        }
+                    }
+    
+                    // === Monthly Progress ===
+                    if (expenseMonth === currentMonth) {
+                        const weekOfMonth = getWeekOfMonth(expenseDate) - 1;
+                        const weekIndex = Math.min(weekOfMonth, totalWeeksThisMonth - 1);
+                        for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
+                            monthlyProgress[i] += amount;
+                            if (monthlyProgress[i] > Amount) monthlyProgress[i] = Amount;
+                        }
+                    }
+    
+                    // === Yearly Progress ===
+                    if (expenseYear === currentYear) {
+                        for (let i = expenseMonth; i < 12; i++) {
+                            yearlyProgress[i] += amount;
+                            if (yearlyProgress[i] > Amount) yearlyProgress[i] = Amount;
+                        }
+                    }
+                });
+    
+                response.Budgets.push({
+                    budgetname: Category,
+                    budgetTargetamount: Amount,
+                    weekly: weeklyProgress,
+                    monthly: monthlyProgress,
+                    yearly: yearlyProgress
+                });
+            });
+    
+            return res.status(200).json(response);
+        } catch (err) {
+            console.error("Error fetching saving goals:", err);
+            return res.status(500).json({ error: "Failed to fetch saving goals for the user." });
+        }
     };
     
     
