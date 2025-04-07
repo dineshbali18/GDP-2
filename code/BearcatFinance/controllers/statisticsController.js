@@ -299,7 +299,7 @@ module.exports = (sequelize) => {
                     }
                 });
 
-                monthlyRemaining=monthlyRemaining.map((remainingAmount, index) => {
+                UpdatedMonthlyRemaining=monthlyRemaining.map((remainingAmount, index) => {
                     console.log("AMPUNT",AmountSpent)
                     console.log("REMAINIGN",remainingAmount)
                         const newAmount = remainingAmount - AmountSpent;
@@ -313,7 +313,7 @@ module.exports = (sequelize) => {
                     budgetname: Category,
                     budgetTargetamount: Amount,
                     weekly: weeklyRemaining,
-                    monthly: monthlyRemaining,
+                    monthly: UpdatedMonthlyRemaining,
                     yearly: yearlyRemaining
                 });
             });
