@@ -299,7 +299,25 @@ module.exports = (sequelize) => {
                     }
                 });
 
+                UpdatedWeeklyRemaining=weeklyRemaining.map((remainingAmount, index) => {
+                    console.log("AMPUNT",AmountSpent)
+                    console.log("REMAINIGN",remainingAmount)
+                        const newAmount = remainingAmount - AmountSpent;
+                        console.log("NEW",newAmount)
+                        // Ensure it doesn't go below zero
+                        return newAmount < 0 ? 0 : newAmount;
+                });
+
                 UpdatedMonthlyRemaining=monthlyRemaining.map((remainingAmount, index) => {
+                    console.log("AMPUNT",AmountSpent)
+                    console.log("REMAINIGN",remainingAmount)
+                        const newAmount = remainingAmount - AmountSpent;
+                        console.log("NEW",newAmount)
+                        // Ensure it doesn't go below zero
+                        return newAmount < 0 ? 0 : newAmount;
+                });
+
+                UpdatedYearlyRemaining=yearlyRemaining.map((remainingAmount, index) => {
                     console.log("AMPUNT",AmountSpent)
                     console.log("REMAINIGN",remainingAmount)
                         const newAmount = remainingAmount - AmountSpent;
@@ -314,7 +332,7 @@ module.exports = (sequelize) => {
                     budgetTargetamount: Amount,
                     weekly: weeklyRemaining,
                     monthly: UpdatedMonthlyRemaining,
-                    yearly: yearlyRemaining
+                    yearly: UpdatedYearlyRemaining
                 });
             });
     
