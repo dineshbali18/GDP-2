@@ -300,7 +300,7 @@ module.exports = (sequelize) => {
                 });
 
                 monthlyRemaining.map((remainingAmount, index) => {
-                        const newAmount = remainingAmount - amount;
+                        const newAmount = remainingAmount - AmountSpent;
                         // Ensure it doesn't go below zero
                         return newAmount < 0 ? 0 : newAmount;
                 });
