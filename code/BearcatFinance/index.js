@@ -37,7 +37,7 @@ const Budgets = require('./models/budgets')(sequelize, DataTypes);
 const BankDetails = require('./models/bankDetails')(sequelize, DataTypes);
 
 
-sequelize.sync({ force: true }) 
+sequelize.sync({ force: false }) 
   .then(() => {
     console.log('Database & tables created!');
   })
