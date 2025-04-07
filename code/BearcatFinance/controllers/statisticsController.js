@@ -299,7 +299,7 @@ module.exports = (sequelize) => {
                     }
                 });
 
-                monthlyRemaining.map((remainingAmount, index) => {
+                monthlyRemaining=monthlyRemaining.map((remainingAmount, index) => {
                     console.log("AMPUNT",AmountSpent)
                     console.log("REMAINIGN",remainingAmount)
                         const newAmount = remainingAmount - AmountSpent;
