@@ -236,7 +236,7 @@ module.exports = (sequelize) => {
             const totalWeeksThisMonth = getWeeksInMonth(currentYear, currentMonth);
     
             budgets.forEach(budget => {
-                let { BudgetID, Amount, Category } = budget;
+                let { BudgetID, Amount, Category, AmountSpent } = budget;
     
                 const weeklySpent = Array(7).fill(0); // Monday to Sunday
                 const weeklyRemaining = Array(7).fill(Amount);
@@ -272,7 +272,7 @@ module.exports = (sequelize) => {
     
                         // Subtract this expense from today and onward
                         for (let i = monStartIndex; i < 7; i++) {
-                            weeklyRemaining[i] -= amount;
+                            weeklyRemaining[i] -= (amount-AmountSpent);
                             if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
                         }
                     }
@@ -283,7 +283,7 @@ module.exports = (sequelize) => {
                         const weekIndex = Math.min(weekOfMonth, totalWeeksThisMonth - 1);
     
                         for (let i = weekIndex; i < totalWeeksThisMonth; i++) {
-                            monthlyRemaining[i] -= amount;
+                            monthlyRemaining[i] -= (amount-AmountSpent);
                             if (monthlyRemaining[i] < 0) monthlyRemaining[i] = 0;
                         }
                     }
@@ -291,7 +291,7 @@ module.exports = (sequelize) => {
                     // === Yearly Logic ===
                     if (expenseYear === currentYear) {
                         for (let i = expenseMonth; i < 12; i++) {
-                            yearlyRemaining[i] -= amount;
+                            yearlyRemaining[i] -= (amount-AmountSpent);
                             if (yearlyRemaining[i] < 0) yearlyRemaining[i] = 0;
                         }
                     }
