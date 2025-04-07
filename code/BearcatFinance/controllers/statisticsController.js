@@ -378,7 +378,7 @@ module.exports = (sequelize) => {
                 let { BudgetID, Amount, Category } = budget;
     
                 const weeklySpent = Array(7).fill(0); // Monday to Sunday
-                const weeklyRemaining = Array(7).fill(Amount); // Start with the full budget for now
+                const weeklyRemaining = Array(7).fill(0); // Start with 0, to be filled dynamically
                 const monthlyRemaining = Array(monthWeeks.length).fill(Amount);
                 const yearlyRemaining = Array(12).fill(Amount);
     
@@ -400,12 +400,8 @@ module.exports = (sequelize) => {
     
                     // === Weekly ===
                     if (expenseWeek === currentWeek && expenseYear === currentYear) {
-                        const dayIndex = (expenseDate.getDay() + 6) % 7;
+                        const dayIndex = (expenseDate.getDay() + 6) % 7; // Adjust so Monday is 0
                         weeklySpent[dayIndex] += amount;
-                        for (let i = dayIndex; i < 7; i++) {
-                            weeklyRemaining[i] -= amount;
-                            if (weeklyRemaining[i] < 0) weeklyRemaining[i] = 0;
-                        }
                         totalSpentUntilNow += amount;
                     }
     
@@ -432,38 +428,18 @@ module.exports = (sequelize) => {
                     }
                 });
     
-                // Calculate remaining weekly budget from the total spent so far
+                // Calculate the updated remaining budget after expenses
                 let remainingWeeklyBudget = Amount - totalSpentUntilNow;
     
-                // Propagate the remaining budget starting from the current week
-                let i = 0;
-                while (remainingWeeklyBudget > 0 && i < 7) {
-                    if (remainingWeeklyBudget <= weeklyRemaining[i]) {
+                // Ensure weeklyRemaining starts from the reduced amount (e.g., 1690)
+                for (let i = 0; i < 7; i++) {
+                    if (remainingWeeklyBudget > 0) {
                         weeklyRemaining[i] = remainingWeeklyBudget;
-                        remainingWeeklyBudget = 0;
-                    } else {
-                        remainingWeeklyBudget -= weeklyRemaining[i];
-                        weeklyRemaining[i] = weeklyRemaining[i];
-                    }
-                    i++;
-                }
-    
-                // If remaining weekly budget is still left, continue distributing
-                if (remainingWeeklyBudget > 0) {
-                    for (let j = 0; remainingWeeklyBudget > 0 && j < 7; j++) {
-                        if (remainingWeeklyBudget <= weeklyRemaining[j]) {
-                            weeklyRemaining[j] = remainingWeeklyBudget;
-                            remainingWeeklyBudget = 0;
-                        } else {
-                            weeklyRemaining[j] = weeklyRemaining[j];
-                            remainingWeeklyBudget -= weeklyRemaining[j];
-                        }
+                        remainingWeeklyBudget = 0; // After first allocation, remainingWeeklyBudget should be 0
                     }
                 }
     
-                // Update weekly remaining with the updated budget
-                weeklyRemaining[0] = remainingWeeklyBudget;
-    
+                // Push the updated budget data
                 response.Budgets.push({
                     budgetname: Category,
                     budgetTargetamount: Amount,
@@ -479,6 +455,7 @@ module.exports = (sequelize) => {
             return res.status(500).json({ error: "Failed to fetch budgets for the user." });
         }
     };
+    
     
     
     
