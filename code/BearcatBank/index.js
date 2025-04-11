@@ -4,18 +4,18 @@ const app = express();
 const port = 3001;
 
 // uncomment to connect to amazon database
-const sequelize = new Sequelize('bearcat_bank', 'admin', 'Gdpteam3', {
-  host: 'database-1.cbm6q2wayzrp.us-east-2.rds.amazonaws.com',
-  dialect: 'mysql',
-  port: 3306, 
-});
+// const sequelize = new Sequelize('bearcat_bank', 'admin', 'Gdpteam3', {
+//   host: 'database-1.cbm6q2wayzrp.us-east-2.rds.amazonaws.com',
+//   dialect: 'mysql',
+//   port: 3306, 
+// });
 
 
-// const sequelize = new Sequelize('bearcat_bank', 'root', 'Gdpteam3', {
-//     host: 'localhost',
-//     dialect: 'mysql',
-//     port: 3306, 
-//   });
+const sequelize = new Sequelize('bearcat_bank', 'root', 'Gdpteam3', {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: 3306, 
+  });
 
 
 sequelize.authenticate()
@@ -54,5 +54,5 @@ app.get('/test1', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://3.148.203.156:${port}`);
+  console.log(`Server is running on http://192.168.1.11:${port}`);
 });
