@@ -51,21 +51,24 @@ module.exports = (sequelize) => {
                 const month = currentMonth.getMonth();
                 const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
                 obj[monthKey] = [];
-    
-                let current = new Date(year, month, 1);
-                let next = new Date(current);
-    
-                while (current.getMonth() === month) {
-                    // push empty bucket for this week
-                    obj[monthKey].push(0);
-                    // Move to next Monday after this Sunday
-                    let day = current.getDay();
-                    let diff = (7 - day); // how many days to next Sunday
-                    current.setDate(current.getDate() + diff + 1);
+            
+                // Start from the first Monday on or before the 1st of the month
+                let start = new Date(year, month, 1);
+                let day = start.getDay();
+                let offset = (day === 0 ? -6 : 1 - day); // if Sunday, go back 6 days; else align to Monday
+                start.setDate(start.getDate() + offset);
+            
+                let end = new Date(year, month + 1, 0); // last day of the month
+            
+                let current = new Date(start);
+                while (current <= end) {
+                    obj[monthKey].push(0); // new week bucket
+                    current.setDate(current.getDate() + 7); // move to next Monday
                 }
-    
+            
                 return obj;
             };
+            
     
             const initializeYear = () => {
                 let obj = {};
@@ -116,24 +119,26 @@ module.exports = (sequelize) => {
     
                 const updateMonthly = (targetBreakdown) => {
                     if (targetBreakdown[monthKey]) {
-                        let firstOfMonth = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
+                        let current = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
+                        let day = current.getDay();
+                        let offset = (day === 0 ? -6 : 1 - day); // align to Monday before 1st
+                        current.setDate(current.getDate() + offset);
+                
                         let weekIndex = 0;
-                        let tempDate = new Date(firstOfMonth);
-    
-                        while (tempDate <= expenseDate && tempDate.getMonth() === firstOfMonth.getMonth()) {
-                            let day = tempDate.getDay();
-                            let nextSunday = new Date(tempDate);
-                            nextSunday.setDate(tempDate.getDate() + (7 - day));
-                            if (expenseDate <= nextSunday) break;
-                            tempDate.setDate(nextSunday.getDate() + 1);
+                        while (current <= expenseDate) {
+                            let next = new Date(current);
+                            next.setDate(next.getDate() + 7);
+                            if (expenseDate < next) break;
+                            current = next;
                             weekIndex++;
                         }
-    
+                
                         if (targetBreakdown[monthKey][weekIndex] !== undefined) {
                             targetBreakdown[monthKey][weekIndex] += amount;
                         }
                     }
                 };
+                
     
                 const updateYearly = (targetBreakdown) => {
                     if (targetBreakdown[year]) {
