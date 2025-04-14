@@ -51,32 +51,23 @@ module.exports = (sequelize) => {
             const initializeMonth = () => {
                 let obj = {};
                 let currentMonth = new Date(now);
-                console.log("MONTH",currentMonth)
                 const year = currentMonth.getFullYear();
                 const month = currentMonth.getMonth();
                 const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
                 obj[monthKey] = [];
             
-                // Start from the first Monday on or before the 1st of the month
                 let start = new Date(year, month, 1);
-                let day = start.getDay();
-                // let offset = (day === 0 ? -6 : 1 - day); // if Sunday, go back 6 days; else align to Monday
-                // start.setDate(start.getDate() + offset);
-                let offset = (day === 0 ? 1 : 8 - day); // Move to next Monday if not already Monday
-start.setDate(start.getDate() + offset);
-
-            
-                let end = new Date(year, month + 1, 0); // last day of the month
+                let end = new Date(year, month + 1, 0); // Last day of month
             
                 let current = new Date(start);
                 while (current <= end) {
                     obj[monthKey].push(0); // new week bucket
-                    current.setDate(current.getDate() + 7); // move to next Monday
+                    current.setDate(current.getDate() + 7);
                 }
-                console.log("MMMMMMM",obj)
             
                 return obj;
             };
+            
             
     
             const initializeYear = () => {
@@ -128,12 +119,10 @@ start.setDate(start.getDate() + offset);
     
                 const updateMonthly = (targetBreakdown) => {
                     if (targetBreakdown[monthKey]) {
-                        let current = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
-                        let day = current.getDay();
-                        let offset = (day === 0 ? -6 : 1 - day); // align to Monday before 1st
-                        current.setDate(current.getDate() + offset);
-                
+                        let start = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
+                        let current = new Date(start);
                         let weekIndex = 0;
+                
                         while (current <= expenseDate) {
                             let next = new Date(current);
                             next.setDate(next.getDate() + 7);
@@ -147,6 +136,29 @@ start.setDate(start.getDate() + offset);
                         }
                     }
                 };
+                
+
+                // const updateMonthly = (targetBreakdown) => {
+                //     if (targetBreakdown[monthKey]) {
+                //         let current = new Date(expenseDate.getFullYear(), expenseDate.getMonth(), 1);
+                //         let day = current.getDay();
+                //         let offset = (day === 0 ? -6 : 1 - day); // align to Monday before 1st
+                //         current.setDate(current.getDate() + offset);
+                
+                //         let weekIndex = 0;
+                //         while (current <= expenseDate) {
+                //             let next = new Date(current);
+                //             next.setDate(next.getDate() + 7);
+                //             if (expenseDate < next) break;
+                //             current = next;
+                //             weekIndex++;
+                //         }
+                
+                //         if (targetBreakdown[monthKey][weekIndex] !== undefined) {
+                //             targetBreakdown[monthKey][weekIndex] += amount;
+                //         }
+                //     }
+                // };
                 
     
                 const updateYearly = (targetBreakdown) => {
