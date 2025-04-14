@@ -1,5 +1,7 @@
 const user = require('../models/user');
 const {Sequelize} = require('sequelize');
+const CryptoJS = require("crypto-js");
+const key = "gdpteam3bearcatfinanceapp00000000";
 
 module.exports = (sequelize) => {
   const BankAccount = require('../models/bankAccount')(sequelize);
