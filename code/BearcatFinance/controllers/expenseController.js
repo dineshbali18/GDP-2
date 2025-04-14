@@ -217,7 +217,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                 if (response1.data.error === "Account not found") {
                   continue;
               }
-                const transactions = response1.data?.transactions;
+                const transactions = response1;
                 console.log("TT1", transactions);
                 if (!transactions || transactions.length === 0) {
                     console.log(`No new transactions for account ${accountId}`);
