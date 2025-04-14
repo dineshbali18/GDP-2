@@ -214,9 +214,9 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                 const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
                 response1 = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
                 console.log("RRRRR",response1)
-                if (response1.data.error === "Account not found") {
-                  continue;
-              }
+              //   if (response1.data.error === "Account not found") {
+              //     continue;
+              // }
                 const transactions = response1;
                 console.log("TT1", transactions);
                 if (!transactions || transactions.length === 0) {
@@ -234,6 +234,8 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                     Merchandise: tx.merchant || null,
                     CategoryID: tx.category || 1, 
                 }));
+
+                console.log(expenses)
 
                 await Expenses.bulkCreate(expenses);
                 console.log("aaaaheheh");
