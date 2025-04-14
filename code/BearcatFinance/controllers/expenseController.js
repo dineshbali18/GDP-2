@@ -210,7 +210,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                 const response = await axios.get(`http://3.148.203.156:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
                 console.log("SSSSSS", response.data);
 
-                const encryptedPayload = response.data?.payload;
+                const encryptedPayload = response;
                 const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
                 response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
                 console.log("RRRRR",response)
