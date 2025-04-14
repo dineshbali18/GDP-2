@@ -29,54 +29,54 @@ module.exports = (sequelize) => {
     }
   };
 
-  const addTransaction = async (req, res) => {
-    try {
-      // Decryption taking place
-      const encryptedPayload = req.body.payload;
-      const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
-      const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  // const addTransaction = async (req, res) => {
+  //   try {
+  //     // Decryption taking place
+  //     const encryptedPayload = req.body.payload;
+  //     const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
+  //     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   
-      const { amount, type, Products, userID } = decryptedData;
+  //     const { amount, type, Products, userID } = decryptedData;
   
-      // Step 2: Proceed with original logic
-      const account = await BankAccount.findOne({ where: { userID } });
+  //     // Step 2: Proceed with original logic
+  //     const account = await BankAccount.findOne({ where: { userID } });
   
-      if (!account) {
-        return res.status(404).json({ error: "Account not found" });
-      }
+  //     if (!account) {
+  //       return res.status(404).json({ error: "Account not found" });
+  //     }
   
-      if (!["deposit", "withdrawal"].includes(type)) {
-        return res.status(400).json({ error: "Invalid transaction type" });
-      }
+  //     if (!["deposit", "withdrawal"].includes(type)) {
+  //       return res.status(400).json({ error: "Invalid transaction type" });
+  //     }
   
-      const newBalance =
-        type === "deposit" ? account.balance + amount : account.balance - amount;
+  //     const newBalance =
+  //       type === "deposit" ? account.balance + amount : account.balance - amount;
   
-      if (type === "withdrawal" && newBalance < 0) {
-        return res.status(400).json({ error: "Insufficient funds" });
-      }
+  //     if (type === "withdrawal" && newBalance < 0) {
+  //       return res.status(400).json({ error: "Insufficient funds" });
+  //     }
   
-      account.balance = newBalance;
-      await account.save();
-      const AccountNumber = account.AccountNumber;
+  //     account.balance = newBalance;
+  //     await account.save();
+  //     const AccountNumber = account.AccountNumber;
   
-      const transaction = await Transaction.create({
-        AccountNumber,
-        amount,
-        type,
-        Products,
-      });
+  //     const transaction = await Transaction.create({
+  //       AccountNumber,
+  //       amount,
+  //       type,
+  //       Products,
+  //     });
   
-      res
-        .status(201)
-        .json({ message: "Transaction added successfully", transaction });
-    } catch (err) {
-      console.error("Error adding transaction:", err);
-      res
-        .status(500)
-        .json({ error: "An error occurred while adding the transaction." });
-    }
-  };
+  //     res
+  //       .status(201)
+  //       .json({ message: "Transaction added successfully", transaction });
+  //   } catch (err) {
+  //     console.error("Error adding transaction:", err);
+  //     res
+  //       .status(500)
+  //       .json({ error: "An error occurred while adding the transaction." });
+  //   }
+  // };
 
   const getAllTransactions = async (req, res) => {
     const { AccountNumber,offset } = req.params;
@@ -102,38 +102,38 @@ module.exports = (sequelize) => {
     }
   };
 
-  // const addTransaction = async (req, res) => {
-  //   // userID = req.user.userID;
-  //   const { amount, type, Products, userID } = req.body;
+  const addTransaction = async (req, res) => {
+    // userID = req.user.userID;
+    const { amount, type, Products, userID } = req.body;
 
-  //   try {
-  //     const account = await BankAccount.findOne({ where: { userID } });
-  //     console.log("account::::::::::::",account);
-  //     if (!account) {
-  //       return res.status(404).json({ error: 'Account not found' });
-  //     }
+    try {
+      const account = await BankAccount.findOne({ where: { userID } });
+      console.log("account::::::::::::",account);
+      if (!account) {
+        return res.status(404).json({ error: 'Account not found' });
+      }
 
-  //     if (!['deposit', 'withdrawal'].includes(type)) {
-  //       return res.status(400).json({ error: 'Invalid transaction type' });
-  //     }
+      if (!['deposit', 'withdrawal'].includes(type)) {
+        return res.status(400).json({ error: 'Invalid transaction type' });
+      }
 
-  //     const newBalance =
-  //       type === 'deposit' ? account.balance + amount : account.balance - amount;
+      const newBalance =
+        type === 'deposit' ? account.balance + amount : account.balance - amount;
 
-  //     if (type === 'withdrawal' && newBalance < 0) {
-  //       return res.status(400).json({ error: 'Insufficient funds' });
-  //     }
+      if (type === 'withdrawal' && newBalance < 0) {
+        return res.status(400).json({ error: 'Insufficient funds' });
+      }
 
-  //     account.balance = newBalance;
-  //     await account.save();
-  //     const AccountNumber = account.AccountNumber;
-  //     const transaction = await Transaction.create({ AccountNumber, amount, type, Products });
-  //     res.status(201).json({ message: 'Transaction added successfully', transaction });
-  //   } catch (err) {
-  //     console.error('Error adding transaction:', err);
-  //     res.status(500).json({ error: 'An error occurred while adding the transaction.' });
-  //   }
-  // };
+      account.balance = newBalance;
+      await account.save();
+      const AccountNumber = account.AccountNumber;
+      const transaction = await Transaction.create({ AccountNumber, amount, type, Products });
+      res.status(201).json({ message: 'Transaction added successfully', transaction });
+    } catch (err) {
+      console.error('Error adding transaction:', err);
+      res.status(500).json({ error: 'An error occurred while adding the transaction.' });
+    }
+  };
 
   // const getAllTransactions = async (req, res) => {
   //   const { AccountNumber,offset } = req.params;
