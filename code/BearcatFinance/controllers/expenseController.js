@@ -212,12 +212,12 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
 
                 const encryptedPayload = response.data.encryptedData;
                 const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
-                response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-                console.log("RRRRR",response)
-                if (response.data.error === "Account not found") {
+                response1 = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                console.log("RRRRR",response1)
+                if (response1.data.error === "Account not found") {
                   continue;
               }
-                const transactions = response.data?.transactions;
+                const transactions = response1.data?.transactions;
                 console.log("TT1", transactions);
                 if (!transactions || transactions.length === 0) {
                     console.log(`No new transactions for account ${accountId}`);
