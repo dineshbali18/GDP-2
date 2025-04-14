@@ -1,5 +1,7 @@
 const axios = require('axios');
 const redis = require('../redis/redisClient');
+const CryptoJS = require("crypto-js");
+const key = "gdpteam3bearcatfinanceapp00000000";
 
 
 module.exports = (sequelize) => {
@@ -184,8 +186,6 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
     }
   };
 
-
-
   const syncTransactions = async (req, res) => {
     console.log("AAAAAA0000");
     try {
@@ -212,13 +212,16 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
 
             try {
                 // Fetch transactions from the bank API
-                const response = await axios.get(`http://192.168.1.11:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
+                const response = await axios.get(`http://3.148.203.156:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
                 console.log("SSSSSS", response.data);
 
                 if (response.data.error === "Account not found") {
                     continue;
                 }
-                const transactions = response.data?.transactions;
+
+                const encryptedPayload = response.data?.payload;
+                const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
+                const transactions = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
                 console.log("TT1", transactions);
                 if (!transactions || transactions.length === 0) {
@@ -255,6 +258,77 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
         return res.status(500).send('An error occurred while syncing transactions');
     }
 };
+
+
+//   const syncTransactions = async (req, res) => {
+//     console.log("AAAAAA0000");
+//     try {
+//         const userId = req.params.userId; // Assume userID is passed as a parameter
+//         if (!userId) {
+//             return res.status(400).send('UserID is required');
+//         }
+
+//         console.log("UUUUU", userId);
+
+//         // Fetch all user bank accounts
+//         const userBankAccounts = await UserBankAccounts.findAll({ where: { UserID: userId } });
+//         if (!userBankAccounts.length) {
+//             return res.status(404).send('No bank accounts found for the user');
+//         }
+//         console.log("AAAAA", userBankAccounts);
+
+//         for (const account of userBankAccounts) {
+//             console.log("111111", account.AccountNumber);
+//             const accountId = account.AccountNumber;
+//             const lastSyncedId = await getLastSyncedTransactionId(accountId);
+
+//             console.log("0000000", accountId);
+
+//             try {
+//                 // Fetch transactions from the bank API
+//                 const response = await axios.get(`http://192.168.1.11:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
+//                 console.log("SSSSSS", response.data);
+
+//                 if (response.data.error === "Account not found") {
+//                     continue;
+//                 }
+//                 const transactions = response.data?.transactions;
+
+//                 console.log("TT1", transactions);
+//                 if (!transactions || transactions.length === 0) {
+//                     console.log(`No new transactions for account ${accountId}`);
+//                     continue;
+//                 }
+
+//                 // Map transactions to expenses and store them
+//                 const expenses = transactions.map(tx => ({
+//                     TransactionID: tx.TransactionID,
+//                     UserID: userId,
+//                     Amount: tx.amount,
+//                     Description: "bank",
+//                     Date: tx.createdAt,
+//                     TransactionType: tx.type,
+//                     Merchandise: tx.merchant || null,
+//                     CategoryID: tx.category || 1, // Default category if not provided
+//                 }));
+
+//                 await Expenses.bulkCreate(expenses);
+//                 console.log("aaaaheheh");
+
+//                 // Update last synced transaction ID
+//                 await updateLastSyncedTransactionId(accountId, transactions[transactions.length - 1].TransactionID);
+//             } catch (err) {
+//                 console.error(`Error syncing transactions for account ${accountId}:`, err.message);
+//                 continue; // Continue with the next account in case of an error
+//             }
+//         }
+
+//         return res.status(200).send('Transactions synced successfully');
+//     } catch (err) {
+//         console.error("Error syncing transactions:", err.message);
+//         return res.status(500).send('An error occurred while syncing transactions');
+//     }
+// };
 
 
 const getLastSyncedTransactionId = async (accountId) => {
