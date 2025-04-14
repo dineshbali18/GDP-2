@@ -30,6 +30,8 @@ module.exports = (sequelize) => {
                 },
                 attributes: ["Amount", "Date", "TransactionType"],
             });
+
+            console.log("EEEEE",expenses)
     
             const initializeWeek = () => {
                 let obj = {};
