@@ -126,7 +126,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
 
   const addExpense = async (req, res) => {
     try {
-      // Assuming expense data is sent in the request body
+      console.log("rrrr",req.body)
       const expenseData = req.body;
       expenseData.UserID = req.user.userId;
       const newExpense = await Expenses.create(expenseData);
@@ -137,9 +137,7 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
     }
   };
   
-  
 
-  // Update an expense
   const updateExpense = async (req, res) => {
     const { expenseId } = req.params;
   
@@ -149,7 +147,6 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
         return res.status(404).json({ message: 'Expense not found.' });
       }
   
-      // Filter out undefined fields to update only provided ones
       const updateData = Object.fromEntries(
         Object.entries(req.body).filter(([_, value]) => value !== undefined)
       );
@@ -167,7 +164,6 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
   };
   
 
-  // Delete an expense
   const deleteExpense = async (req, res) => {
     const { expenseId } = req.params;
 
@@ -189,14 +185,13 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
   const syncTransactions = async (req, res) => {
     console.log("AAAAAA0000");
     try {
-        const userId = req.params.userId; // Assume userID is passed as a parameter
+        const userId = req.params.userId; 
         if (!userId) {
             return res.status(400).send('UserID is required');
         }
 
         console.log("UUUUU", userId);
 
-        // Fetch all user bank accounts
         const userBankAccounts = await UserBankAccounts.findAll({ where: { UserID: userId } });
         if (!userBankAccounts.length) {
             return res.status(404).send('No bank accounts found for the user');
@@ -229,7 +224,6 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                     continue;
                 }
 
-                // Map transactions to expenses and store them
                 const expenses = transactions.map(tx => ({
                     TransactionID: tx.TransactionID,
                     UserID: userId,
@@ -238,17 +232,16 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                     Date: tx.createdAt,
                     TransactionType: tx.type,
                     Merchandise: tx.merchant || null,
-                    CategoryID: tx.category || 1, // Default category if not provided
+                    CategoryID: tx.category || 1, 
                 }));
 
                 await Expenses.bulkCreate(expenses);
                 console.log("aaaaheheh");
 
-                // Update last synced transaction ID
                 await updateLastSyncedTransactionId(accountId, transactions[transactions.length - 1].TransactionID);
             } catch (err) {
                 console.error(`Error syncing transactions for account ${accountId}:`, err.message);
-                continue; // Continue with the next account in case of an error
+                continue; 
             }
         }
 
