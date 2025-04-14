@@ -42,12 +42,14 @@ module.exports = (sequelize) => {
                     let dayKey = day.toISOString().split("T")[0];
                     obj[weekKey][dayKey] = 0;
                 }
+                console.log("WWWWWWWW",obj)
                 return obj;
             };
     
             const initializeMonth = () => {
                 let obj = {};
                 let currentMonth = new Date(now);
+                console.log("MONTH",currentMonth)
                 const year = currentMonth.getFullYear();
                 const month = currentMonth.getMonth();
                 const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
@@ -66,6 +68,7 @@ module.exports = (sequelize) => {
                     obj[monthKey].push(0); // new week bucket
                     current.setDate(current.getDate() + 7); // move to next Monday
                 }
+                console.log("MMMMMMM",obj)
             
                 return obj;
             };
