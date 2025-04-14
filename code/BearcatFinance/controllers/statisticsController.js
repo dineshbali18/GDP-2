@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
     
         try {
             const now = new Date();
+            console.log("NOW:",now)
     
             const startOfWeek = new Date(now);
             startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Monday
