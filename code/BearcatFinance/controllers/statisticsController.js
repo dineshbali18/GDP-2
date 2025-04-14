@@ -60,8 +60,11 @@ module.exports = (sequelize) => {
                 // Start from the first Monday on or before the 1st of the month
                 let start = new Date(year, month, 1);
                 let day = start.getDay();
-                let offset = (day === 0 ? -6 : 1 - day); // if Sunday, go back 6 days; else align to Monday
-                start.setDate(start.getDate() + offset);
+                // let offset = (day === 0 ? -6 : 1 - day); // if Sunday, go back 6 days; else align to Monday
+                // start.setDate(start.getDate() + offset);
+                let offset = (day === 0 ? 1 : 8 - day); // Move to next Monday if not already Monday
+start.setDate(start.getDate() + offset);
+
             
                 let end = new Date(year, month + 1, 0); // last day of the month
             
