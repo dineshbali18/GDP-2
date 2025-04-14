@@ -210,14 +210,14 @@ const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
                 const response = await axios.get(`http://3.148.203.156:3001/bank/transactions/${accountId}/offset/${lastSyncedId}`);
                 console.log("SSSSSS", response.data);
 
-                if (response.data.error === "Account not found") {
-                    continue;
-                }
-
                 const encryptedPayload = response.data?.payload;
                 const bytes = CryptoJS.AES.decrypt(encryptedPayload, key);
-                const transactions = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
+                response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                console.log("RRRRR",response)
+                if (response.data.error === "Account not found") {
+                  continue;
+              }
+                const transactions = response.data?.transactions;
                 console.log("TT1", transactions);
                 if (!transactions || transactions.length === 0) {
                     console.log(`No new transactions for account ${accountId}`);
