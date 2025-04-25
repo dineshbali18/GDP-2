@@ -73,9 +73,9 @@ module.exports = (sequelize) => {
         });
         console.log("LLLLLLL",bankCheckResponse)
     
-        const { exists } = bankCheckResponse.data;
+        const { accountNumberMatch } = bankCheckResponse.data;
     
-        if (!exists) {
+        if (!accountNumberMatch) {
           return res.status(400).json({ error: 'Bank account does not exist in external system.' });
         }
     
