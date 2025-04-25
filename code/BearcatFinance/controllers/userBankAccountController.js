@@ -2,7 +2,7 @@
 module.exports = (sequelize) => {
   const BankDetails = require('../models/bankDetails')(sequelize);
     const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
-    const axios = require('axios');
+  
     // Get all bank accounts
     const getAllUserAccounts = async (req, res) => {
       console.log("User Info:", req.user);
@@ -61,7 +61,7 @@ module.exports = (sequelize) => {
     const addAccount = async (req, res) => {
       try {
         const { UserID, AccountNumber, BankID, BankName } = req.body;
-        console.log("RRRRRR",req.body)
+        const accountData = req.body
     
         if (!UserID || !AccountNumber) {
           return res.status(400).json({ error: 'Missing UserID or AccountNumber' });
@@ -79,7 +79,7 @@ module.exports = (sequelize) => {
           return res.status(400).json({ error: 'Bank account does not exist in external system.' });
         }
     
-        const newAccount = await UserBankAccounts.create({ UserID, AccountNumber, BankID });
+        const newAccount = await UserBankAccounts.create(accountData);
         return res.status(201).json(newAccount);
       } catch (err) {
         console.error('Error during account creation:', err);
@@ -91,6 +91,7 @@ module.exports = (sequelize) => {
         return res.status(500).json({ error: 'Failed to create bank account.' });
       }
     };
+  
   
     // Update an existing bank account
     const updateAccount = async (req, res) => {
