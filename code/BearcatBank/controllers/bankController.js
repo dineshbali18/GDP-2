@@ -29,6 +29,35 @@ module.exports = (sequelize) => {
     }
   };
 
+  const isAccountExists = async (req, res) => {
+    const { customer_userID, AccountNumber } = req.body;
+  
+    if (!customer_userID) {
+      return res.status(400).json({ error: 'Missing customer_userID' });
+    }
+  
+    try {
+      const accounts = await BankAccount.findAll({
+        where: { userID: customer_userID },
+      });
+  
+      if (accounts.length === 0) {
+        return res.status(200).json({ exists: false, accountNumberMatch: false, accounts: [] });
+      }
+  
+      const accountNumberMatch = accounts.some(acc => acc.AccountNumber === AccountNumber);
+  
+      return res.status(200).json({ 
+        exists: true, 
+        accountNumberMatch, 
+        accounts 
+      });
+    } catch (err) {
+      console.error('Error checking account existence:', err);
+      res.status(500).json({ error: 'An error occurred while checking bank accounts.' });
+    }
+  };
+
   // const addTransaction = async (req, res) => {
   //   try {
   //     // Decryption taking place
@@ -157,5 +186,5 @@ module.exports = (sequelize) => {
   //   }
   // };
 
-  return { createBankAccount, addTransaction, getAllTransactions };
+  return { createBankAccount, addTransaction, getAllTransactions, isAccountExists };
 };

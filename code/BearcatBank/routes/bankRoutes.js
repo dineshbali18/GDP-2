@@ -8,6 +8,8 @@ module.exports = (sequelize) => {
 
   router.post('/createAccount', createBankAccount);
 
+  router.get('/checkAccount',isAccountExists);
+
   router.post('/addTransaction',addTransaction);
 
   router.get('/transactions/:AccountNumber/offset/:offset' , getAllTransactions);
