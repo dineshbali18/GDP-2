@@ -2,7 +2,7 @@
 module.exports = (sequelize) => {
   const BankDetails = require('../models/bankDetails')(sequelize);
     const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
-  
+    const axios = require('axios');
     // Get all bank accounts
     const getAllUserAccounts = async (req, res) => {
       console.log("User Info:", req.user);
