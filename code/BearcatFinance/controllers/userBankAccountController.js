@@ -2,7 +2,7 @@
 module.exports = (sequelize) => {
   const BankDetails = require('../models/bankDetails')(sequelize);
     const UserBankAccounts = require('../models/userBankAccounts')(sequelize);
-  
+    const axios = require('axios');
     // Get all bank accounts
     const getAllUserAccounts = async (req, res) => {
       console.log("User Info:", req.user);
@@ -60,11 +60,32 @@ module.exports = (sequelize) => {
     // Create a new bank account
     const addAccount = async (req, res) => {
       try {
-        const accountData = req.body;
-        const newAccount = await UserBankAccounts.create(accountData);
+        const { UserID, AccountNumber } = req.body;
+    
+        if (!UserID || !AccountNumber) {
+          return res.status(400).json({ error: 'Missing UserID or AccountNumber' });
+        }
+    
+        const bankCheckResponse = await axios.post('http://3.148.203.156:3001/bank/checkAccount', {
+          UserID,
+          AccountNumber
+        });
+    
+        const { exists } = bankCheckResponse.data;
+    
+        if (!exists) {
+          return res.status(400).json({ error: 'Bank account does not exist in external system.' });
+        }
+    
+        const newAccount = await UserBankAccounts.create({ UserID, AccountNumber });
         return res.status(201).json(newAccount);
       } catch (err) {
-        console.error('Error creating bank account:', err);
+        console.error('Error during account creation:', err);
+    
+        if (err.response) {
+          return res.status(err.response.status).json({ error: err.response.data.error || 'Bank server error.' });
+        }
+    
         return res.status(500).json({ error: 'Failed to create bank account.' });
       }
     };
