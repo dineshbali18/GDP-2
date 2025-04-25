@@ -60,7 +60,7 @@ module.exports = (sequelize) => {
     // Create a new bank account
     const addAccount = async (req, res) => {
       try {
-        const { UserID, AccountNumber } = req.body;
+        const { UserID, AccountNumber, BankID, BankName } = req.body;
         console.log("RRRRRR",req.body)
     
         if (!UserID || !AccountNumber) {
@@ -79,7 +79,7 @@ module.exports = (sequelize) => {
           return res.status(400).json({ error: 'Bank account does not exist in external system.' });
         }
     
-        const newAccount = await UserBankAccounts.create({ UserID, AccountNumber });
+        const newAccount = await UserBankAccounts.create({ UserID, AccountNumber, BankID });
         return res.status(201).json(newAccount);
       } catch (err) {
         console.error('Error during account creation:', err);
