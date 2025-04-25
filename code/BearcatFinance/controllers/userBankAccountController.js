@@ -61,6 +61,7 @@ module.exports = (sequelize) => {
     const addAccount = async (req, res) => {
       try {
         const { UserID, AccountNumber } = req.body;
+        console.log("RRRRRR",req.body)
     
         if (!UserID || !AccountNumber) {
           return res.status(400).json({ error: 'Missing UserID or AccountNumber' });
@@ -70,6 +71,7 @@ module.exports = (sequelize) => {
           customer_userID: UserID,
           AccountNumber: AccountNumber
         });
+        console.log("LLLLLLL",bankCheckResponse)
     
         const { exists } = bankCheckResponse.data;
     
