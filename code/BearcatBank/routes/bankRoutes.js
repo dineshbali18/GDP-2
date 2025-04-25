@@ -4,7 +4,7 @@ const verifyTokenWithUserID = require('../jwt/verify');
 
 module.exports = (sequelize) => {
   const bankController = require('../controllers/bankController')(sequelize); 
-  const { createBankAccount, addTransaction, getAllTransactions } = bankController;
+  const { createBankAccount, addTransaction, getAllTransactions, isAccountExists } = bankController;
 
   router.post('/createAccount', createBankAccount);
 
