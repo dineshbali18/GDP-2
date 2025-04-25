@@ -67,8 +67,8 @@ module.exports = (sequelize) => {
         }
     
         const bankCheckResponse = await axios.post('http://3.148.203.156:3001/bank/checkAccount', {
-          UserID,
-          AccountNumber
+          customer_userID: UserID,
+          AccountNumber: AccountNumber
         });
     
         const { exists } = bankCheckResponse.data;
